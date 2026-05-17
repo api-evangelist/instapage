@@ -51,7 +51,7 @@ common:
     url: https://devdocs.instapage.com/
   - type: Pricing
     url: https://instapage.com/pricing
-  - type: Sign Up
+  - type: SignUp
     url: https://app.instapage.com/signup
   - type: Blog
     url: https://instapage.com/blog
