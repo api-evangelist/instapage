@@ -45,6 +45,8 @@ apis:
         url: https://help.instapage.com/hc/en-us/articles/27634951739287-Public-API
 
 common:
+  - type: GitHubOrganization
+    url: https://github.com/Instapage
   - type: Website
     url: https://instapage.com
   - type: Documentation
