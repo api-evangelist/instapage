@@ -1,0 +1,290 @@
+openapi: 3.1.0
+info:
+  title: Instapage API
+  description: |
+    Instapage REST API v1 for managing workspaces, landing pages, team members,
+    groups, collections, form submissions, assets, domains, personalizations,
+    experiments, and analytics. Authentication is via Bearer token.
+    Rate limits: 200 requests/minute per token and IP, with daily quotas based
+    on the plan.
+  version: "1"
+  contact:
+    name: Instapage Developer Docs
+    url: https://devdocs.instapage.com/
+servers:
+  - url: https://api.instapage.com/v1
+security:
+  - BearerAuth: []
+paths:
+  /workspaces:
+    get:
+      summary: List workspaces
+      operationId: listWorkspaces
+      responses:
+        "200": { description: Workspace list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Workspace' } } } } }
+    post:
+      summary: Create workspace
+      operationId: createWorkspace
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Workspace' }
+      responses:
+        "201": { description: Created, content: { application/json: { schema: { $ref: '#/components/schemas/Workspace' } } } }
+  /workspaces/{workspaceId}:
+    parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        schema: { type: string }
+    get:
+      summary: Get workspace
+      operationId: getWorkspace
+      responses:
+        "200": { description: Workspace, content: { application/json: { schema: { $ref: '#/components/schemas/Workspace' } } } }
+    patch:
+      summary: Rename workspace
+      operationId: renameWorkspace
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, properties: { name: { type: string } } }
+      responses:
+        "200": { description: Updated }
+    delete:
+      summary: Delete workspace
+      operationId: deleteWorkspace
+      responses:
+        "204": { description: Deleted }
+  /workspaces/{workspaceId}/team-members:
+    parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        schema: { type: string }
+    get:
+      summary: List team members
+      operationId: listTeamMembers
+      responses:
+        "200": { description: Team members }
+    post:
+      summary: Invite team members
+      operationId: inviteTeamMembers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object }
+      responses:
+        "201": { description: Invited }
+    put:
+      summary: Update member roles
+      operationId: updateMemberRoles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object }
+      responses:
+        "200": { description: Updated }
+    delete:
+      summary: Remove members
+      operationId: removeTeamMembers
+      responses:
+        "204": { description: Removed }
+  /workspaces/{workspaceId}/pages:
+    parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        schema: { type: string }
+    get:
+      summary: List pages
+      operationId: listPages
+      responses:
+        "200": { description: Pages, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Page' } } } } }
+  /workspaces/{workspaceId}/pages/{pageId}:
+    parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        schema: { type: string }
+      - in: path
+        name: pageId
+        required: true
+        schema: { type: string }
+    get:
+      summary: Get page
+      operationId: getPage
+      responses:
+        "200": { description: Page, content: { application/json: { schema: { $ref: '#/components/schemas/Page' } } } }
+    patch:
+      summary: Update page
+      operationId: updatePage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Page' }
+      responses:
+        "200": { description: Updated, content: { application/json: { schema: { $ref: '#/components/schemas/Page' } } } }
+    delete:
+      summary: Delete page
+      operationId: deletePage
+      responses:
+        "204": { description: Deleted }
+  /workspaces/{workspaceId}/pages/json:
+    parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        schema: { type: string }
+    post:
+      summary: Create page from JSON
+      operationId: createPageFromJson
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object }
+      responses:
+        "201": { description: Created }
+  /workspaces/{workspaceId}/pages/{pageId}/json:
+    parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        schema: { type: string }
+      - in: path
+        name: pageId
+        required: true
+        schema: { type: string }
+    get:
+      summary: Export page as JSON
+      operationId: exportPageJson
+      responses:
+        "200": { description: JSON export }
+  /workspaces/{workspaceId}/pages/{pageId}/publication:
+    parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        schema: { type: string }
+      - in: path
+        name: pageId
+        required: true
+        schema: { type: string }
+    post:
+      summary: Publish page
+      operationId: publishPage
+      responses:
+        "200": { description: Published }
+    put:
+      summary: Change published URL
+      operationId: changePublishedUrl
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object }
+      responses:
+        "200": { description: Updated }
+    delete:
+      summary: Unpublish page
+      operationId: unpublishPage
+      responses:
+        "204": { description: Unpublished }
+  /workspaces/{workspaceId}/groups:
+    parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        schema: { type: string }
+    get:
+      summary: List groups
+      operationId: listGroups
+      responses:
+        "200": { description: Groups }
+    post:
+      summary: Create group
+      operationId: createGroup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object }
+      responses:
+        "201": { description: Created }
+  /workspaces/{workspaceId}/collections:
+    parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        schema: { type: string }
+    get:
+      summary: List collections
+      operationId: listCollections
+      responses:
+        "200": { description: Collections }
+  /workspaces/{workspaceId}/submissions:
+    parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        schema: { type: string }
+    get:
+      summary: Retrieve form submissions
+      operationId: listSubmissions
+      responses:
+        "200": { description: Submissions }
+    delete:
+      summary: Delete submissions
+      operationId: deleteSubmissions
+      responses:
+        "204": { description: Deleted }
+  /workspaces/{workspaceId}/domains:
+    parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        schema: { type: string }
+    get:
+      summary: List domains
+      operationId: listDomains
+      responses:
+        "200": { description: Domains }
+  /workspaces/{workspaceId}/analytics:
+    parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        schema: { type: string }
+    get:
+      summary: Get analytics data
+      operationId: getAnalytics
+      responses:
+        "200": { description: Analytics }
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API key
+  schemas:
+    Workspace:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        created_at: { type: string, format: date-time }
+    Page:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        url: { type: string, format: uri }
+        published: { type: boolean }
+        created_at: { type: string, format: date-time }
+        updated_at: { type: string, format: date-time }
