@@ -1,0 +1,519 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Instapage API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "List workspaces",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.instapage.com/v1/workspaces"
+      },
+      "docs": "List workspaces"
+    },
+    {
+      "info": {
+        "name": "Create workspace",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.instapage.com/v1/workspaces",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create workspace"
+    },
+    {
+      "info": {
+        "name": "Get workspace",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get workspace"
+    },
+    {
+      "info": {
+        "name": "Rename workspace",
+        "type": "http"
+      },
+      "http": {
+        "method": "PATCH",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Rename workspace"
+    },
+    {
+      "info": {
+        "name": "Delete workspace",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete workspace"
+    },
+    {
+      "info": {
+        "name": "List team members",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/team-members",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "List team members"
+    },
+    {
+      "info": {
+        "name": "Invite team members",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/team-members",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Invite team members"
+    },
+    {
+      "info": {
+        "name": "Update member roles",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/team-members",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update member roles"
+    },
+    {
+      "info": {
+        "name": "Remove members",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/team-members",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Remove members"
+    },
+    {
+      "info": {
+        "name": "List pages",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "List pages"
+    },
+    {
+      "info": {
+        "name": "Get page",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "pageId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get page"
+    },
+    {
+      "info": {
+        "name": "Update page",
+        "type": "http"
+      },
+      "http": {
+        "method": "PATCH",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "pageId",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update page"
+    },
+    {
+      "info": {
+        "name": "Delete page",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "pageId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete page"
+    },
+    {
+      "info": {
+        "name": "Create page from JSON",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/json",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create page from JSON"
+    },
+    {
+      "info": {
+        "name": "Export page as JSON",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId/json",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "pageId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Export page as JSON"
+    },
+    {
+      "info": {
+        "name": "Publish page",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId/publication",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "pageId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Publish page"
+    },
+    {
+      "info": {
+        "name": "Change published URL",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId/publication",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "pageId",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Change published URL"
+    },
+    {
+      "info": {
+        "name": "Unpublish page",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId/publication",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "pageId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Unpublish page"
+    },
+    {
+      "info": {
+        "name": "List groups",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/groups",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "List groups"
+    },
+    {
+      "info": {
+        "name": "Create group",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/groups",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create group"
+    },
+    {
+      "info": {
+        "name": "List collections",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/collections",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "List collections"
+    },
+    {
+      "info": {
+        "name": "Retrieve form submissions",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/submissions",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Retrieve form submissions"
+    },
+    {
+      "info": {
+        "name": "Delete submissions",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/submissions",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete submissions"
+    },
+    {
+      "info": {
+        "name": "List domains",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/domains",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "List domains"
+    },
+    {
+      "info": {
+        "name": "Get analytics data",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.instapage.com/v1/workspaces/:workspaceId/analytics",
+        "params": [
+          {
+            "name": "workspaceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get analytics data"
+    }
+  ],
+  "bundled": true
+}
