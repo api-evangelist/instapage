@@ -10,7 +10,7 @@ description: >-
   programmatic access to landing pages, leads, accounts, and team members
   using a Personal API Token for authentication.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Landing Pages
   - Conversion Optimization
