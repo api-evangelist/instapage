@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/instapage-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: API key
+  sources:
+  - openapi/instapage-openapi.yml

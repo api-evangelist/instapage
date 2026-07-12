@@ -45,6 +45,12 @@ apis:
         url: https://help.instapage.com/hc/en-us/articles/27634951739287-Public-API
 
 common:
+  - type: TrustCenter
+    url: security/instapage-trust-center.yml
+  - type: DomainSecurity
+    url: security/instapage-domain-security.yml
+  - type: Authentication
+    url: authentication/instapage-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/Instapage
   - type: Website
