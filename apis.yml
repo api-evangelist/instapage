@@ -45,6 +45,8 @@ apis:
         url: https://help.instapage.com/hc/en-us/articles/27634951739287-Public-API
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/instapage-agentic-access.yml
   - type: TrustCenter
     url: security/instapage-trust-center.yml
   - type: DomainSecurity
