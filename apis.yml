@@ -10,7 +10,19 @@ description: >-
   programmatic access to landing pages, leads, accounts, and team members
   using a Personal API Token for authentication.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/instapage.png
 tags:
   - Landing Pages
   - Conversion Optimization
@@ -24,26 +36,34 @@ created: '2026-05-11'
 modified: '2026-05-11'
 specificationVersion: '0.19'
 apis:
-  - aid: instapage:public-api
-    name: Instapage Public API
-    description: >-
-      REST API for managing landing pages, leads, accounts, workspaces, and
-      team members in Instapage. Authentication uses a Personal API Token
-      generated from the Instapage dashboard, with a default rate limit of
-      200 requests per minute.
-    humanURL: https://devdocs.instapage.com/
-    baseURL: https://api.instapage.com/v1
-    tags:
-      - Landing Pages
-      - Marketing
-      - Lead Generation
-      - Personal API Token
-    properties:
-      - type: Documentation
-        url: https://devdocs.instapage.com/
-      - type: Help Article
-        url: https://help.instapage.com/hc/en-us/articles/27634951739287-Public-API
-
+- aid: instapage:public-api
+  name: Instapage Public API
+  description: >-
+    REST API for managing landing pages, leads, accounts, workspaces, and team members in Instapage. Authentication
+    uses a Personal API Token generated from the Instapage dashboard, with a default rate limit of 200
+    requests per minute.
+  humanURL: https://devdocs.instapage.com/
+  baseURL: https://api.instapage.com/v1
+  tags:
+  - Landing Pages
+  - Marketing
+  - Lead Generation
+  - Personal API Token
+  properties:
+  - type: Documentation
+    url: https://devdocs.instapage.com/
+  - type: Help Article
+    url: https://help.instapage.com/hc/en-us/articles/27634951739287-Public-API
+- aid: instapage:instapage-workspaces-api
+  name: Instapage Workspaces API
+  description: The Workspaces API from Instapage — 13 operation(s) for workspaces.
+  humanURL: https://devdocs.instapage.com/
+  baseURL: https://api.instapage.com/v1
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/instapage-workspaces-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/instapage-agentic-access.yml
