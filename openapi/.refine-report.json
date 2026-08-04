@@ -1,0 +1,14 @@
+{
+  "provider": "instapage",
+  "sources": [
+    "instapage-workspaces-api-openapi.yml"
+  ],
+  "outputs": [
+    "instapage-workspaces-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
