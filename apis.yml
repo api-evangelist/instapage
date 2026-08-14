@@ -1,47 +1,48 @@
 aid: instapage
 name: Instapage
-description: >-
-  Instapage is a landing page and post-click optimization platform that lets
-  marketers build, personalize, A/B test, and analyze landing pages used in
-  paid advertising and conversion campaigns. The platform includes a drag
-  and drop builder, AdMap for ad-to-page connection, heatmaps, experiments,
-  and AI-powered content generation, and integrates with major ad platforms,
-  CRMs, and marketing automation tools. Instapage's REST API provides
-  programmatic access to landing pages, leads, accounts, and team members
-  using a Personal API Token for authentication.
+description: Instapage is a landing page and post-click optimization platform that lets marketers build,
+  personalize, A/B test, and analyze landing pages used in paid advertising and conversion campaigns.
+  The platform includes a drag and drop builder, AdMap for ad-to-page connection, heatmaps, experiments,
+  and AI-powered content generation, and integrates with major ad platforms, CRMs, and marketing automation
+  tools. Instapage's REST API provides programmatic access to landing pages, leads, accounts, and team
+  members using a Personal API Token for authentication.
 type: Index
 accessModel:
-  pricing: unknown
+  pricing: paid
   onboarding: self-serve
-  trial: false
+  trial: true
+  trial_days: 14
   try_now: false
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Self-serve signup, 14-day free trial, API included on every paid plan with a tiered daily call
+    quota
+  confidence: high
   source:
-  - authentication
-  generated: '2026-07-22'
-  method: derived
+  - https://instapage.com/plans
+  - https://devdocs.instapage.com/
+  generated: '2026-08-13'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/instapage.png
 tags:
-  - Landing Pages
-  - Conversion Optimization
-  - Marketing
-  - A/B Testing
-  - Post-Click Optimization
-  - Lead Generation
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/instapage/refs/heads/main/apis.yml
+- Landing Pages
+- Conversion Optimization
+- Marketing
+- A/B Testing
+- Post-Click Optimization
+- Lead Generation
+url: https://raw.githubusercontent.com/api-evangelist/instapage/refs/heads/main/apis.yml
 created: '2026-05-11'
-modified: '2026-05-11'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
 - aid: instapage:public-api
   name: Instapage Public API
-  description: >-
-    REST API for managing landing pages, leads, accounts, workspaces, and team members in Instapage. Authentication
-    uses a Personal API Token generated from the Instapage dashboard, with a default rate limit of 200
-    requests per minute.
+  description: The Instapage Public API is a REST API over the Instapage landing page and post-click optimization
+    platform, exposing workspaces, team members, landing pages, page groups, personalized experiences,
+    collections and collection pages, experiments, analytics, form submissions (leads), custom domains
+    and image assets across 39 documented operations. Authentication is a Personal API Token sent as an
+    HTTP Bearer token; rate limiting is 200 requests per minute per token and per IP on top of a plan-tiered
+    daily quota (5,000 calls/day on Create, 10,000 on Optimize) that resets at 00:00 UTC.
   humanURL: https://devdocs.instapage.com/
   baseURL: https://api.instapage.com/v1
   tags:
@@ -49,48 +50,286 @@ apis:
   - Marketing
   - Lead Generation
   - Personal API Token
+  - Conversion Optimization
   properties:
   - type: Documentation
     url: https://devdocs.instapage.com/
+  - type: APIReference
+    url: https://devdocs.instapage.com/
+  - type: GettingStarted
+    url: https://devdocs.instapage.com/#getting-started
+  - type: ChangeLog
+    url: https://devdocs.instapage.com/#changelog
+  - type: OpenAPI
+    url: openapi/_original/instapage-openapi.yml
   - type: Help Article
     url: https://help.instapage.com/hc/en-us/articles/27634951739287-Public-API
 - aid: instapage:instapage-workspaces-api
   name: Instapage Workspaces API
-  description: The Workspaces API from Instapage — 13 operation(s) for workspaces.
+  description: Create, read, rename and delete Instapage workspaces — the top-level tenant container that
+    holds a customer's landing pages, integrations, domains and assets.
   humanURL: https://devdocs.instapage.com/
   baseURL: https://api.instapage.com/v1
   tags:
   - Workspaces
+  - Tenancy
+  - Marketing
   properties:
   - type: OpenAPI
     url: openapi/instapage-workspaces-api-openapi.yml
-common:
-  - type: AgenticAccess
-    url: agentic-access/instapage-agentic-access.yml
-  - type: TrustCenter
-    url: security/instapage-trust-center.yml
-  - type: DomainSecurity
-    url: security/instapage-domain-security.yml
-  - type: Authentication
-    url: authentication/instapage-authentication.yml
-  - type: GitHubOrganization
-    url: https://github.com/Instapage
-  - type: Website
-    url: https://instapage.com
+  - type: Overlay
+    url: overlays/instapage-workspaces-api-overlay.yaml
   - type: Documentation
     url: https://devdocs.instapage.com/
-  - type: Pricing
-    url: https://instapage.com/pricing
-  - type: Signup
-    url: https://app.instapage.com/signup
-  - type: Blog
-    url: https://instapage.com/blog
-  - type: Help Center
-    url: https://help.instapage.com
-  - type: API Overview
-    url: https://instapage.com/api
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/instapage
+- aid: instapage:instapage-team-members
+  name: Instapage Team Members API
+  description: Bulk-invite, re-role and remove the people with access to an Instapage workspace, including
+    the inheritOwnerContextInPublicApi flag that charges a member's API calls to the workspace owner's
+    daily quota.
+  humanURL: https://devdocs.instapage.com/
+  baseURL: https://api.instapage.com/v1
+  tags:
+  - Team Members
+  - Access Management
+  - Collaboration
+  properties:
+  - type: OpenAPI
+    url: openapi/instapage-team-members-openapi.yml
+  - type: Overlay
+    url: overlays/instapage-team-members-overlay.yaml
+  - type: Documentation
+    url: https://devdocs.instapage.com/
+- aid: instapage:instapage-pages
+  name: Instapage Pages API
+  description: List, search, update, delete, publish, unpublish, import and export Instapage landing pages,
+    including Instapage-JSON round-tripping and published-URL changes.
+  humanURL: https://devdocs.instapage.com/
+  baseURL: https://api.instapage.com/v1
+  tags:
+  - Landing Pages
+  - Publishing
+  - Content Management
+  properties:
+  - type: OpenAPI
+    url: openapi/instapage-pages-openapi.yml
+  - type: Overlay
+    url: overlays/instapage-pages-overlay.yaml
+  - type: Documentation
+    url: https://devdocs.instapage.com/
+- aid: instapage:instapage-groups
+  name: Instapage Groups API
+  description: Manage the groups (folders) that organise landing pages inside an Instapage workspace.
+  humanURL: https://devdocs.instapage.com/
+  baseURL: https://api.instapage.com/v1
+  tags:
+  - Groups
+  - Landing Pages
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/instapage-groups-openapi.yml
+  - type: Overlay
+    url: overlays/instapage-groups-overlay.yaml
+  - type: Documentation
+    url: https://devdocs.instapage.com/
+- aid: instapage:instapage-personalizations
+  name: Instapage Personalizations API
+  description: Retrieve the personalized experiences attached to an Instapage landing page, including
+    which one is the default experience.
+  humanURL: https://devdocs.instapage.com/
+  baseURL: https://api.instapage.com/v1
+  tags:
+  - Personalization
+  - Landing Pages
+  - Marketing
+  properties:
+  - type: OpenAPI
+    url: openapi/instapage-personalizations-openapi.yml
+  - type: Overlay
+    url: overlays/instapage-personalizations-overlay.yaml
+  - type: Documentation
+    url: https://devdocs.instapage.com/
+- aid: instapage:instapage-collections
+  name: Instapage Collections API
+  description: Read Instapage collections and their placeholder templates, and create, publish, unpublish
+    and delete the individual collection pages inside them — the programmatic-SEO surface.
+  humanURL: https://devdocs.instapage.com/
+  baseURL: https://api.instapage.com/v1
+  tags:
+  - Collections
+  - Programmatic Pages
+  - Content Management
+  properties:
+  - type: OpenAPI
+    url: openapi/instapage-collections-openapi.yml
+  - type: Overlay
+    url: overlays/instapage-collections-overlay.yaml
+  - type: Documentation
+    url: https://devdocs.instapage.com/
+- aid: instapage:instapage-experiments
+  name: Instapage Experiments API
+  description: List the Manual and AI experiments running against Instapage landing pages, with their
+    DRAFT / RUNNING / ENDED / ARCHIVED status and timing.
+  humanURL: https://devdocs.instapage.com/
+  baseURL: https://api.instapage.com/v1
+  tags:
+  - Experimentation
+  - A/B Testing
+  - Conversion Optimization
+  properties:
+  - type: OpenAPI
+    url: openapi/instapage-experiments-openapi.yml
+  - type: Overlay
+    url: overlays/instapage-experiments-overlay.yaml
+  - type: Documentation
+    url: https://devdocs.instapage.com/
+- aid: instapage:instapage-analytics
+  name: Instapage Analytics API
+  description: Retrieve bulk visit, conversion and lead statistics for Instapage pages and experiences,
+    grouped by page or variation over hourly, daily, monthly or yearly UTC windows.
+  humanURL: https://devdocs.instapage.com/
+  baseURL: https://api.instapage.com/v1
+  tags:
+  - Analytics
+  - Conversion Optimization
+  - Reporting
+  properties:
+  - type: OpenAPI
+    url: openapi/instapage-analytics-openapi.yml
+  - type: Overlay
+    url: overlays/instapage-analytics-overlay.yaml
+  - type: Documentation
+    url: https://devdocs.instapage.com/
+- aid: instapage:instapage-form-submissions
+  name: Instapage Form Submissions API
+  description: Retrieve and permanently delete the lead records captured by forms on Instapage landing
+    pages, paged with an opaque nextPageToken cursor.
+  humanURL: https://devdocs.instapage.com/
+  baseURL: https://api.instapage.com/v1
+  tags:
+  - Lead Generation
+  - Form Submissions
+  - Leads
+  properties:
+  - type: OpenAPI
+    url: openapi/instapage-form-submissions-openapi.yml
+  - type: Overlay
+    url: overlays/instapage-form-submissions-overlay.yaml
+  - type: Documentation
+    url: https://devdocs.instapage.com/
+- aid: instapage:instapage-domains
+  name: Instapage Domains API
+  description: List the custom domains connected to an Instapage workspace, with connection status, SSL
+    status and custom 404 configuration.
+  humanURL: https://devdocs.instapage.com/
+  baseURL: https://api.instapage.com/v1
+  tags:
+  - Domains
+  - DNS
+  - Publishing
+  properties:
+  - type: OpenAPI
+    url: openapi/instapage-domains-openapi.yml
+  - type: Overlay
+    url: overlays/instapage-domains-overlay.yaml
+  - type: Documentation
+    url: https://devdocs.instapage.com/
+- aid: instapage:instapage-assets
+  name: Instapage Assets API
+  description: List Instapage image asset folders, list the images inside them, and upload new images
+    via multipart/form-data.
+  humanURL: https://devdocs.instapage.com/
+  baseURL: https://api.instapage.com/v1
+  tags:
+  - Assets
+  - Images
+  - Media
+  properties:
+  - type: OpenAPI
+    url: openapi/instapage-assets-openapi.yml
+  - type: Overlay
+    url: overlays/instapage-assets-overlay.yaml
+  - type: Documentation
+    url: https://devdocs.instapage.com/
+common:
+- type: AgenticAccess
+  url: agentic-access/instapage-agentic-access.yml
+- type: TrustCenter
+  url: security/instapage-trust-center.yml
+- type: DomainSecurity
+  url: security/instapage-domain-security.yml
+- type: Authentication
+  url: authentication/instapage-authentication.yml
+- type: GitHubOrganization
+  url: https://github.com/Instapage
+- type: Website
+  url: https://instapage.com
+- type: Documentation
+  url: https://devdocs.instapage.com/
+- type: Pricing
+  url: https://instapage.com/pricing
+- type: Signup
+  url: https://app.instapage.com/auth/signup
+- type: Blog
+  url: https://instapage.com/blog
+- type: Help Center
+  url: https://help.instapage.com
+- type: API Overview
+  url: https://instapage.com/api
+- type: LinkedIn
+  url: https://www.linkedin.com/company/instapage
+- type: Packages
+  url: packages/instapage-packages.yml
+- type: LLMsTxt
+  url: llms/instapage-llms.txt
+- type: Conventions
+  url: conventions/instapage-conventions.yml
+- type: ErrorCatalog
+  url: errors/instapage-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/instapage-lifecycle.yml
+- type: ChangeLog
+  url: changelog/instapage-changelog.yml
+- type: DataModel
+  url: data-model/instapage-data-model.yml
+- type: Conformance
+  url: conformance/instapage-conformance.yml
+- type: Plans
+  url: plans/instapage-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/instapage-rate-limits.yml
+- type: AgentSkill
+  url: skills/_index.yml
+  name: Instapage Agent Skills
+- type: VulnerabilityDisclosure
+  url: security/instapage-vulnerability-disclosure.yml
+- type: StatusPage
+  url: https://status.instapage.com/
+- type: Security
+  url: https://policies.airslate.com/bug-bounty-program
+- type: Compliance
+  url: https://instapage.com/security
+- type: DeveloperPortal
+  url: https://devdocs.instapage.com/
+- type: APIReference
+  url: https://devdocs.instapage.com/
+- type: GettingStarted
+  url: https://devdocs.instapage.com/#getting-started
+- type: Support
+  url: https://help.instapage.com/hc/en-us
+- type: TermsOfService
+  url: https://instapage.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://instapage.com/privacy-policy
+- type: SignUp
+  url: https://app.instapage.com/auth/signup
+- type: Login
+  url: https://app.instapage.com/auth/login/
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 40
+  pass: local-v1
