@@ -1,0 +1,283 @@
+openapi: 3.1.0
+info:
+  title: Instapage Form Submissions API
+  description: 'Retrieve and delete the lead data captured by landing page forms.
+
+
+    The Instapage Public API is a REST API over the Instapage landing page and post-click optimization
+    platform. It exposes workspaces, team members, landing pages, page groups, personalized experiences,
+    collections and collection pages, experiments, analytics, form submissions (leads), custom domains
+    and image assets.
+
+
+    Authentication is a personal API token sent as an HTTP Bearer token in the Authorization header. A
+    personal token inherits all permissions from its creator and cannot exceed them; expired or revoked
+    tokens return 401. Rate limiting is 200 requests per minute enforced per token and per IP address,
+    on top of a daily plan quota that resets at 00:00 UTC; exceeding either returns 429 with a Retry-After
+    header.
+
+
+    List endpoints are page-number paginated via the `page` query parameter and return a `meta.pagination`
+    block; form submissions instead use an opaque `meta.nextPageToken` cursor. Errors are returned as
+    a `{title, details, meta}` envelope.
+
+
+    Instapage does not publish an OpenAPI description. This document was transcribed by API Evangelist
+    from the published API reference at https://devdocs.instapage.com/ and is not an official Instapage
+    artifact.'
+  version: '1'
+  contact:
+    name: Instapage Developer Docs
+    url: https://devdocs.instapage.com/
+  termsOfService: https://instapage.com/terms-of-service
+  x-provenance:
+    method: derived
+    source: https://devdocs.instapage.com/
+    generated: '2026-08-13'
+    note: Instapage publishes no OpenAPI. Transcribed from the published API reference; not an official
+      Instapage artifact.
+servers:
+- url: https://api.instapage.com/v1
+  description: Instapage Public API v1
+security:
+- BearerAuth: []
+tags:
+- name: Form Submissions
+  description: Retrieve and delete the lead data captured by landing page forms.
+paths:
+  /workspaces/{workspaceId}/submissions:
+    post:
+      summary: Retrieve form submissions
+      description: Fetch form submission data from specified pages, with optional filtering by time range.
+        Capped at 100 submissions per page; use nextPageToken to page through results.
+      operationId: retrieveFormSubmissions
+      tags:
+      - Form Submissions
+      parameters:
+      - &id001
+        in: path
+        name: workspaceId
+        required: true
+        description: The ID of the workspace.
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pages:
+                  type: array
+                  maxItems: 100
+                  description: A list of page IDs to filter form submissions. Up to 100 page IDs per request.
+                  items:
+                    type: number
+                timeframe:
+                  type: object
+                  properties:
+                    start:
+                      type: number
+                      description: Start of the time range for filtering leads, specified in seconds.
+                    end:
+                      type: number
+                      description: End of the time range for filtering leads, specified in seconds.
+                nextPageToken:
+                  type:
+                  - string
+                  - 'null'
+                  description: Token for pagination; retrieves the next set of form submissions when provided.
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Submission'
+                  meta:
+                    type: object
+                    properties:
+                      nextPageToken:
+                        type:
+                        - string
+                        - 'null'
+                        description: Token for fetching the next page of submissions, or null if there
+                          is no next page.
+                      limit:
+                        type: number
+                        description: Maximum number of submissions returned per page.
+        '400':
+          description: Bad request. Some filter parameters are most likely not valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have the necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested resource could not be located.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete form submissions
+      description: Permanently delete form submissions from specified pages. Between 1 and 100 submission
+        IDs per request. Deletion is irreversible.
+      operationId: deleteFormSubmissions
+      tags:
+      - Form Submissions
+      parameters:
+      - *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - submissions
+              properties:
+                submissions:
+                  type: array
+                  minItems: 1
+                  maxItems: 100
+                  description: An array of submission IDs to delete.
+                  items:
+                    type: string
+      responses:
+        '204':
+          description: The submissions were deleted successfully.
+        '400':
+          description: Bad request. The input is invalid (e.g. empty or more than 100 submission IDs).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have the necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested resource could not be located.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Personal API Token
+      description: 'Personal API token generated from Instapage account settings, sent as `Authorization:
+        Bearer <token>`.'
+  schemas:
+    Error:
+      type: object
+      description: Error envelope returned by the Instapage API.
+      properties:
+        title:
+          type: string
+          description: The type of error that occurred.
+        details:
+          type: string
+          description: A human-readable description of the error.
+        meta:
+          type: object
+          properties:
+            requestedUserId:
+              type: number
+              description: ID of the user who made the request.
+            requestedWorkspaceId:
+              type: number
+              description: ID of the workspace involved.
+            requestedPageId:
+              type: number
+              description: ID of the page involved, when the error concerns a page.
+    Submission:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the submission.
+        pageId:
+          type: number
+          description: ID of the page related to the submission.
+        variationName:
+          type: string
+          description: Name of the variation used for the submission.
+        variationCustomName:
+          type: string
+          description: Custom name of the variation used for the submission.
+        createdAt:
+          type: number
+          description: Timestamp (in UNIX seconds) of when the submission was created.
+        fields:
+          type: object
+          description: Key-value pairs representing submission fields.
+          additionalProperties: true

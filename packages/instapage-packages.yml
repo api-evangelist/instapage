@@ -1,0 +1,80 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  npm registry search, PyPI, RubyGems, Packagist, crates.io, pkg.go.dev and the Instapage developer
+  reference at https://devdocs.instapage.com/
+sdk_count: 0
+official_client_libraries: 0
+summary: >-
+  Instapage ships NO first-party client SDK for the Public API in any language. The developer
+  reference teaches the API entirely through hand-rolled curl / fetch / PHP cURL snippets in shell,
+  JavaScript, TypeScript and PHP — there is no `npm install`, no `pip install`, no packaged client
+  anywhere in the docs. The one first-party package published under the Instapage name is an internal
+  logging library, not an API client. Everything installable that wraps the API is third-party.
+packages:
+- language: php
+  registry: packagist
+  name: instapage/php-logger
+  url: https://packagist.org/packages/instapage/php-logger
+  repository: https://github.com/Instapage/php-logger
+  install: composer require instapage/php-logger
+  official: true
+  api_client: false
+  description: >-
+    A library for standardized log and metric format, based on monolog/monolog. Published by
+    Instapage but an internal logging utility — it does not talk to the Instapage Public API and is
+    not an SDK for it.
+  version: null
+  published: null
+  note: >-
+    Version not recorded — the Packagist search endpoint returns no version/date fields and the
+    per-package metadata endpoint was not read in this pass. The upstream repository
+    github.com/Instapage/php-logger was last pushed 2025-10-20.
+- language: javascript
+  registry: npm
+  name: n8n-nodes-instapage
+  url: https://www.npmjs.com/package/n8n-nodes-instapage
+  install: npm install n8n-nodes-instapage
+  official: false
+  api_client: true
+  description: >-
+    Third-party n8n community node for Instapage — search and retrieve landing page data. Published
+    by an independent author, not Instapage.
+  version: 0.3.0
+  published: '2026-04-03'
+- language: javascript
+  registry: npm
+  name: instapage-proxy
+  url: https://www.npmjs.com/package/instapage-proxy
+  install: npm install instapage-proxy
+  official: false
+  api_client: false
+  description: Third-party proxy for Instapage demo pages. Unmaintained.
+  version: 1.0.9
+  published: '2018-01-12'
+registries_checked:
+- {registry: npm, query: instapage, first_party_client: false}
+- {registry: pypi, package: instapage, status: 404, first_party_client: false}
+- {registry: rubygems, query: instapage, results: 0, first_party_client: false}
+- {registry: packagist, query: instapage, first_party_client: false, note: 'instapage/php-logger is first-party but is not an API client'}
+- {registry: crates.io, query: instapage, results: 0, first_party_client: false}
+- {registry: 'pkg.go.dev', query: instapage, first_party_client: false}
+- {registry: 'maven central', query: instapage, first_party_client: false}
+- {registry: nuget, query: instapage, first_party_client: false}
+github_org:
+  url: https://github.com/Instapage
+  public_repos: 13
+  note: >-
+    The public org holds PHP clients Instapage wrote for OTHER vendors' APIs (Constant Contact,
+    Marketo, ConvertKit, Campaign Monitor, GoToWebinar) plus build/infra tooling — no client library
+    for Instapage's own Public API.
+x-evidence:
+  fetched: '2026-08-13'
+  sources:
+  - https://registry.npmjs.org/-/v1/search?text=instapage
+  - https://pypi.org/pypi/instapage/json
+  - https://rubygems.org/api/v1/search.json?query=instapage
+  - https://packagist.org/search.json?q=instapage
+  - https://crates.io/api/v1/crates?q=instapage
+  - https://api.github.com/orgs/Instapage/repos
+  - https://devdocs.instapage.com/

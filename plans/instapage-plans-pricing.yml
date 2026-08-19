@@ -1,0 +1,128 @@
+generated: '2026-08-13'
+method: searched
+source: https://instapage.com/plans
+docs: https://instapage.com/plans
+currency: USD
+billing_periods: [monthly, annual]
+annual_discount: up to 20%
+free_trial:
+  available: true
+  length_days: 14
+  plans: [Create, Optimize]
+  credit_card_required: true
+plan_count: 3
+note: >-
+  https://instapage.com/pricing is a marketing landing page and carries no tier names or prices; the
+  real plan table lives at https://instapage.com/plans. Instapage publishes the DAILY API CALL QUOTA
+  per plan there, which is the number the developer reference deliberately withholds ("view your
+  plan's quota on the Subscription page, login required") — see rate-limits/instapage-rate-limits.yml.
+plans:
+- name: Create
+  slug: create
+  tagline: Kickstart your digital marketing with all the essential tools you need
+  price:
+    monthly: 99
+    annual_per_month: 79
+    currency: USD
+    period: month
+  limits:
+    unique_monthly_visitors: 15000
+    api_calls_per_day: 5000
+    published_pages: unlimited
+    conversions: unlimited
+    contacts: unlimited
+    collections_pages_per_collection: 15
+    team_members: 10
+    subdomains: 2
+    workspaces: 1
+    lists: 150
+    daily_email_sends: 1500
+    monthly_email_sends: 15000
+  overage: not published
+  cta: Start 14-day free trial
+- name: Optimize
+  slug: optimize
+  tagline: Optimize conversions with experimentation and lead generation
+  recommended: true
+  price:
+    monthly: 199
+    annual_per_month: 159
+    currency: USD
+    period: month
+    note: >-
+      Priced at the 30,000-visitor entry point. The plan card offers 30,000, 50,000 and a Custom
+      visitor tier; Instapage does not publish the price for the higher tiers, and a Custom selection
+      defaults to 50,000 visitors with a sales follow-up.
+  limits:
+    unique_monthly_visitors: 30000
+    unique_monthly_visitors_options: [30000, 50000, custom]
+    api_calls_per_day: 10000
+    published_pages: unlimited
+    conversions: unlimited
+    contacts: unlimited
+    collections_pages_per_collection: 30
+    team_members: 10
+    subdomains: 2
+    workspaces: 1
+    lists: 300
+    daily_email_sends: 3000
+    monthly_email_sends: 30000
+  includes: All Create features plus server-side A/B testing, hypothesis setting, experimentation
+    history, customizable traffic splitting, scheduling, multi-step forms, dynamic text replacement.
+  overage: not published
+  cta: Start 14-day free trial
+- name: Convert
+  slug: convert
+  tagline: Maximize growth and ROI with an enterprise-ready platform
+  price:
+    monthly: null
+    annual_per_month: null
+    currency: USD
+    model: custom
+    note: Contact sales. No price is published.
+  limits:
+    unique_monthly_visitors: custom
+    api_calls_per_day: custom
+    published_pages: unlimited
+    conversions: unlimited
+    contacts: unlimited
+    collections_pages_per_collection: custom
+    team_members: custom
+    subdomains: custom
+    workspaces: custom
+    lists: custom
+    daily_email_sends: custom
+    monthly_email_sends: custom
+  includes: All Optimize features plus enterprise-ready platform, ad-to-page personalization, global
+    elements, Enterprise SSO, guaranteed 99.9% uptime SLA, custom integrations.
+  cta: Get a demo
+api_quota_ladder:
+  keyed_by: unique monthly visitors
+  note: >-
+    The "Compare all plan features" table is keyed by visitor band across five columns rather than by
+    plan name, so only the 15,000 (Create) and 30,000 (Optimize entry) bands can be tied to a named
+    plan with certainty from the served HTML. The ladder itself is published verbatim.
+  bands:
+  - {unique_monthly_visitors: 15000, api_calls_per_day: 5000, collections_pages_per_collection: 15, team_members: 10, subdomains: 2, workspaces: 1, lists: 150, daily_email_sends: 1500, monthly_email_sends: 15000}
+  - {unique_monthly_visitors: 30000, api_calls_per_day: 10000, collections_pages_per_collection: 30, team_members: 10, subdomains: 2, workspaces: 1, lists: 300, daily_email_sends: 3000, monthly_email_sends: 30000}
+  - {unique_monthly_visitors: 50000, api_calls_per_day: 15000, collections_pages_per_collection: 50, team_members: 10, subdomains: 10, workspaces: 5, lists: 500, daily_email_sends: 5000, monthly_email_sends: 50000}
+  - {unique_monthly_visitors: 100000, api_calls_per_day: 30000, collections_pages_per_collection: 50, team_members: 10, subdomains: 10, workspaces: 5, lists: 1000, daily_email_sends: 5000, monthly_email_sends: 100000}
+  - {unique_monthly_visitors: custom, api_calls_per_day: custom, collections_pages_per_collection: custom, team_members: custom, subdomains: custom, workspaces: custom, lists: custom, daily_email_sends: custom, monthly_email_sends: custom}
+all_plans_include:
+- Unlimited pages
+- Unlimited conversions
+- Unlimited contacts
+api_access:
+  included_in_all_plans: true
+  metered: true
+  meter: API calls per day, resetting at 00:00 UTC
+  per_minute_limit: 200 requests per minute, per token and per IP, on every plan
+  artifact: rate-limits/instapage-rate-limits.yml
+x-evidence:
+- url: https://instapage.com/plans
+  http_status: 200
+  fetched: '2026-08-13'
+- url: https://instapage.com/pricing
+  http_status: 200
+  fetched: '2026-08-13'
+  note: Marketing page; carries no tier names or prices in the served HTML.

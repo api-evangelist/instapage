@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Instapage Analytics API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get statistical data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/analytics",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve statistical data related to pages and experiences in bulk. All dates are in UTC; daily, monthly and yearly grouping windows are aligned to UTC."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

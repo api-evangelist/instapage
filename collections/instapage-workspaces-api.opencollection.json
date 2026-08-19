@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Instapage Workspaces API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page to fetch. Used for pagination purposes."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Optional name of the workspace to limit the result (case insensitive)."
+              }
+            ]
+          },
+          "docs": "Retrieve all workspaces the authenticated token has access to."
+        },
+        {
+          "info": {
+            "name": "Add new workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.instapage.com/v1/workspaces",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new workspace for the authenticated user. Each workspace must have a unique name under the same owner."
+        },
+        {
+          "info": {
+            "name": "Get single workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              }
+            ]
+          },
+          "docs": "Retrieves details of a single workspace by its ID."
+        },
+        {
+          "info": {
+            "name": "Rename workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the name of an existing workspace."
+        },
+        {
+          "info": {
+            "name": "Delete workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              }
+            ]
+          },
+          "docs": "Deletes a workspace by its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Instapage Groups API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/groups",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page to fetch. Used for pagination purposes."
+              }
+            ]
+          },
+          "docs": "Retrieve all groups (folders) for a specific workspace."
+        },
+        {
+          "info": {
+            "name": "Create group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/groups",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new group (folder) in a workspace."
+        },
+        {
+          "info": {
+            "name": "Update group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/groups/:groupId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the group to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the name of an existing group (folder) in a workspace."
+        },
+        {
+          "info": {
+            "name": "Delete group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/groups/:groupId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the group to delete."
+              }
+            ]
+          },
+          "docs": "Delete an empty group (folder) from a workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

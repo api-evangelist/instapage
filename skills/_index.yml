@@ -1,0 +1,45 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  Authored by API Evangelist from the Instapage developer reference at https://devdocs.instapage.com/
+  and grounded in the operationIds transcribed into openapi/. Instapage publishes no AGENTS.md and no
+  skill files of its own.
+note: >-
+  Every operationId referenced below exists verbatim in the linked spec file. Each skill carries the
+  Instapage-specific rules an agent gets wrong otherwise: analytics and form submissions are POSTs,
+  publication is asynchronous (202), there is no idempotency key anywhere, and lead data is PII.
+skills:
+- file: instapage-launch-a-landing-page.md
+  name: Launch an Instapage landing page
+  description: Import a page from Instapage JSON, file it in a group, publish it to a custom domain,
+    and confirm the asynchronous publish landed.
+  api: openapi/instapage-pages-openapi.yml
+  operations: [listWorkspaces, listGroups, createGroup, createPageFromJson, updatePage, publishPage,
+    getPage]
+- file: instapage-export-leads.md
+  name: Export Instapage form submissions (leads)
+  description: Page through form submissions with the opaque nextPageToken cursor, respecting the
+    100-page-ID cap, the PII in the payload, and the irreversibility of deletion.
+  api: openapi/instapage-form-submissions-openapi.yml
+  operations: [listWorkspaces, listPages, retrieveFormSubmissions, deleteFormSubmissions]
+- file: instapage-report-on-page-performance.md
+  name: Report on Instapage page performance
+  description: Pull bulk visit/conversion/lead statistics, group them correctly, and correlate with
+    running experiments and personalized experiences.
+  api: openapi/instapage-analytics-openapi.yml
+  operations: [listWorkspaces, listPages, getAnalytics, listExperiments, listPersonalizations]
+- file: instapage-manage-workspace-access.md
+  name: Manage Instapage workspace access
+  description: Provision workspaces and bulk-invite, re-role and remove team members, including the
+    inheritOwnerContextInPublicApi quota-inheritance flag.
+  api: openapi/instapage-team-members-openapi.yml
+  operations: [listWorkspaces, createWorkspace, getWorkspace, renameWorkspace, listTeamMembers,
+    inviteTeamMembers, updateTeamMembers, removeTeamMembers]
+- file: instapage-publish-a-collection-page.md
+  name: Publish an Instapage collection page
+  description: Add a placeholder-driven page to an existing collection, wire an image asset in,
+    publish it, and take it down cleanly.
+  api: openapi/instapage-collections-openapi.yml
+  operations: [listCollections, getCollection, listCollectionPages, createCollectionPage,
+    publishCollectionPage, unpublishCollectionPage, deleteCollectionPage, listImageFolders,
+    listImagesInFolder, uploadImage]

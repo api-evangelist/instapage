@@ -1,16 +1,73 @@
-generated: '2026-07-11'
+generated: '2026-08-13'
 method: searched
 probe: true
 source: https://instapage.com/security
 url: https://instapage.com/security
+type: security-program-page
+self_serve_portal: false
+note: >-
+  Instapage publishes a security program page rather than a self-serve trust portal — there is no
+  trust.instapage.com, no document request flow and no downloadable audit report. The claims below
+  are prose on that page, captured verbatim in intent.
 certifications:
 - SOC 2
 - ISO 27001
 - GDPR
+- CCPA/CPRA
+certification_detail:
+- name: SOC 2
+  certified: true
+  statement: >-
+    Instapage has undergone two types of SOC 2 audits and received certification showing it has the
+    right security systems to ensure the security, availability, processing integrity,
+    confidentiality and privacy of customer data.
+- name: ISO 27001/2
+  certified: false
+  statement: >-
+    Information Security Program policies are stated as aligned with ISO 27001/2 and NIST 800-53
+    frameworks, reviewed yearly or after significant changes. Alignment is claimed, not certification.
+- name: GDPR
+  certified: false
+  statement: >-
+    Complies with GDPR data privacy and security standards; ships a data consent cookie bar so
+    customers can make their own landing pages compliant.
+  page: https://instapage.com/gdpr
+- name: CCPA/CPRA
+  certified: false
+  statement: >-
+    Follows the California Consumer Privacy Act as updated by the California Privacy Rights Act.
+programs:
+- name: Information Security Program
+  detail: Covers governance, operations, people security, physical security and compliance security.
+- name: Information Security Incident Management Program
+  detail: >-
+    Identifies, manages, responds to and resolves incidents; defines roles, responsibilities and
+    proactive detection capabilities.
+- name: Vulnerability Management Program
+  detail: >-
+    Identifies, prioritizes, manages and reports threats and vulnerabilities using a risk-based
+    approach.
+- name: Security architecture controls
+  detail: >-
+    Encryption in transit and at rest, intrusion detection, browser session encryption, host-based
+    anti-virus, full disk encryption. Monthly network scans, quarterly vulnerability assessments, and
+    internal plus external penetration tests once a year.
+- name: Personnel security
+  detail: >-
+    Security training at onboarding, NDAs and a corporate Code of Conduct governing confidentiality;
+    controlled onboarding and offboarding.
+disclosure:
+  bug_bounty: https://policies.airslate.com/bug-bounty-program
+  artifact: security/instapage-vulnerability-disclosure.yml
+legal:
+  hub: https://legal.instapage.com/
+  terms: https://instapage.com/terms-of-service
+  privacy: https://instapage.com/privacy-policy
+  gdpr: https://instapage.com/gdpr
 evidence:
 - source: https://instapage.com/security
-  keywords:
-  - soc 2
-  - soc2
-  - iso 27001
-  - gdpr
+  http_status: 200
+  keywords: [soc 2, iso 27001, nist 800-53, gdpr, ccpa, cpra, vulnerability management,
+    incident management, penetration test]
+x-evidence:
+  fetched: '2026-08-13'

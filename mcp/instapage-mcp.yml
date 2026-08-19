@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: openapi/_original/instapage-openapi.yml
+summary: >-
+  Instapage publishes no MCP server. This is a CANDIDATE tool list derived by API Evangelist from the
+  39 operations transcribed from the published API reference — it is a design proposal, not something
+  an agent can call today.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: derived
+  note: >-
+    No hosted endpoint and no stdio package exist. Probed mcp.instapage.com/mcp (no DNS),
+    api.instapage.com/mcp (404) and instapage.com/mcp (302 to the marketing site); the official MCP
+    registry returns zero servers for "instapage"; npm carries no @instapage MCP package. The only
+    MCP-adjacent thing in the ecosystem is a third-party n8n community node. When a server is built,
+    auth would be the Personal API Token (Authorization: Bearer) documented in
+    authentication/instapage-authentication.yml.
+server:
+  name: instapage
+  transport: null
+  url: null
+tools:
+- {name: list_workspaces, description: List the workspaces the token can access, source_operation: 'openapi/instapage-workspaces-api-openapi.yml#listWorkspaces'}
+- {name: get_workspace, description: Get a single workspace by ID, source_operation: 'openapi/instapage-workspaces-api-openapi.yml#getWorkspace'}
+- {name: create_workspace, description: Create a new workspace, source_operation: 'openapi/instapage-workspaces-api-openapi.yml#createWorkspace'}
+- {name: rename_workspace, description: Rename a workspace, source_operation: 'openapi/instapage-workspaces-api-openapi.yml#renameWorkspace'}
+- {name: delete_workspace, description: Delete a workspace, source_operation: 'openapi/instapage-workspaces-api-openapi.yml#deleteWorkspace'}
+- {name: list_team_members, description: List the team members of a workspace, source_operation: 'openapi/instapage-team-members-openapi.yml#listTeamMembers'}
+- {name: invite_team_members, description: Bulk-invite team members to a workspace, source_operation: 'openapi/instapage-team-members-openapi.yml#inviteTeamMembers'}
+- {name: update_team_members, description: Bulk-update team member roles, source_operation: 'openapi/instapage-team-members-openapi.yml#updateTeamMembers'}
+- {name: remove_team_members, description: Bulk-remove team members from a workspace, source_operation: 'openapi/instapage-team-members-openapi.yml#removeTeamMembers'}
+- {name: list_pages, description: List landing pages in a workspace with status/date/group filters, source_operation: 'openapi/instapage-pages-openapi.yml#listPages'}
+- {name: get_page, description: Get one landing page, source_operation: 'openapi/instapage-pages-openapi.yml#getPage'}
+- {name: search_pages, description: Search pages across all accessible workspaces by id, title or URL, source_operation: 'openapi/instapage-pages-openapi.yml#searchPages'}
+- {name: update_page, description: Move a page between groups or remove it from all groups, source_operation: 'openapi/instapage-pages-openapi.yml#updatePage'}
+- {name: delete_page, description: Delete a landing page, source_operation: 'openapi/instapage-pages-openapi.yml#deletePage'}
+- {name: publish_page, description: Publish a landing page to a domain, source_operation: 'openapi/instapage-pages-openapi.yml#publishPage'}
+- {name: update_published_page_url, description: Change the URL of an already published page, source_operation: 'openapi/instapage-pages-openapi.yml#updatePublishedPageUrl'}
+- {name: unpublish_page, description: Unpublish a landing page, source_operation: 'openapi/instapage-pages-openapi.yml#unpublishPage'}
+- {name: export_page_as_json, description: Export a page as Instapage JSON, source_operation: 'openapi/instapage-pages-openapi.yml#exportPageAsJson'}
+- {name: create_page_from_json, description: Create a page by importing Instapage JSON, source_operation: 'openapi/instapage-pages-openapi.yml#createPageFromJson'}
+- {name: list_groups, description: List page groups (folders) in a workspace, source_operation: 'openapi/instapage-groups-openapi.yml#listGroups'}
+- {name: create_group, description: Create a page group (folder), source_operation: 'openapi/instapage-groups-openapi.yml#createGroup'}
+- {name: update_group, description: Rename a page group, source_operation: 'openapi/instapage-groups-openapi.yml#updateGroup'}
+- {name: delete_group, description: Delete an empty page group, source_operation: 'openapi/instapage-groups-openapi.yml#deleteGroup'}
+- {name: list_personalizations, description: List personalized experiences for a page, source_operation: 'openapi/instapage-personalizations-openapi.yml#listPersonalizations'}
+- {name: list_collections, description: List collections in a workspace, source_operation: 'openapi/instapage-collections-openapi.yml#listCollections'}
+- {name: get_collection, description: Get one collection with its placeholders, source_operation: 'openapi/instapage-collections-openapi.yml#getCollection'}
+- {name: list_collection_pages, description: List the pages inside a collection, source_operation: 'openapi/instapage-collections-openapi.yml#listCollectionPages'}
+- {name: create_collection_page, description: Add a collection page with placeholder values, source_operation: 'openapi/instapage-collections-openapi.yml#createCollectionPage'}
+- {name: publish_collection_page, description: Publish a collection page, source_operation: 'openapi/instapage-collections-openapi.yml#publishCollectionPage'}
+- {name: unpublish_collection_page, description: Unpublish a collection page, source_operation: 'openapi/instapage-collections-openapi.yml#unpublishCollectionPage'}
+- {name: delete_collection_page, description: Delete a collection page, source_operation: 'openapi/instapage-collections-openapi.yml#deleteCollectionPage'}
+- {name: list_experiments, description: List A/B and AI experiments in a workspace, source_operation: 'openapi/instapage-experiments-openapi.yml#listExperiments'}
+- {name: get_analytics, description: Get bulk visit/conversion/lead statistics for pages, source_operation: 'openapi/instapage-analytics-openapi.yml#getAnalytics'}
+- {name: retrieve_form_submissions, description: Retrieve lead form submissions for pages, source_operation: 'openapi/instapage-form-submissions-openapi.yml#retrieveFormSubmissions'}
+- {name: delete_form_submissions, description: Permanently delete form submissions (irreversible), source_operation: 'openapi/instapage-form-submissions-openapi.yml#deleteFormSubmissions'}
+- {name: list_domains, description: List custom domains connected to a workspace, source_operation: 'openapi/instapage-domains-openapi.yml#listDomains'}
+- {name: list_image_folders, description: List image asset folders in a workspace, source_operation: 'openapi/instapage-assets-openapi.yml#listImageFolders'}
+- {name: list_images_in_folder, description: List images in an asset folder, source_operation: 'openapi/instapage-assets-openapi.yml#listImagesInFolder'}
+- {name: upload_image, description: Upload an image to an asset folder, source_operation: 'openapi/instapage-assets-openapi.yml#uploadImage'}
+coverage:
+  operations_total: 39
+  tools_derived: 39
+  binding: one tool per operationId
+safety_notes:
+- delete_form_submissions is irreversible and handles lead PII — gate behind human confirmation.
+- delete_page cascades to all personalizations and the default experience.
+- publish_page / unpublish_page clear any scheduling configured on the page.
+- Every write operation is subject to the 200 req/min limit and the daily plan quota; there is no
+  idempotency key, so a naive retry can duplicate an effect.
+x-evidence:
+  fetched: '2026-08-13'
+  probes:
+  - {url: 'https://registry.modelcontextprotocol.io/v0/servers?search=instapage', http_status: 200, servers_found: 0}
+  - {url: 'https://api.instapage.com/mcp', http_status: 404}
+  - {url: 'https://instapage.com/mcp', http_status: 302}
+  - {url: 'https://mcp.instapage.com/mcp', http_status: null, note: 'no DNS / connection failed'}

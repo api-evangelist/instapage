@@ -1,0 +1,1924 @@
+{
+  "item": [
+    {
+      "id": "ddd2a893-3545-4088-8391-bd7247fb2bb2",
+      "name": "Team Members",
+      "description": {
+        "content": "Manage the people who have access to a workspace and their access levels.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fb6e8a82-8d3a-48e8-a4d7-08594e640d08",
+          "name": "Get all team members",
+          "request": {
+            "name": "Get all team members",
+            "description": {
+              "content": "Retrieve all team members for a specific workspace. This endpoint does not paginate.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "team-members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "289afc2f-c164-4fec-9dfa-83795c9f40fb",
+              "name": "The request was processed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"userId\": 6996.891741275418,\n      \"email\": \"string\",\n      \"invitedAt\": 3697.330932733276,\n      \"fullName\": \"string\",\n      \"accessLevel\": \"editor\",\n      \"inheritOwnerContextInPublicApi\": false,\n      \"invitationStatus\": \"accepted\",\n      \"lastLoginAt\": 2071.024293498592,\n      \"lastActivityInWorkspaceAt\": 2527.8367466209793\n    },\n    {\n      \"userId\": 6026.8643820863335,\n      \"email\": \"string\",\n      \"invitedAt\": 3958.301697842586,\n      \"fullName\": \"string\",\n      \"accessLevel\": \"viewer\",\n      \"inheritOwnerContextInPublicApi\": false,\n      \"invitationStatus\": \"pending\",\n      \"lastLoginAt\": 3779.467767748259,\n      \"lastActivityInWorkspaceAt\": 7320.582954492248\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7ed43b4-00e5-4751-9df8-e0708552afc0",
+              "name": "Bad request. Validation error — review input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c80b6d91-e8a2-4aba-895b-e6b9a122a490",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c6d9412-0376-4aa7-ace3-823003a7f205",
+              "name": "Forbidden. The user does not have the necessary permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5243b19f-ffd0-4d0e-ba03-cbee743b94b2",
+              "name": "Not Found. The requested resource could not be located.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6320018-14e6-43ea-b451-cdbde974346d",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "3840"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "780998b6-57e8-4118-b734-c62390866909",
+              "name": "Internal Server Error. An unexpected condition prevented the request from being fulfilled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9c5b82d-6072-4bd9-b950-dc5474a9a9cf",
+          "name": "Invite team members",
+          "request": {
+            "name": "Invite team members",
+            "description": {
+              "content": "Invites multiple team members to join a workspace with specified accessLevels and an optional developer flag. Only workspace owners and managers can invite new team members.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "team-members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d70dc05a-940c-4251-9395-6ef514ebc3e8",
+              "name": "Created. The team members were successfully invited.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb72b1c1-b870-42ae-8594-e0bd2f8de0cb",
+              "name": "Bad Request. Invalid input parameters or email format.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5153db5a-e06a-4027-94aa-05e3f00f2eb8",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f277e2f-188d-4b46-9c76-d4e6fbb53ef2",
+              "name": "Forbidden. User doesn't have permission to invite members or team member limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "198d36aa-93bd-4187-8660-f4ed864b6dd2",
+              "name": "Not Found. The workspace could not be found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0db97f06-0b84-44a7-8ae2-be962314025f",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "3840"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f8138ad-0765-440b-bdf7-4c01384d7441",
+              "name": "Internal Server Error. An unexpected condition prevented the request from being fulfilled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"accessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "01f7b08f-1e2a-4f74-9177-4ff0ceee041f",
+          "name": "Edit team member",
+          "request": {
+            "name": "Edit team member",
+            "description": {
+              "content": "Updates the roles alongside the developer flag of existing team members in a workspace. Supports bulk role updates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "team-members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3d995641-f66d-4360-9028-d816ead5a5a4",
+              "name": "Created. The team member roles were successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6d4a7e32-2e4a-4bdf-a0a6-668b1b5a264d",
+              "name": "Bad Request. Invalid input parameters or duplicate emails in request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6224bfa4-4495-4890-9d29-c9cab6b95934",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6da98ea-7539-4cd8-b9d8-7ca12319e46c",
+              "name": "Forbidden. The user doesn't have permission to modify roles or is attempting to modify the owner's role.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d013d2e9-47be-4509-b335-1cb7f79ce646",
+              "name": "Not Found. The workspace was not found or one or more team members don't exist in the workspace.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8ac4ff1-0436-47fd-8b0b-4ff4888b2208",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "3840"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25c5629d-4ae1-4d2f-84e9-558515276818",
+              "name": "Internal Server Error. An unexpected condition prevented the request from being fulfilled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  },\n  {\n    \"email\": \"<string>\",\n    \"targetAccessLevel\": \"<string>\",\n    \"inheritOwnerContextInPublicApi\": \"<boolean,null>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76022f68-af7c-4701-83fd-3cbffebf9365",
+          "name": "Remove team members",
+          "request": {
+            "name": "Remove team members",
+            "description": {
+              "content": "Remove one or more team members from a workspace. Supports bulk removal operations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "team-members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"email\": \"<string>\"\n  },\n  {\n    \"email\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56af993c-ad54-453c-96da-4d4cbbe0ca73",
+              "name": "Created. Team members were successfully removed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\"\n  },\n  {\n    \"email\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "247a8677-04c7-4fe6-8698-d43198e374a0",
+              "name": "Bad Request. Invalid input parameters or attempting to remove the workspace owner.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\"\n  },\n  {\n    \"email\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98a8f9b6-f207-41e5-a640-c109e9eb1f72",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\"\n  },\n  {\n    \"email\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cb75dea-5732-4fae-b513-97292f6e7f2f",
+              "name": "Forbidden. User doesn't have necessary permissions (must be owner or manager).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\"\n  },\n  {\n    \"email\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9b0c045-42bb-4743-a5e7-0d55197e4b62",
+              "name": "Not Found. Workspace not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\"\n  },\n  {\n    \"email\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57be32f7-428e-4303-b8e1-0b5a4f67d8d1",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\"\n  },\n  {\n    \"email\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "3840"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d30308e-a091-4da9-806f-bf617c0d88fc",
+              "name": "Internal Server Error. An unexpected condition prevented the request from being fulfilled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "team-members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"email\": \"<string>\"\n  },\n  {\n    \"email\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 7733.715204559115,\n    \"requestedWorkspaceId\": 9865.662849663786,\n    \"requestedPageId\": 7870.310545204783\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.instapage.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8ab45b41-eda5-4f9a-b9fa-0c4b5ac94572",
+    "name": "Instapage Team Members API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Manage the people who have access to a workspace and their access levels.\n\nThe Instapage Public API is a REST API over the Instapage landing page and post-click optimization platform. It exposes workspaces, team members, landing pages, page groups, personalized experiences, collections and collection pages, experiments, analytics, form submissions (leads), custom domains and image assets.\n\nAuthentication is a personal API token sent as an HTTP Bearer token in the Authorization header. A personal token inherits all permissions from its creator and cannot exceed them; expired or revoked tokens return 401. Rate limiting is 200 requests per minute enforced per token and per IP address, on top of a daily plan quota that resets at 00:00 UTC; exceeding either returns 429 with a Retry-After header.\n\nList endpoints are page-number paginated via the `page` query parameter and return a `meta.pagination` block; form submissions instead use an opaque `meta.nextPageToken` cursor. Errors are returned as a `{title, details, meta}` envelope.\n\nInstapage does not publish an OpenAPI description. This document was transcribed by API Evangelist from the published API reference at https://devdocs.instapage.com/ and is not an official Instapage artifact.\n\nContact Support:\n Name: Instapage Developer Docs",
+      "type": "text/plain"
+    }
+  }
+}

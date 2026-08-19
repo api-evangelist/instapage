@@ -1,0 +1,35 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Instapage Form Submissions API
+  version: 1.0.0
+extends: openapi/instapage-form-submissions-openapi.yml
+x-provenance:
+  generated: '2026-08-13'
+  method: generated
+  source: https://devdocs.instapage.com/
+  note: Instapage publishes no OpenAPI. The extended document is an API Evangelist transcription of the
+    published reference; this overlay records the enhancements API Evangelist applied on top of the raw
+    documented surface, without mutating the transcription.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: instapage
+    x-apievangelist-artifact-tag: Form Submissions
+    x-apievangelist-operations: 2
+    x-apievangelist-contract-source: https://devdocs.instapage.com/
+    x-apievangelist-contract-provenance: derived-from-human-docs
+- target: $.info
+  update:
+    x-apievangelist-conventions: conventions/instapage-conventions.yml
+    x-apievangelist-errors: errors/instapage-problem-types.yml
+    x-apievangelist-authentication: authentication/instapage-authentication.yml
+    x-apievangelist-rate-limits: rate-limits/instapage-rate-limits.yml
+    x-apievangelist-data-model: data-model/instapage-data-model.yml
+- target: $.paths.*.*
+  update:
+    x-apievangelist-rate-limit: 200 req/min per token and per IP; plan daily quota resets 00:00 UTC; 429
+      carries Retry-After
+    x-apievangelist-idempotency: not supported — no idempotency key on any Instapage write operation
+- target: $.components.securitySchemes.BearerAuth
+  update:
+    x-apievangelist-token-model: personal access token, inherits its creator’s permissions, no scopes

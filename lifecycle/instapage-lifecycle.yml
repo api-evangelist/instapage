@@ -1,0 +1,59 @@
+generated: '2026-08-13'
+method: searched
+source: https://devdocs.instapage.com/
+versioning:
+  scheme: uri-path
+  current: v1
+  base_url: https://api.instapage.com/v1
+  policy_url: null
+  note: >-
+    Instapage publishes no written versioning policy. The only version signal is the `/v1` path
+    segment; changes are announced in the dated changelog inside the developer reference.
+  docs: https://devdocs.instapage.com/
+change_log:
+  url: https://devdocs.instapage.com/
+  format: dated section of the single-page developer reference (no feed, no permalinks)
+  artifact: changelog/instapage-changelog.yml
+  latest_entry: '2026-06-10'
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    No deprecation policy, no notice period, and no RFC 8594 Sunset/Deprecation header support is
+    documented. The changelog does record removals in place — the collectionTemplate page type was
+    dropped from page responses on 2025-08-05 — but with no advance-notice commitment attached.
+  observed_removals:
+  - date: '2025-08-05'
+    change: collectionTemplate page type removed from GET pages and GET page responses
+deprecated_operations: []
+sla:
+  url: null
+  uptime_target: null
+  published: false
+  note: No public SLA or uptime commitment is published for the Public API.
+status_page:
+  url: https://status.instapage.com/
+  provider: Atlassian Statuspage
+  http_status: 200
+  linked_from: https://instapage.com/security (footer, "System Status")
+  history: true
+support:
+  help_center: https://help.instapage.com/hc/en-us
+  note: >-
+    help.instapage.com sits behind a Cloudflare interstitial and returned 403 to an unauthenticated
+    probe on 2026-08-13; it is reachable in a browser.
+x-evidence:
+- url: https://devdocs.instapage.com/
+  http_status: 200
+  fetched: '2026-08-13'
+- url: https://status.instapage.com/
+  http_status: 200
+  fetched: '2026-08-13'
+  note: 'Atlassian Statuspage, page title "Instapage Status"'
+- url: https://help.instapage.com/hc/en-us/articles/27634951739287-Public-API
+  http_status: 403
+  fetched: '2026-08-13'
+  note: Cloudflare bot challenge on the help center article

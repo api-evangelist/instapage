@@ -1,290 +1,3578 @@
 openapi: 3.1.0
 info:
-  title: Instapage API
-  description: |
-    Instapage REST API v1 for managing workspaces, landing pages, team members,
-    groups, collections, form submissions, assets, domains, personalizations,
-    experiments, and analytics. Authentication is via Bearer token.
-    Rate limits: 200 requests/minute per token and IP, with daily quotas based
-    on the plan.
-  version: "1"
+  title: Instapage Public API
+  description: 'The Instapage Public API is a REST API over the Instapage landing page and post-click
+    optimization platform. It exposes workspaces, team members, landing pages, page groups, personalized
+    experiences, collections and collection pages, experiments, analytics, form submissions (leads), custom
+    domains and image assets.
+
+
+    Authentication is a personal API token sent as an HTTP Bearer token in the Authorization header. A
+    personal token inherits all permissions from its creator and cannot exceed them; expired or revoked
+    tokens return 401. Rate limiting is 200 requests per minute enforced per token and per IP address,
+    on top of a daily plan quota that resets at 00:00 UTC; exceeding either returns 429 with a Retry-After
+    header.
+
+
+    List endpoints are page-number paginated via the `page` query parameter and return a `meta.pagination`
+    block; form submissions instead use an opaque `meta.nextPageToken` cursor. Errors are returned as
+    a `{title, details, meta}` envelope.
+
+
+    Instapage does not publish an OpenAPI description. This document was transcribed by API Evangelist
+    from the published API reference at https://devdocs.instapage.com/ and is not an official Instapage
+    artifact.'
+  version: '1'
   contact:
     name: Instapage Developer Docs
     url: https://devdocs.instapage.com/
+  termsOfService: https://instapage.com/terms-of-service
+  x-provenance:
+    method: derived
+    source: https://devdocs.instapage.com/
+    generated: '2026-08-13'
+    note: Instapage publishes no OpenAPI. Transcribed from the published API reference; not an official
+      Instapage artifact.
 servers:
-  - url: https://api.instapage.com/v1
+- url: https://api.instapage.com/v1
+  description: Instapage Public API v1
 security:
-  - BearerAuth: []
+- BearerAuth: []
+tags:
+- name: Workspaces
+  description: Workspaces are the top-level container for landing pages, integrations, domains and other
+    assets in Instapage.
+- name: Team Members
+  description: Manage the people who have access to a workspace and their access levels.
+- name: Pages
+  description: Create, retrieve, update, publish, export and delete Instapage landing pages.
+- name: Groups
+  description: Groups (folders) organise landing pages inside a workspace.
+- name: Personalizations
+  description: Personalized experiences attached to a landing page.
+- name: Collections
+  description: Collections are groups of pages sharing one template with placeholder-driven content, plus
+    the individual collection pages inside them.
+- name: Experiments
+  description: A/B and AI experiments running against landing pages.
+- name: Analytics
+  description: Bulk visit, conversion and lead statistics for pages and experiences.
+- name: Form Submissions
+  description: Retrieve and delete the lead data captured by landing page forms.
+- name: Domains
+  description: Custom domains connected to a workspace.
+- name: Assets
+  description: Image asset folders and images inside a workspace.
 paths:
   /workspaces:
     get:
-      summary: List workspaces
+      summary: Get all workspaces
+      description: Retrieve all workspaces the authenticated token has access to.
       operationId: listWorkspaces
+      tags:
+      - Workspaces
+      parameters:
+      - &id002
+        in: query
+        name: page
+        required: false
+        description: Specifies which page to fetch. Used for pagination purposes.
+        schema:
+          type: number
+          default: 1
+      - in: query
+        name: name
+        required: false
+        description: Optional name of the workspace to limit the result (case insensitive).
+        schema:
+          type: string
       responses:
-        "200": { description: Workspace list, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Workspace' } } } } }
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Workspace'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
-      summary: Create workspace
+      summary: Add new workspace
+      description: Create a new workspace for the authenticated user. Each workspace must have a unique
+        name under the same owner.
       operationId: createWorkspace
+      tags:
+      - Workspaces
       requestBody:
         required: true
         content:
           application/json:
-            schema: { $ref: '#/components/schemas/Workspace' }
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: The unique name of the workspace.
       responses:
-        "201": { description: Created, content: { application/json: { schema: { $ref: '#/components/schemas/Workspace' } } } }
+        '201':
+          description: The workspace was created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Workspace'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict. A workspace with the same name already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity. Limit of workspaces has been reached.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /workspaces/{workspaceId}:
-    parameters:
-      - in: path
+    get:
+      summary: Get single workspace
+      description: Retrieves details of a single workspace by its ID.
+      operationId: getWorkspace
+      tags:
+      - Workspaces
+      parameters:
+      - &id001
+        in: path
         name: workspaceId
         required: true
-        schema: { type: string }
-    get:
-      summary: Get workspace
-      operationId: getWorkspace
+        description: The ID of the workspace.
+        schema:
+          type: number
       responses:
-        "200": { description: Workspace, content: { application/json: { schema: { $ref: '#/components/schemas/Workspace' } } } }
+        '200':
+          description: Request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Workspace'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     patch:
       summary: Rename workspace
+      description: Updates the name of an existing workspace.
       operationId: renameWorkspace
+      tags:
+      - Workspaces
+      parameters:
+      - *id001
       requestBody:
         required: true
         content:
           application/json:
-            schema: { type: object, properties: { name: { type: string } } }
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The new name for the workspace.
       responses:
-        "200": { description: Updated }
+        '200':
+          description: Request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Workspace'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict. The workspace name is already taken.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     delete:
       summary: Delete workspace
+      description: Deletes a workspace by its ID.
       operationId: deleteWorkspace
+      tags:
+      - Workspaces
+      parameters:
+      - *id001
       responses:
-        "204": { description: Deleted }
+        '200':
+          description: Workspace successfully deleted.
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /workspaces/{workspaceId}/team-members:
-    parameters:
-      - in: path
-        name: workspaceId
-        required: true
-        schema: { type: string }
     get:
-      summary: List team members
+      summary: Get all team members
+      description: Retrieve all team members for a specific workspace. This endpoint does not paginate.
       operationId: listTeamMembers
+      tags:
+      - Team Members
+      parameters:
+      - *id001
       responses:
-        "200": { description: Team members }
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TeamMember'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have the necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested resource could not be located.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       summary: Invite team members
+      description: Invites multiple team members to join a workspace with specified accessLevels and an
+        optional developer flag. Only workspace owners and managers can invite new team members.
       operationId: inviteTeamMembers
+      tags:
+      - Team Members
+      parameters:
+      - *id001
       requestBody:
         required: true
         content:
           application/json:
-            schema: { type: object }
+            schema:
+              type: array
+              items:
+                type: object
+                required:
+                - email
+                - accessLevel
+                properties:
+                  email:
+                    type: string
+                    description: Email address of the user to invite.
+                  accessLevel:
+                    type: string
+                    enum:
+                    - viewer
+                    - editor
+                    - manager
+                    description: Access level to assign to the user.
+                  inheritOwnerContextInPublicApi:
+                    type:
+                    - boolean
+                    - 'null'
+                    description: 'If true, the user''s public API requests will count against the workspace
+                      owner''s quota (default: false).'
       responses:
-        "201": { description: Invited }
+        '201':
+          description: Created. The team members were successfully invited.
+        '400':
+          description: Bad Request. Invalid input parameters or email format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. User doesn't have permission to invite members or team member limit
+            exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The workspace could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
-      summary: Update member roles
-      operationId: updateMemberRoles
+      summary: Edit team member
+      description: Updates the roles alongside the developer flag of existing team members in a workspace.
+        Supports bulk role updates.
+      operationId: updateTeamMembers
+      tags:
+      - Team Members
+      parameters:
+      - *id001
       requestBody:
         required: true
         content:
           application/json:
-            schema: { type: object }
+            schema:
+              type: array
+              items:
+                type: object
+                required:
+                - email
+                - targetAccessLevel
+                properties:
+                  email:
+                    type: string
+                    description: Email address of the team member to update.
+                  targetAccessLevel:
+                    type: string
+                    enum:
+                    - viewer
+                    - editor
+                    - manager
+                    description: New role to assign.
+                  inheritOwnerContextInPublicApi:
+                    type:
+                    - boolean
+                    - 'null'
+                    description: 'Set to true to allow the user''s public API requests to count against
+                      the workspace owner''s quota (default: false).'
       responses:
-        "200": { description: Updated }
+        '201':
+          description: Created. The team member roles were successfully updated.
+        '400':
+          description: Bad Request. Invalid input parameters or duplicate emails in request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user doesn't have permission to modify roles or is attempting to
+            modify the owner's role.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The workspace was not found or one or more team members don't exist
+            in the workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     delete:
-      summary: Remove members
+      summary: Remove team members
+      description: Remove one or more team members from a workspace. Supports bulk removal operations.
       operationId: removeTeamMembers
+      tags:
+      - Team Members
+      parameters:
+      - *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                required:
+                - email
+                properties:
+                  email:
+                    type: string
+                    description: Email address of the team member.
       responses:
-        "204": { description: Removed }
+        '201':
+          description: Created. Team members were successfully removed.
+        '400':
+          description: Bad Request. Invalid input parameters or attempting to remove the workspace owner.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. User doesn't have necessary permissions (must be owner or manager).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. Workspace not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /workspaces/{workspaceId}/pages:
-    parameters:
-      - in: path
-        name: workspaceId
-        required: true
-        schema: { type: string }
     get:
-      summary: List pages
+      summary: Get all pages
+      description: Retrieve pages for a specific workspace. Results are paginated.
       operationId: listPages
+      tags:
+      - Pages
+      parameters:
+      - *id001
+      - *id002
+      - in: query
+        name: isDeleted
+        required: false
+        description: When true, returns only deleted pages. When false, returns only non-deleted pages.
+        schema:
+          type: boolean
+          default: false
+      - in: query
+        name: publishStatus
+        required: false
+        description: Filter pages by publish status.
+        schema:
+          type: string
+          enum:
+          - published
+          - unpublished
+          - publishedHasChanges
+      - in: query
+        name: publishMethod
+        required: false
+        description: Filter pages by publish method.
+        schema:
+          type: string
+          enum:
+          - cmsPlugin
+          - customDomain
+          - pageDemo
+      - in: query
+        name: publishedAfter
+        required: false
+        description: Filter pages published after the specified UNIX timestamp.
+        schema:
+          type: number
+      - in: query
+        name: publishedBefore
+        required: false
+        description: Filter pages published before the specified UNIX timestamp.
+        schema:
+          type: number
+      - in: query
+        name: createdAfter
+        required: false
+        description: Filter pages created after the specified UNIX timestamp.
+        schema:
+          type: number
+      - in: query
+        name: createdBefore
+        required: false
+        description: Filter pages created before the specified UNIX timestamp.
+        schema:
+          type: number
+      - in: query
+        name: updatedAfter
+        required: false
+        description: Filter pages updated after the specified UNIX timestamp.
+        schema:
+          type: number
+      - in: query
+        name: updatedBefore
+        required: false
+        description: Filter pages updated before the specified UNIX timestamp.
+        schema:
+          type: number
+      - in: query
+        name: withGroupId
+        required: false
+        description: Filter pages by group. Unset returns all pages; a number returns only pages with
+          the matching groupId; the literal 'null' returns only pages with a null groupId.
+        schema:
+          type: string
       responses:
-        "200": { description: Pages, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Page' } } } } }
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Page'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified workspace could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /workspaces/{workspaceId}/pages/{pageId}:
-    parameters:
-      - in: path
-        name: workspaceId
-        required: true
-        schema: { type: string }
-      - in: path
-        name: pageId
-        required: true
-        schema: { type: string }
     get:
       summary: Get page
+      description: Retrieve detailed information about a specific page within a workspace.
       operationId: getPage
+      tags:
+      - Pages
+      parameters:
+      - *id001
+      - in: path
+        name: pageId
+        required: true
+        description: The ID of the page to retrieve.
+        schema:
+          type: number
       responses:
-        "200": { description: Page, content: { application/json: { schema: { $ref: '#/components/schemas/Page' } } } }
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Page'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested resource could not be located.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     patch:
       summary: Update page
+      description: Update a page's properties, such as moving it between groups. Set groupId to null to
+        remove the page from all groups.
       operationId: updatePage
+      tags:
+      - Pages
+      parameters:
+      - *id001
+      - in: path
+        name: pageId
+        required: true
+        description: The ID of the page to update.
+        schema:
+          type: number
       requestBody:
         required: true
         content:
           application/json:
-            schema: { $ref: '#/components/schemas/Page' }
+            schema:
+              type: object
+              properties:
+                groupId:
+                  type:
+                  - number
+                  - 'null'
+                  description: The ID of the group to move the page to, or null to remove it from all
+                    groups.
       responses:
-        "200": { description: Updated, content: { application/json: { schema: { $ref: '#/components/schemas/Page' } } } }
+        '201':
+          description: Created. The page was successfully updated.
+        '400':
+          description: Bad Request. Invalid input parameters or the page is already in the specified group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user doesn't have necessary permissions to update the page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified page, workspace, or group could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     delete:
       summary: Delete page
+      description: Delete a specific page from a workspace. Pages with running experiments cannot be deleted.
+        All personalizations and the default experience are cascade deleted.
       operationId: deletePage
-      responses:
-        "204": { description: Deleted }
-  /workspaces/{workspaceId}/pages/json:
-    parameters:
+      tags:
+      - Pages
+      parameters:
+      - *id001
       - in: path
-        name: workspaceId
+        name: pageId
         required: true
-        schema: { type: string }
+        description: The ID of the page to delete.
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Success. The page was deleted successfully.
+        '401':
+          description: Unauthorized. Missing/invalid authorization header, user not found, invalid token,
+            or access denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. Cannot delete page due to restrictions (page owner frozen, visitor overlimit
+            exceeded, or running experiments).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified page or workspace could not be found, or the page doesn't
+            belong to the workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/pages/{pageId}/publication:
+    post:
+      summary: Publish a page
+      description: Publish a page. Publishing and unpublishing a page via the API clears scheduling for
+        that page.
+      operationId: publishPage
+      tags:
+      - Pages
+      parameters:
+      - *id001
+      - in: path
+        name: pageId
+        required: true
+        description: The ID of the page to publish.
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - publicationMethod
+              properties:
+                targetUrl:
+                  type:
+                  - string
+                  - 'null'
+                  description: The URL where the page will be published. Must be null for wordpress or
+                    drupal.
+                publicationMethod:
+                  type: string
+                  description: The method of publication.
+                  enum:
+                  - wordpress
+                  - drupal
+                  - customDomain
+                  - freeDomain
+      responses:
+        '202':
+          description: Accepted. The request has been accepted for processing.
+        '400':
+          description: Bad Request. Invalid input parameters or publication method not permitted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. Published pages limit exceeded or the user doesn't have necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified page was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected error occurred or publish setup not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable. Entity-related exception occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update published page URL
+      description: Updates the URL of an already published page without having to unpublish it first.
+        With the freeDomain method the URL follows the pattern name.pagedemo.co.
+      operationId: updatePublishedPageUrl
+      tags:
+      - Pages
+      parameters:
+      - *id001
+      - in: path
+        name: pageId
+        required: true
+        description: The ID of the published page to update.
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - targetUrl
+              - publicationMethod
+              properties:
+                targetUrl:
+                  type: string
+                  description: The new URL for the published page.
+                publicationMethod:
+                  type: string
+                  description: The publication method.
+                  enum:
+                  - customDomain
+                  - freeDomain
+                  - wordpress
+                  - drupal
+      responses:
+        '202':
+          description: Accepted. The request has been accepted for processing.
+        '400':
+          description: Bad Request. Invalid input parameters or publication method not permitted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. Page is not published, page has running experiments, or the user doesn't
+            have necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified page was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. The server is rejecting requests due to an excessive rate of
+            requests. Slow down and retry after some time.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected error occurred or publish setup not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Unpublish a page
+      description: Unpublishes a previously published page. Publishing and unpublishing a page via the
+        API clears scheduling for that page.
+      operationId: unpublishPage
+      tags:
+      - Pages
+      parameters:
+      - *id001
+      - in: path
+        name: pageId
+        required: true
+        description: The ID of the page to unpublish.
+        schema:
+          type: number
+      responses:
+        '201':
+          description: Created. The page was successfully unpublished.
+        '400':
+          description: Bad Request. The page is not published.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have the necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified page was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /pages/search:
+    get:
+      summary: Search pages globally
+      description: Search for pages across all workspaces the authenticated user has access to, by ID,
+        title, or URL.
+      operationId: searchPages
+      tags:
+      - Pages
+      parameters:
+      - *id002
+      - in: query
+        name: id
+        required: false
+        description: Filter results by page ID.
+        schema:
+          type: number
+      - in: query
+        name: title
+        required: false
+        description: Filter results by page title (case-insensitive).
+        schema:
+          type: string
+      - in: query
+        name: url
+        required: false
+        description: Filter results by published URL.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Page'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '400':
+          description: Bad request. Invalid parameters provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/pages/json:
     post:
       summary: Create page from JSON
+      description: Create a new page by importing an Instapage JSON file. Only standard pages are supported;
+        AMP pages cannot be created via this method.
       operationId: createPageFromJson
+      tags:
+      - Pages
+      parameters:
+      - *id001
       requestBody:
         required: true
         content:
           application/json:
-            schema: { type: object }
+            schema:
+              type: object
+              required:
+              - title
+              - content
+              properties:
+                title:
+                  type: string
+                  maxLength: 255
+                  description: The title of the page to create (maximum 255 characters).
+                content:
+                  type: array
+                  description: Array of page variations containing the page structure.
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        description: Unique identifier for the page variation.
+                      page_blocks:
+                        type: array
+                        description: Array of page block objects.
+                        items:
+                          type: object
+                      elements:
+                        type: array
+                        description: Array of page element objects.
+                        items:
+                          type: object
+                      type:
+                        type: number
+                        description: Type identifier for the page variation.
+                      variation_name:
+                        type: string
+                        description: Name of the variation (e.g. "Control").
+                      is_amp:
+                        type:
+                        - boolean
+                        - 'null'
+                        description: Must not be set to true; AMP pages are not supported.
       responses:
-        "201": { description: Created }
+        '200':
+          description: The request was processed successfully and the page was created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      pageId:
+                        type: number
+                        description: The ID of the created page.
+                      workspaceId:
+                        type: number
+                        description: The ID of the workspace containing the page.
+                      title:
+                        type: string
+                        description: The title of the created page.
+        '400':
+          description: Bad request. Invalid input parameters, title too long, or invalid content structure.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. User doesn't have permission to create pages in this workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified workspace could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /workspaces/{workspaceId}/pages/{pageId}/json:
-    parameters:
-      - in: path
-        name: workspaceId
-        required: true
-        schema: { type: string }
-      - in: path
-        name: pageId
-        required: true
-        schema: { type: string }
     get:
       summary: Export page as JSON
-      operationId: exportPageJson
-      responses:
-        "200": { description: JSON export }
-  /workspaces/{workspaceId}/pages/{pageId}/publication:
-    parameters:
-      - in: path
-        name: workspaceId
-        required: true
-        schema: { type: string }
+      description: Export a page as an Instapage JSON file for backup, migration, or template purposes.
+        AMP pages cannot be exported.
+      operationId: exportPageAsJson
+      tags:
+      - Pages
+      parameters:
+      - *id001
       - in: path
         name: pageId
         required: true
-        schema: { type: string }
-    post:
-      summary: Publish page
-      operationId: publishPage
+        description: The ID of the page to export.
+        schema:
+          type: number
       responses:
-        "200": { description: Published }
-    put:
-      summary: Change published URL
-      operationId: changePublishedUrl
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema: { type: object }
-      responses:
-        "200": { description: Updated }
-    delete:
-      summary: Unpublish page
-      operationId: unpublishPage
-      responses:
-        "204": { description: Unpublished }
+        '200':
+          description: The request was processed successfully and the page was exported.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      content:
+                        type: array
+                        description: Complete page structure with all variations.
+                        items:
+                          type: object
+                  meta:
+                    type: object
+                    properties:
+                      pageId:
+                        type: number
+                        description: The ID of the exported page.
+        '400':
+          description: Bad request. Attempting to export an AMP page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified page or workspace could not be found, or the page doesn't
+            belong to the workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /workspaces/{workspaceId}/groups:
-    parameters:
-      - in: path
-        name: workspaceId
-        required: true
-        schema: { type: string }
     get:
-      summary: List groups
+      summary: Get all groups
+      description: Retrieve all groups (folders) for a specific workspace.
       operationId: listGroups
+      tags:
+      - Groups
+      parameters:
+      - *id001
+      - *id002
       responses:
-        "200": { description: Groups }
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Group'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have the necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested workspace could not be located.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       summary: Create group
+      description: Create a new group (folder) in a workspace.
       operationId: createGroup
+      tags:
+      - Groups
+      parameters:
+      - *id001
       requestBody:
         required: true
         content:
           application/json:
-            schema: { type: object }
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: The name of the new group.
       responses:
-        "201": { description: Created }
-  /workspaces/{workspaceId}/collections:
-    parameters:
+        '201':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Group'
+        '400':
+          description: Bad request. Invalid name or other parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have the necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested workspace could not be located.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict. A group with the same name already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Payload Too Large. Group name exceeds character limit.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/groups/{groupId}:
+    put:
+      summary: Update group
+      description: Update the name of an existing group (folder) in a workspace.
+      operationId: updateGroup
+      tags:
+      - Groups
+      parameters:
+      - *id001
       - in: path
-        name: workspaceId
+        name: groupId
         required: true
-        schema: { type: string }
-    get:
-      summary: List collections
-      operationId: listCollections
-      responses:
-        "200": { description: Collections }
-  /workspaces/{workspaceId}/submissions:
-    parameters:
-      - in: path
-        name: workspaceId
+        description: The ID of the group to update.
+        schema:
+          type: number
+      requestBody:
         required: true
-        schema: { type: string }
-    get:
-      summary: Retrieve form submissions
-      operationId: listSubmissions
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: New name for the group.
       responses:
-        "200": { description: Submissions }
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Group'
+        '400':
+          description: Bad request. Invalid name or other parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have the necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The group or workspace could not be located.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict. A group with the same name already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Payload Too Large. Group name exceeds character limit.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     delete:
-      summary: Delete submissions
-      operationId: deleteSubmissions
-      responses:
-        "204": { description: Deleted }
-  /workspaces/{workspaceId}/domains:
-    parameters:
+      summary: Delete group
+      description: Delete an empty group (folder) from a workspace.
+      operationId: deleteGroup
+      tags:
+      - Groups
+      parameters:
+      - *id001
       - in: path
-        name: workspaceId
+        name: groupId
         required: true
-        schema: { type: string }
-    get:
-      summary: List domains
-      operationId: listDomains
+        description: The ID of the group to delete.
+        schema:
+          type: number
       responses:
-        "200": { description: Domains }
+        '200':
+          description: The request was processed successfully and the group was deleted.
+        '400':
+          description: Bad request. Group contains pages and cannot be deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have the necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The group or workspace could not be located.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/pages/{pageId}/personalizations:
+    get:
+      summary: Get all personalizations
+      description: Retrieve all personalizations (personalized experiences) for a specific page.
+      operationId: listPersonalizations
+      tags:
+      - Personalizations
+      parameters:
+      - *id001
+      - in: path
+        name: pageId
+        required: true
+        description: The ID of the page to retrieve personalizations for.
+        schema:
+          type: number
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Personalization'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified workspace or page could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/collections:
+    get:
+      summary: Get all collections
+      description: Retrieve all collections for a specific workspace.
+      operationId: listCollections
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Collection'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace not found or deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/collections/{collectionId}:
+    get:
+      summary: Get single collection
+      description: Retrieve a single collection by its ID for a specific workspace.
+      operationId: getCollection
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - in: path
+        name: collectionId
+        required: true
+        description: The ID of the collection to retrieve.
+        schema:
+          type: number
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Collection'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace or collection not found or deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/collections/{collectionId}/collection-pages:
+    get:
+      summary: Get collection pages
+      description: Retrieve a list of collection pages within a given collection.
+      operationId: listCollectionPages
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - in: path
+        name: collectionId
+        required: true
+        description: The ID of the collection to retrieve pages for.
+        schema:
+          type: number
+      - *id002
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CollectionPage'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace or collection does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Add new collection page
+      description: Adds a new collection page to an existing collection. The token must have at least
+        editor permissions for the workspace.
+      operationId: createCollectionPage
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - in: path
+        name: collectionId
+        required: true
+        description: The ID of the collection to add the page to.
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: The name of the new collection page, displayed in the collection dashboard.
+                urlSuffix:
+                  type:
+                  - string
+                  - 'null'
+                  description: An optional URL suffix for the collection page. If not provided, a default
+                    suffix is generated.
+                placeholders:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        maxLength: 255
+                        description: The name of the placeholder, as defined in the collection template.
+                      type:
+                        type: string
+                        enum:
+                        - text
+                        - image
+                        description: The type of the placeholder.
+                      valueObject:
+                        type: object
+                        description: An object containing the value for the placeholder. The structure
+                          depends on the placeholder's type.
+                        properties:
+                          textValue:
+                            type:
+                            - string
+                            - 'null'
+                            maxLength: 65000
+                            description: For text placeholders, the text content.
+                          mediaIndexId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: For image placeholders, the ID of an image that belongs to the
+                              workspace.
+      responses:
+        '201':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CollectionPage'
+        '400':
+          description: Bad Request. The request was unacceptable, often due to missing or invalid parameters/body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. Token refused or access is not allowed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace or collection does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/collections/{collectionId}/collection-pages/{collectionPageId}/publication:
+    post:
+      summary: Publish collection page
+      description: Publish a specific collection page within a collection, making it live and accessible
+        to users.
+      operationId: publishCollectionPage
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - in: path
+        name: collectionId
+        required: true
+        description: The ID of the collection containing the page.
+        schema:
+          type: number
+      - in: path
+        name: collectionPageId
+        required: true
+        description: The ID of the collection page to publish.
+        schema:
+          type: number
+      responses:
+        '202':
+          description: Collection page has been successfully added to the publication and will be available
+            shortly.
+        '400':
+          description: Bad Request. Collection page is already published, data validation failed, or another
+            validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. Collection page addition limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace, collection, or collection page not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Unpublish collection page
+      description: Unpublish a specific collection page within a collection, taking it offline.
+      operationId: unpublishCollectionPage
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - in: path
+        name: collectionId
+        required: true
+        description: The ID of the collection containing the page.
+        schema:
+          type: number
+      - in: path
+        name: collectionPageId
+        required: true
+        description: The ID of the collection page to unpublish.
+        schema:
+          type: number
+      responses:
+        '202':
+          description: The collection page was unpublished successfully.
+        '404':
+          description: Workspace, collection, or collection page not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict. Collection page cannot be unpublished (e.g. already unpublished).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/collections/{collectionId}/collection-pages/{collectionPageId}:
+    delete:
+      summary: Delete collection page
+      description: Delete a specific collection page from a workspace.
+      operationId: deleteCollectionPage
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - in: path
+        name: collectionId
+        required: true
+        description: The ID of the collection containing the page.
+        schema:
+          type: number
+      - in: path
+        name: collectionPageId
+        required: true
+        description: The ID of the collection page to delete.
+        schema:
+          type: number
+      responses:
+        '204':
+          description: Success. The collection page was deleted successfully.
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. Cannot delete page due to restrictions (e.g. the page owner's account
+            is frozen).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. Specified collection page, collection or workspace could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/experiments:
+    get:
+      summary: Get all experiments
+      description: Retrieve all experiments for a specific workspace, with optional filtering by status.
+      operationId: listExperiments
+      tags:
+      - Experiments
+      parameters:
+      - *id001
+      - in: query
+        name: status[]
+        required: false
+        description: Filter experiments by status. Can include multiple values.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - DRAFT
+            - RUNNING
+            - ENDED
+            - ARCHIVED
+      - *id002
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Experiment'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested resource could not be located.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /workspaces/{workspaceId}/analytics:
-    parameters:
-      - in: path
-        name: workspaceId
-        required: true
-        schema: { type: string }
-    get:
-      summary: Get analytics data
+    post:
+      summary: Get statistical data
+      description: Retrieve statistical data related to pages and experiences in bulk. All dates are in
+        UTC; daily, monthly and yearly grouping windows are aligned to UTC.
       operationId: getAnalytics
+      tags:
+      - Analytics
+      parameters:
+      - *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pages:
+                  type: array
+                  maxItems: 100
+                  description: Specifies the pages for which the API should return statistical data. Up
+                    to 100 page IDs per request.
+                  items:
+                    type: number
+                interval:
+                  type: string
+                  default: monthly
+                  enum:
+                  - daily
+                  - hourly
+                  - monthly
+                  - yearly
+                  description: Time interval for aggregating data.
+                device:
+                  type: string
+                  default: any
+                  enum:
+                  - any
+                  - desktop
+                  - mobile
+                  description: Device type filter.
+                timeframe:
+                  type: object
+                  properties:
+                    start:
+                      type: number
+                      default: 0
+                      description: Starting timestamp (in seconds) for fetching data.
+                    end:
+                      type: number
+                      description: Ending timestamp (in seconds) for the data retrieval period. Defaults
+                        to the current time.
+                traffic:
+                  type: string
+                  default: blended
+                  enum:
+                  - blended
+                  - organic
+                  - paid
+                  description: Type of traffic to include.
+                grouping:
+                  type: array
+                  description: Additional grouping for the data.
+                  items:
+                    type: string
+                    enum:
+                    - pageId
+                    - variationId
+                visited:
+                  type: number
+                  description: Filters data based on unique actions. 1 includes only returning visitors;
+                    0 includes only unique actions.
       responses:
-        "200": { description: Analytics }
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AnalyticsRow'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have the necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested resource could not be located.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/submissions:
+    post:
+      summary: Retrieve form submissions
+      description: Fetch form submission data from specified pages, with optional filtering by time range.
+        Capped at 100 submissions per page; use nextPageToken to page through results.
+      operationId: retrieveFormSubmissions
+      tags:
+      - Form Submissions
+      parameters:
+      - *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pages:
+                  type: array
+                  maxItems: 100
+                  description: A list of page IDs to filter form submissions. Up to 100 page IDs per request.
+                  items:
+                    type: number
+                timeframe:
+                  type: object
+                  properties:
+                    start:
+                      type: number
+                      description: Start of the time range for filtering leads, specified in seconds.
+                    end:
+                      type: number
+                      description: End of the time range for filtering leads, specified in seconds.
+                nextPageToken:
+                  type:
+                  - string
+                  - 'null'
+                  description: Token for pagination; retrieves the next set of form submissions when provided.
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Submission'
+                  meta:
+                    type: object
+                    properties:
+                      nextPageToken:
+                        type:
+                        - string
+                        - 'null'
+                        description: Token for fetching the next page of submissions, or null if there
+                          is no next page.
+                      limit:
+                        type: number
+                        description: Maximum number of submissions returned per page.
+        '400':
+          description: Bad request. Some filter parameters are most likely not valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have the necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested resource could not be located.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete form submissions
+      description: Permanently delete form submissions from specified pages. Between 1 and 100 submission
+        IDs per request. Deletion is irreversible.
+      operationId: deleteFormSubmissions
+      tags:
+      - Form Submissions
+      parameters:
+      - *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - submissions
+              properties:
+                submissions:
+                  type: array
+                  minItems: 1
+                  maxItems: 100
+                  description: An array of submission IDs to delete.
+                  items:
+                    type: string
+      responses:
+        '204':
+          description: The submissions were deleted successfully.
+        '400':
+          description: Bad request. The input is invalid (e.g. empty or more than 100 submission IDs).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have the necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested resource could not be located.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/domains:
+    get:
+      summary: Get all domains
+      description: Retrieve all custom domains for a specific workspace.
+      operationId: listDomains
+      tags:
+      - Domains
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Domain'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials, or you don't have access
+            to the workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified workspace could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. The server is rejecting requests due to an excessive rate of
+            requests. Slow down and retry after some time.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/assets/images/folders:
+    get:
+      summary: Get image folders
+      description: Get the list of image asset folders in a given workspace.
+      operationId: listImageFolders
+      tags:
+      - Assets
+      parameters:
+      - *id001
+      - *id002
+      responses:
+        '200':
+          description: OK. The folders were retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ImageFolder'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '400':
+          description: Bad request. The request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have permission to access this resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified workspace could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An error occurred on the server that prevented the folders
+            from being retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/assets/images/folders/{folderId}/items:
+    get:
+      summary: Get images in folder
+      description: Get the list of images in a specific folder within a workspace's image assets.
+      operationId: listImagesInFolder
+      tags:
+      - Assets
+      parameters:
+      - *id001
+      - in: path
+        name: folderId
+        required: true
+        description: The ID of the folder to retrieve images from.
+        schema:
+          type: number
+      - *id002
+      responses:
+        '200':
+          description: OK. The images were retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Image'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '400':
+          description: Bad request. The request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have permission to access this resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The folder could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An error occurred on the server that prevented the images
+            from being retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Upload image
+      description: Upload an image to a specific folder within a workspace's image assets, using multipart/form-data
+        with the file field named 'image'.
+      operationId: uploadImage
+      tags:
+      - Assets
+      parameters:
+      - *id001
+      - in: path
+        name: folderId
+        required: true
+        description: The ID of the folder to upload the image to.
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - image
+              properties:
+                image:
+                  type: string
+                  format: binary
+                  description: The image file to upload.
+      responses:
+        '201':
+          description: Created. The image was uploaded successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      imageId:
+                        type: number
+                        description: Unique identifier of the uploaded image.
+                      folderId:
+                        type: number
+                        description: ID of the folder the image was uploaded to.
+                      title:
+                        type: string
+                        description: Filename of the uploaded image.
+        '400':
+          description: Bad Request. Invalid input parameters, wrong file format, or file too large.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. User doesn't have necessary permissions for this folder.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified workspace or folder could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: API key
+      bearerFormat: Personal API Token
+      description: 'Personal API token generated from Instapage account settings, sent as `Authorization:
+        Bearer <token>`.'
   schemas:
+    Pagination:
+      type: object
+      properties:
+        currentPage:
+          type: number
+          description: Number of the current page of results.
+        perPage:
+          type: number
+          description: Number of items per page.
+        totalItemsCount:
+          type: number
+          description: Total number of items.
+        totalPagesCount:
+          type: number
+          description: Total number of pages.
+        nextPage:
+          type:
+          - number
+          - 'null'
+          description: Number of the next page, null if there is no next page.
+        previousPage:
+          type:
+          - number
+          - 'null'
+          description: Number of the previous page, null if there is no previous page.
+    PaginationMeta:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Error:
+      type: object
+      description: Error envelope returned by the Instapage API.
+      properties:
+        title:
+          type: string
+          description: The type of error that occurred.
+        details:
+          type: string
+          description: A human-readable description of the error.
+        meta:
+          type: object
+          properties:
+            requestedUserId:
+              type: number
+              description: ID of the user who made the request.
+            requestedWorkspaceId:
+              type: number
+              description: ID of the workspace involved.
+            requestedPageId:
+              type: number
+              description: ID of the page involved, when the error concerns a page.
     Workspace:
       type: object
       properties:
-        id: { type: string }
-        name: { type: string }
-        created_at: { type: string, format: date-time }
+        workspaceId:
+          type: number
+          description: Unique identifier of the workspace.
+        ownerId:
+          type: number
+          description: Identifier of the workspace owner.
+        workspaceName:
+          type: string
+          description: Name of the workspace.
+        accessLevel:
+          type: string
+          description: User's access level to the workspace.
+        createdAt:
+          type: number
+          description: Creation date of the workspace in UNIX timestamp format.
+    TeamMember:
+      type: object
+      properties:
+        userId:
+          type: number
+          description: Unique identifier of the team member.
+        email:
+          type: string
+          description: Email address of the team member.
+        invitedAt:
+          type:
+          - number
+          - 'null'
+          description: Timestamp when the team member was invited (null if owner).
+        fullName:
+          type:
+          - string
+          - 'null'
+          description: Full name of the team member. Null if invitationStatus is 'pending'.
+        accessLevel:
+          type: string
+          description: Access level of the team member.
+          enum:
+          - viewer
+          - editor
+          - manager
+          - owner
+        inheritOwnerContextInPublicApi:
+          type: boolean
+          description: Whether the member's public API usage should consume the owner's quota.
+        invitationStatus:
+          type: string
+          description: Status of the invitation.
+          enum:
+          - accepted
+          - pending
+        lastLoginAt:
+          type:
+          - number
+          - 'null'
+          description: Timestamp of the team member's last login.
+        lastActivityInWorkspaceAt:
+          type:
+          - number
+          - 'null'
+          description: Timestamp of the team member's last activity in the workspace.
     Page:
       type: object
       properties:
-        id: { type: string }
-        name: { type: string }
-        url: { type: string, format: uri }
-        published: { type: boolean }
-        created_at: { type: string, format: date-time }
-        updated_at: { type: string, format: date-time }
+        id:
+          type: number
+          description: Unique identifier of the page.
+        title:
+          type: string
+          description: Title of the page.
+        url:
+          type:
+          - string
+          - 'null'
+          description: URL where the page is published (null if unpublished).
+        publishStatus:
+          type: string
+          description: Current publish status.
+          enum:
+          - published
+          - unpublished
+          - publishedHasChanges
+        publishMethod:
+          type:
+          - string
+          - 'null'
+          description: Method used for publishing.
+          enum:
+          - cmsPlugin
+          - customDomain
+          - pageDemo
+          - null
+        createdAt:
+          type: number
+          description: Creation timestamp (UNIX format).
+        updatedAt:
+          type: number
+          description: Last update timestamp (UNIX format).
+        publishedAt:
+          type:
+          - number
+          - 'null'
+          description: Publication timestamp (UNIX format), null if unpublished.
+        isDeleted:
+          type: boolean
+          description: Indicates if the page has been deleted.
+        pageType:
+          type: string
+          description: Type of page.
+          enum:
+          - amp
+          - standard
+          - wordpress
+          - drupal
+        totalPersonalizedExperienceCount:
+          type: number
+          description: Number of personalized experiences for this page.
+        isScheduled:
+          type: boolean
+          description: Indicates if the page has scheduled publishing.
+        groupId:
+          type:
+          - number
+          - 'null'
+          description: Id of the group the page belongs to.
+    Group:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Unique identifier of the group (folder).
+        name:
+          type: string
+          description: Name of the group (folder).
+        pages:
+          type: array
+          description: IDs of the pages in the group.
+          items:
+            type: number
+    Personalization:
+      type: object
+      properties:
+        pageId:
+          type: number
+          description: Unique identifier of the page.
+        personalizationId:
+          type: string
+          description: Unique identifier for the personalization experience.
+        title:
+          type: string
+          description: Title of the page.
+        publishStatus:
+          type: string
+          description: Current publish status of the page.
+        createdAt:
+          type: number
+          description: Creation timestamp of the page (UNIX format).
+        url:
+          type: string
+          description: URL where the page is published.
+        publishMethod:
+          type: string
+          description: Method used for publishing the page.
+        isDefaultPersonalization:
+          type: boolean
+          description: Indicates whether this is the default personalization experience.
+        isScheduled:
+          type: boolean
+          description: Indicates whether the page is scheduled for publication.
+    CollectionPlaceholder:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the placeholder.
+        type:
+          type: string
+          description: Type of the placeholder.
+          enum:
+          - text
+          - image
+        defaultValueObject:
+          type: object
+          description: Default value for the placeholder. Structure varies based on type.
+          properties:
+            textValue:
+              type:
+              - string
+              - 'null'
+              description: Text value, present if type is 'text'.
+            mediaIndexId:
+              type:
+              - number
+              - 'null'
+              description: Id of the image used, present if type is 'image'.
+            src:
+              type:
+              - string
+              - 'null'
+              description: Source URL of the image, present if type is 'image'.
+            thumbnail:
+              type:
+              - string
+              - 'null'
+              description: Thumbnail URL of the image, present if type is 'image'.
+            title:
+              type:
+              - string
+              - 'null'
+              description: Title of the image, present if type is 'image'.
+    Collection:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Unique identifier of the collection.
+        name:
+          type: string
+          description: Name of the collection.
+        placeholders:
+          type: array
+          description: List of placeholders for the collection.
+          items:
+            $ref: '#/components/schemas/CollectionPlaceholder'
+        pagesCount:
+          type: object
+          description: Count of pages in the collection.
+          properties:
+            all:
+              type: number
+              description: Total number of pages in the collection.
+            published:
+              type: number
+              description: Number of published pages in the collection.
+    CollectionPage:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Unique identifier of the collection page.
+        name:
+          type: string
+          description: Name of the collection page.
+        status:
+          type: string
+          description: Publication status of the collection page.
+          enum:
+          - not_published
+          - published
+          - published_has_changes
+        url:
+          type: string
+          description: Full URL of the collection page.
+        draftUrlSuffix:
+          type:
+          - string
+          - 'null'
+          description: URL suffix for the draft version of the page.
+        publicUrlSuffix:
+          type:
+          - string
+          - 'null'
+          description: URL suffix for the published version of the page.
+        draftBaseUrl:
+          type: string
+          description: Base URL for draft pages within the collection.
+        publicBaseUrl:
+          type:
+          - string
+          - 'null'
+          description: Base URL for published pages within the collection.
+    Experiment:
+      type: object
+      properties:
+        experimentId:
+          type: number
+          description: Unique identifier for the experiment.
+        experimentName:
+          type: string
+          description: Name of the experiment.
+        pageId:
+          type: number
+          description: ID of the page associated with the experiment.
+        publishedPageUrl:
+          type: string
+          description: URL where the experiment page is published.
+        experimentType:
+          type: string
+          description: Type of experiment.
+          enum:
+          - Manual
+          - AI
+        experimentStatus:
+          type: string
+          description: Current status of the experiment.
+          enum:
+          - DRAFT
+          - RUNNING
+          - ENDED
+          - ARCHIVED
+        createdAt:
+          type: number
+          description: Creation timestamp (UNIX format).
+        createdBy:
+          type: number
+          description: User ID of the experiment creator.
+        startedAt:
+          type:
+          - number
+          - 'null'
+          description: Start timestamp (UNIX format), null if not started.
+        endedAt:
+          type:
+          - number
+          - 'null'
+          description: End timestamp (UNIX format), null if not ended.
+    AnalyticsRow:
+      type: object
+      properties:
+        key:
+          type: object
+          description: Object containing unique identifiers. Structure varies based on the request grouping.
+          properties:
+            pageId:
+              type: number
+              description: Page ID, part of the key.
+            date:
+              type: number
+              description: Date in UNIX timestamp (seconds), part of the key.
+            variationId:
+              type: number
+              description: Variation ID, part of the key.
+        visit:
+          type: number
+          description: Total number of visits associated with the key.
+        conversion:
+          type: number
+          description: Total number of conversions associated with the key.
+        leads:
+          type: number
+          description: Total number of leads associated with the key.
+    Submission:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the submission.
+        pageId:
+          type: number
+          description: ID of the page related to the submission.
+        variationName:
+          type: string
+          description: Name of the variation used for the submission.
+        variationCustomName:
+          type: string
+          description: Custom name of the variation used for the submission.
+        createdAt:
+          type: number
+          description: Timestamp (in UNIX seconds) of when the submission was created.
+        fields:
+          type: object
+          description: Key-value pairs representing submission fields.
+          additionalProperties: true
+    Domain:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Unique identifier of the domain.
+        subdomain:
+          type: string
+          description: Subdomain part (preceding the main domain).
+        domain:
+          type: string
+          description: Main domain name.
+        connection:
+          type: string
+          description: Connection status of the domain.
+          enum:
+          - connected
+          - accessRequested
+          - accessRequestDenied
+          - accessProvided
+        ssl:
+          type: string
+          description: SSL certificate status.
+        custom404:
+          type:
+          - object
+          - 'null'
+          description: Custom 404 page configuration, null if not configured.
+          properties:
+            type:
+              type: string
+              enum:
+              - outside
+              - landingpage
+              description: Type of 404 page configuration.
+            id:
+              type:
+              - number
+              - 'null'
+              description: Id of the landing page associated with the 404 page configuration.
+            url:
+              type:
+              - string
+              - 'null'
+              description: Url of the outside website associated with the 404 page configuration.
+    ImageFolder:
+      type: object
+      properties:
+        folderId:
+          type:
+          - number
+          - string
+          description: Unique identifier of the folder.
+        folderName:
+          type: string
+          description: Name of the folder.
+        systemFolder:
+          type: boolean
+          description: Indicates if the folder is a system folder and cannot be deleted.
+        readOnly:
+          type: boolean
+          description: Indicates if the folder is read-only. Uploads and image deletion are prohibited
+            in this mode.
+    Image:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Unique identifier of the image.
+        folderId:
+          type: number
+          description: ID of the folder containing the image.
+        uri:
+          type: string
+          description: Full URL to the image.
+        thumbnail:
+          type: string
+          description: URL to the thumbnail version of the image.
+        fileName:
+          type: string
+          description: Original filename of the image.
+        altText:
+          type:
+          - string
+          - 'null'
+          description: Alternative text for the image, null if not set.

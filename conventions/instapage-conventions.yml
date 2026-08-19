@@ -1,0 +1,162 @@
+generated: '2026-08-13'
+method: searched
+source: https://devdocs.instapage.com/
+docs: https://devdocs.instapage.com/
+summary: >-
+  Cross-cutting request/response semantics for the Instapage Public API v1, captured from the
+  published API reference and cross-checked against the transcribed OpenAPI in openapi/.
+authentication:
+  style: bearer-token
+  header: Authorization
+  format: 'Bearer <personal API token>'
+  artifact: authentication/instapage-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  base_url: https://api.instapage.com/v1
+  header_negotiation: false
+  date_versioning: false
+  note: >-
+    The version lives in the path only. Instapage publishes no version-header or date-pinning
+    mechanism; changes are announced in the dated API changelog.
+  artifact: lifecycle/instapage-lifecycle.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    Instapage documents no idempotency key, no request-replay window and no safe-retry contract for
+    write operations. Retries after a 429 are documented, but the retried call is a plain re-issue —
+    an agent retrying a POST /workspaces or a page publication can duplicate the effect. This is a
+    genuine absence, recorded so it is not mistaken for an unchecked field.
+pagination:
+  styles:
+  - id: page-number
+    default: true
+    applies_to: >-
+      workspaces, pages, page search, groups, collections, collection pages, experiments, domains,
+      image folders, images
+    request:
+      parameter: page
+      location: query
+      type: number
+      default: 1
+    response:
+      envelope: meta.pagination
+      fields:
+      - currentPage
+      - perPage
+      - totalItemsCount
+      - totalPagesCount
+      - nextPage
+      - previousPage
+      terminator: nextPage is null
+  - id: opaque-cursor
+    default: false
+    applies_to: form submissions (POST /workspaces/{workspaceId}/submissions)
+    request:
+      parameter: nextPageToken
+      location: request body
+      type: string
+    response:
+      envelope: meta
+      fields:
+      - nextPageToken
+      - limit
+      terminator: nextPageToken is null, or fewer results returned than limit
+      page_size: 100 submissions per page (capped)
+  unpaginated:
+  - GET /workspaces/{workspaceId}/team-members  # explicitly documented as having no pagination
+response_envelope:
+  collection: '{ "data": [ ... ], "meta": { "pagination": { ... } } }'
+  single: '{ "data": { ... } }'
+  note: Every documented success response wraps the payload in a top-level `data` key.
+error_envelope:
+  format: proprietary
+  rfc9457: false
+  media_type: application/json
+  shape: '{ "title": <string>, "details": <string>, "meta": { ... } }'
+  fields:
+  - name: title
+    description: The type of error that occurred.
+  - name: details
+    description: A human-readable description of the error.
+  - name: meta.requestedUserId
+    description: ID of the user who made the request.
+  - name: meta.requestedWorkspaceId
+    description: ID of the workspace involved.
+  - name: meta.requestedPageId
+    description: ID of the page involved, when the error concerns a page.
+  note: >-
+    There is no machine-readable error code — `title` is a human string, so agents must branch on the
+    HTTP status, not the body.
+  artifact: errors/instapage-problem-types.yml
+rate_limiting:
+  per_minute: 200 requests, per token AND per IP
+  daily_quota: plan-dependent, resets 00:00 UTC
+  status: 429
+  headers:
+  - Retry-After
+  artifact: rate-limits/instapage-rate-limits.yml
+request_tracing:
+  request_id_header: null
+  note: Instapage documents no request-id / correlation-id response header.
+filtering:
+  style: query-parameter
+  timestamps: UNIX seconds
+  examples:
+  - createdAfter / createdBefore / updatedAfter / updatedBefore / publishedAfter / publishedBefore on
+    GET /workspaces/{workspaceId}/pages
+  - 'status[] repeated array parameter on GET /workspaces/{workspaceId}/experiments'
+  - withGroupId on GET /workspaces/{workspaceId}/pages, where the literal string 'null' selects
+    ungrouped pages
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata_fields:
+  supported: false
+  note: >-
+    No customer-writable `metadata` map on any resource. `meta` in a response is the pagination /
+    error envelope, not user data.
+bulk_operations:
+  supported: true
+  operations:
+  - POST /workspaces/{workspaceId}/team-members    # bulk invite, array body
+  - PUT /workspaces/{workspaceId}/team-members     # bulk role update, array body
+  - DELETE /workspaces/{workspaceId}/team-members  # bulk removal, array body
+  - POST /workspaces/{workspaceId}/analytics       # up to 100 page IDs
+  - POST /workspaces/{workspaceId}/submissions     # up to 100 page IDs
+  - DELETE /workspaces/{workspaceId}/submissions   # 1-100 submission IDs, irreversible
+  note: >-
+    Bulk write endpoints take a bare JSON ARRAY as the request body rather than an object with a
+    collection key.
+content_types:
+  request: application/json (multipart/form-data for image upload)
+  response: application/json
+time:
+  format: UNIX timestamp
+  precision: seconds
+  timezone: UTC
+  note: >-
+    Analytics aggregation windows (daily/monthly/yearly) are aligned to UTC.
+status_code_conventions:
+  note: >-
+    Status code use is uneven and an agent should not assume REST defaults. Several write operations
+    documented as updates or removals return 201 Created (PATCH page, PUT/DELETE team-members,
+    DELETE page publication); publication is asynchronous and returns 202 Accepted; deletes variously
+    return 200 or 204.
+  observed:
+    '200': read success, and several deletes
+    '201': create, and several update/remove operations
+    '202': accepted for asynchronous publication (page and collection page)
+    '204': delete collection page, delete form submissions
+cross_links:
+  authentication: authentication/instapage-authentication.yml
+  errors: errors/instapage-problem-types.yml
+  lifecycle: lifecycle/instapage-lifecycle.yml
+  rate_limits: rate-limits/instapage-rate-limits.yml
+  data_model: data-model/instapage-data-model.yml
+x-evidence:
+- url: https://devdocs.instapage.com/
+  http_status: 200
+  fetched: '2026-08-13'

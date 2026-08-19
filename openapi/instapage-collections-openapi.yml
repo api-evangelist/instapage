@@ -1,0 +1,708 @@
+openapi: 3.1.0
+info:
+  title: Instapage Collections API
+  description: 'Collections are groups of pages sharing one template with placeholder-driven content,
+    plus the individual collection pages inside them.
+
+
+    The Instapage Public API is a REST API over the Instapage landing page and post-click optimization
+    platform. It exposes workspaces, team members, landing pages, page groups, personalized experiences,
+    collections and collection pages, experiments, analytics, form submissions (leads), custom domains
+    and image assets.
+
+
+    Authentication is a personal API token sent as an HTTP Bearer token in the Authorization header. A
+    personal token inherits all permissions from its creator and cannot exceed them; expired or revoked
+    tokens return 401. Rate limiting is 200 requests per minute enforced per token and per IP address,
+    on top of a daily plan quota that resets at 00:00 UTC; exceeding either returns 429 with a Retry-After
+    header.
+
+
+    List endpoints are page-number paginated via the `page` query parameter and return a `meta.pagination`
+    block; form submissions instead use an opaque `meta.nextPageToken` cursor. Errors are returned as
+    a `{title, details, meta}` envelope.
+
+
+    Instapage does not publish an OpenAPI description. This document was transcribed by API Evangelist
+    from the published API reference at https://devdocs.instapage.com/ and is not an official Instapage
+    artifact.'
+  version: '1'
+  contact:
+    name: Instapage Developer Docs
+    url: https://devdocs.instapage.com/
+  termsOfService: https://instapage.com/terms-of-service
+  x-provenance:
+    method: derived
+    source: https://devdocs.instapage.com/
+    generated: '2026-08-13'
+    note: Instapage publishes no OpenAPI. Transcribed from the published API reference; not an official
+      Instapage artifact.
+servers:
+- url: https://api.instapage.com/v1
+  description: Instapage Public API v1
+security:
+- BearerAuth: []
+tags:
+- name: Collections
+  description: Collections are groups of pages sharing one template with placeholder-driven content, plus
+    the individual collection pages inside them.
+paths:
+  /workspaces/{workspaceId}/collections:
+    get:
+      summary: Get all collections
+      description: Retrieve all collections for a specific workspace.
+      operationId: listCollections
+      tags:
+      - Collections
+      parameters:
+      - &id001
+        in: path
+        name: workspaceId
+        required: true
+        description: The ID of the workspace.
+        schema:
+          type: number
+      - &id002
+        in: query
+        name: page
+        required: false
+        description: Specifies which page to fetch. Used for pagination purposes.
+        schema:
+          type: number
+          default: 1
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Collection'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace not found or deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/collections/{collectionId}:
+    get:
+      summary: Get single collection
+      description: Retrieve a single collection by its ID for a specific workspace.
+      operationId: getCollection
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - in: path
+        name: collectionId
+        required: true
+        description: The ID of the collection to retrieve.
+        schema:
+          type: number
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Collection'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace or collection not found or deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/collections/{collectionId}/collection-pages:
+    get:
+      summary: Get collection pages
+      description: Retrieve a list of collection pages within a given collection.
+      operationId: listCollectionPages
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - in: path
+        name: collectionId
+        required: true
+        description: The ID of the collection to retrieve pages for.
+        schema:
+          type: number
+      - *id002
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CollectionPage'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace or collection does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Add new collection page
+      description: Adds a new collection page to an existing collection. The token must have at least
+        editor permissions for the workspace.
+      operationId: createCollectionPage
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - in: path
+        name: collectionId
+        required: true
+        description: The ID of the collection to add the page to.
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: The name of the new collection page, displayed in the collection dashboard.
+                urlSuffix:
+                  type:
+                  - string
+                  - 'null'
+                  description: An optional URL suffix for the collection page. If not provided, a default
+                    suffix is generated.
+                placeholders:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        maxLength: 255
+                        description: The name of the placeholder, as defined in the collection template.
+                      type:
+                        type: string
+                        enum:
+                        - text
+                        - image
+                        description: The type of the placeholder.
+                      valueObject:
+                        type: object
+                        description: An object containing the value for the placeholder. The structure
+                          depends on the placeholder's type.
+                        properties:
+                          textValue:
+                            type:
+                            - string
+                            - 'null'
+                            maxLength: 65000
+                            description: For text placeholders, the text content.
+                          mediaIndexId:
+                            type:
+                            - integer
+                            - 'null'
+                            description: For image placeholders, the ID of an image that belongs to the
+                              workspace.
+      responses:
+        '201':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CollectionPage'
+        '400':
+          description: Bad Request. The request was unacceptable, often due to missing or invalid parameters/body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. Token refused or access is not allowed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace or collection does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/collections/{collectionId}/collection-pages/{collectionPageId}/publication:
+    post:
+      summary: Publish collection page
+      description: Publish a specific collection page within a collection, making it live and accessible
+        to users.
+      operationId: publishCollectionPage
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - in: path
+        name: collectionId
+        required: true
+        description: The ID of the collection containing the page.
+        schema:
+          type: number
+      - in: path
+        name: collectionPageId
+        required: true
+        description: The ID of the collection page to publish.
+        schema:
+          type: number
+      responses:
+        '202':
+          description: Collection page has been successfully added to the publication and will be available
+            shortly.
+        '400':
+          description: Bad Request. Collection page is already published, data validation failed, or another
+            validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. Collection page addition limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Workspace, collection, or collection page not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Unpublish collection page
+      description: Unpublish a specific collection page within a collection, taking it offline.
+      operationId: unpublishCollectionPage
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - in: path
+        name: collectionId
+        required: true
+        description: The ID of the collection containing the page.
+        schema:
+          type: number
+      - in: path
+        name: collectionPageId
+        required: true
+        description: The ID of the collection page to unpublish.
+        schema:
+          type: number
+      responses:
+        '202':
+          description: The collection page was unpublished successfully.
+        '404':
+          description: Workspace, collection, or collection page not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict. Collection page cannot be unpublished (e.g. already unpublished).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /workspaces/{workspaceId}/collections/{collectionId}/collection-pages/{collectionPageId}:
+    delete:
+      summary: Delete collection page
+      description: Delete a specific collection page from a workspace.
+      operationId: deleteCollectionPage
+      tags:
+      - Collections
+      parameters:
+      - *id001
+      - in: path
+        name: collectionId
+        required: true
+        description: The ID of the collection containing the page.
+        schema:
+          type: number
+      - in: path
+        name: collectionPageId
+        required: true
+        description: The ID of the collection page to delete.
+        schema:
+          type: number
+      responses:
+        '204':
+          description: Success. The collection page was deleted successfully.
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. Cannot delete page due to restrictions (e.g. the page owner's account
+            is frozen).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. Specified collection page, collection or workspace could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Personal API Token
+      description: 'Personal API token generated from Instapage account settings, sent as `Authorization:
+        Bearer <token>`.'
+  schemas:
+    Pagination:
+      type: object
+      properties:
+        currentPage:
+          type: number
+          description: Number of the current page of results.
+        perPage:
+          type: number
+          description: Number of items per page.
+        totalItemsCount:
+          type: number
+          description: Total number of items.
+        totalPagesCount:
+          type: number
+          description: Total number of pages.
+        nextPage:
+          type:
+          - number
+          - 'null'
+          description: Number of the next page, null if there is no next page.
+        previousPage:
+          type:
+          - number
+          - 'null'
+          description: Number of the previous page, null if there is no previous page.
+    PaginationMeta:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Error:
+      type: object
+      description: Error envelope returned by the Instapage API.
+      properties:
+        title:
+          type: string
+          description: The type of error that occurred.
+        details:
+          type: string
+          description: A human-readable description of the error.
+        meta:
+          type: object
+          properties:
+            requestedUserId:
+              type: number
+              description: ID of the user who made the request.
+            requestedWorkspaceId:
+              type: number
+              description: ID of the workspace involved.
+            requestedPageId:
+              type: number
+              description: ID of the page involved, when the error concerns a page.
+    CollectionPlaceholder:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the placeholder.
+        type:
+          type: string
+          description: Type of the placeholder.
+          enum:
+          - text
+          - image
+        defaultValueObject:
+          type: object
+          description: Default value for the placeholder. Structure varies based on type.
+          properties:
+            textValue:
+              type:
+              - string
+              - 'null'
+              description: Text value, present if type is 'text'.
+            mediaIndexId:
+              type:
+              - number
+              - 'null'
+              description: Id of the image used, present if type is 'image'.
+            src:
+              type:
+              - string
+              - 'null'
+              description: Source URL of the image, present if type is 'image'.
+            thumbnail:
+              type:
+              - string
+              - 'null'
+              description: Thumbnail URL of the image, present if type is 'image'.
+            title:
+              type:
+              - string
+              - 'null'
+              description: Title of the image, present if type is 'image'.
+    Collection:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Unique identifier of the collection.
+        name:
+          type: string
+          description: Name of the collection.
+        placeholders:
+          type: array
+          description: List of placeholders for the collection.
+          items:
+            $ref: '#/components/schemas/CollectionPlaceholder'
+        pagesCount:
+          type: object
+          description: Count of pages in the collection.
+          properties:
+            all:
+              type: number
+              description: Total number of pages in the collection.
+            published:
+              type: number
+              description: Number of published pages in the collection.
+    CollectionPage:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Unique identifier of the collection page.
+        name:
+          type: string
+          description: Name of the collection page.
+        status:
+          type: string
+          description: Publication status of the collection page.
+          enum:
+          - not_published
+          - published
+          - published_has_changes
+        url:
+          type: string
+          description: Full URL of the collection page.
+        draftUrlSuffix:
+          type:
+          - string
+          - 'null'
+          description: URL suffix for the draft version of the page.
+        publicUrlSuffix:
+          type:
+          - string
+          - 'null'
+          description: URL suffix for the published version of the page.
+        draftBaseUrl:
+          type: string
+          description: Base URL for draft pages within the collection.
+        publicBaseUrl:
+          type:
+          - string
+          - 'null'
+          description: Base URL for published pages within the collection.

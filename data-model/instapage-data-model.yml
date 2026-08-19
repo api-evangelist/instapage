@@ -1,0 +1,122 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/instapage-openapi.yml
+docs: https://devdocs.instapage.com/
+summary: >-
+  Entity-relationship graph derived from the Instapage Public API path hierarchy, schema $refs and
+  id-reference fields. The workspace is the root tenant: almost every resource is addressed as
+  /workspaces/{workspaceId}/..., and IDs are numeric integers with no type prefix, so an ID is only
+  meaningful inside its workspace.
+id_convention:
+  type: numeric
+  prefixes: false
+  note: >-
+    Instapage uses bare numeric IDs (workspaceId, pageId, groupId, collectionId, collectionPageId,
+    folderId, experimentId, userId). Form submission IDs and personalizationId are strings. There is
+    no type-prefixed identifier scheme, so an agent cannot infer a resource type from an ID alone.
+entities:
+- name: Workspace
+  key: workspaceId
+  root: true
+  description: Top-level tenant container. Holds pages, integrations, domains and other assets.
+  operations: [listWorkspaces, getWorkspace, createWorkspace, renameWorkspace, deleteWorkspace]
+- name: TeamMember
+  key: userId
+  description: A person with access to a workspace, at viewer / editor / manager / owner level.
+  operations: [listTeamMembers, inviteTeamMembers, updateTeamMembers, removeTeamMembers]
+- name: Page
+  key: id
+  description: A landing page. Types are standard, amp, wordpress, drupal.
+  operations: [listPages, getPage, searchPages, updatePage, deletePage, publishPage,
+    updatePublishedPageUrl, unpublishPage, exportPageAsJson, createPageFromJson]
+- name: Group
+  key: id
+  description: A folder that organises pages inside a workspace. Must be empty to delete.
+  operations: [listGroups, createGroup, updateGroup, deleteGroup]
+- name: Personalization
+  key: personalizationId
+  description: A personalized experience variant of a page for an audience segment.
+  operations: [listPersonalizations]
+- name: Collection
+  key: id
+  description: A set of pages sharing one template, differentiated by named placeholders.
+  operations: [listCollections, getCollection]
+- name: CollectionPlaceholder
+  key: name
+  description: A named text or image slot in a collection template, with a default value object.
+  embedded_in: Collection
+- name: CollectionPage
+  key: id
+  description: An individual page inside a collection with its own URL and placeholder values.
+  operations: [listCollectionPages, createCollectionPage, publishCollectionPage,
+    unpublishCollectionPage, deleteCollectionPage]
+- name: Experiment
+  key: experimentId
+  description: A Manual or AI experiment on a page, in DRAFT / RUNNING / ENDED / ARCHIVED state.
+  operations: [listExperiments]
+- name: Submission
+  key: id
+  description: A lead captured by a form on a landing page. Carries arbitrary form fields.
+  pii: true
+  operations: [retrieveFormSubmissions, deleteFormSubmissions]
+- name: AnalyticsRow
+  key: key
+  description: An aggregated visit/conversion/lead row, keyed by pageId, date and/or variationId.
+  operations: [getAnalytics]
+- name: Domain
+  key: id
+  description: A custom domain connected to a workspace, with connection and SSL status.
+  operations: [listDomains]
+- name: ImageFolder
+  key: folderId
+  description: A folder of image assets in a workspace. May be a system folder or read-only.
+  operations: [listImageFolders]
+- name: Image
+  key: id
+  description: An uploaded image asset, with URI, thumbnail, filename and alt text.
+  operations: [listImagesInFolder, uploadImage]
+relationships:
+- {from: Workspace, to: TeamMember, type: has_many, via: 'path /workspaces/{workspaceId}/team-members'}
+- {from: Workspace, to: Page, type: has_many, via: 'path /workspaces/{workspaceId}/pages'}
+- {from: Workspace, to: Group, type: has_many, via: 'path /workspaces/{workspaceId}/groups'}
+- {from: Workspace, to: Collection, type: has_many, via: 'path /workspaces/{workspaceId}/collections'}
+- {from: Workspace, to: Experiment, type: has_many, via: 'path /workspaces/{workspaceId}/experiments'}
+- {from: Workspace, to: Domain, type: has_many, via: 'path /workspaces/{workspaceId}/domains'}
+- {from: Workspace, to: ImageFolder, type: has_many, via: 'path /workspaces/{workspaceId}/assets/images/folders'}
+- {from: Workspace, to: Submission, type: has_many, via: 'path /workspaces/{workspaceId}/submissions'}
+- {from: Workspace, to: TeamMember, type: belongs_to, via: 'field Workspace.ownerId -> TeamMember.userId', note: the workspace owner}
+- {from: Page, to: Group, type: belongs_to, via: 'field Page.groupId', nullable: true}
+- {from: Group, to: Page, type: has_many, via: 'field Group.pages[] (array of page IDs)'}
+- {from: Page, to: Personalization, type: has_many, via: 'path /workspaces/{workspaceId}/pages/{pageId}/personalizations'}
+- {from: Page, to: Personalization, type: has_many, via: 'field Page.totalPersonalizedExperienceCount', note: count only}
+- {from: Personalization, to: Page, type: belongs_to, via: 'field Personalization.pageId'}
+- {from: Experiment, to: Page, type: belongs_to, via: 'field Experiment.pageId'}
+- {from: Experiment, to: TeamMember, type: belongs_to, via: 'field Experiment.createdBy -> TeamMember.userId'}
+- {from: Submission, to: Page, type: belongs_to, via: 'field Submission.pageId'}
+- {from: AnalyticsRow, to: Page, type: belongs_to, via: 'field AnalyticsRow.key.pageId', nullable: true}
+- {from: Collection, to: CollectionPlaceholder, type: has_many, via: 'field Collection.placeholders[]'}
+- {from: Collection, to: CollectionPage, type: has_many, via: 'path .../collections/{collectionId}/collection-pages'}
+- {from: CollectionPlaceholder, to: Image, type: has_one, via: 'field defaultValueObject.mediaIndexId -> Image.id', nullable: true, note: image-type placeholders only}
+- {from: ImageFolder, to: Image, type: has_many, via: 'path .../assets/images/folders/{folderId}/items'}
+- {from: Image, to: ImageFolder, type: belongs_to, via: 'field Image.folderId'}
+- {from: Domain, to: Page, type: has_one, via: 'field Domain.custom404.id -> Page.id', nullable: true, note: landingpage-type custom 404 only}
+cascades:
+- operation: deletePage
+  effect: >-
+    Deletes all personalizations and the default experience of the page. Blocked while any experiment
+    on the page or on a personalized experience is running.
+- operation: deleteGroup
+  effect: Blocked while the group still contains pages.
+- operation: deleteWorkspace
+  effect: Deletes the workspace; the API documents no per-child confirmation.
+- operation: deleteFormSubmissions
+  effect: Irreversible deletion of lead records. No undo, no soft-delete.
+soft_delete:
+  entity: Page
+  field: isDeleted
+  filter: 'GET /workspaces/{workspaceId}/pages?isDeleted=true'
+  note: Pages carry an isDeleted flag and deleted pages remain listable via the filter.
+render: null
+x-evidence:
+  fetched: '2026-08-13'
+  source_doc: https://devdocs.instapage.com/

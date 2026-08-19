@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Instapage Domains API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/domains",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page to fetch. Used for pagination purposes."
+              }
+            ]
+          },
+          "docs": "Retrieve all custom domains for a specific workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

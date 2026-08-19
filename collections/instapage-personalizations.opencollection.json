@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Instapage Personalizations API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Personalizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all personalizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId/personalizations",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the page to retrieve personalizations for."
+              }
+            ]
+          },
+          "docs": "Retrieve all personalizations (personalized experiences) for a specific page."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

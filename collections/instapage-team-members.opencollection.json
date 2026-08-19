@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Instapage Team Members API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Team Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all team members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/team-members",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              }
+            ]
+          },
+          "docs": "Retrieve all team members for a specific workspace. This endpoint does not paginate."
+        },
+        {
+          "info": {
+            "name": "Invite team members",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/team-members",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invites multiple team members to join a workspace with specified accessLevels and an optional developer flag. Only workspace owners and managers can invite new team members."
+        },
+        {
+          "info": {
+            "name": "Edit team member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/team-members",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the roles alongside the developer flag of existing team members in a workspace. Supports bulk role updates."
+        },
+        {
+          "info": {
+            "name": "Remove team members",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/team-members",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove one or more team members from a workspace. Supports bulk removal operations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

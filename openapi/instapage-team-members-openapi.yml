@@ -1,8 +1,7 @@
 openapi: 3.1.0
 info:
-  title: Instapage Workspaces API
-  description: 'Workspaces are the top-level container for landing pages, integrations, domains and other
-    assets in Instapage.
+  title: Instapage Team Members API
+  description: 'Manage the people who have access to a workspace and their access levels.
 
 
     The Instapage Public API is a REST API over the Instapage landing page and post-click optimization
@@ -43,31 +42,24 @@ servers:
 security:
 - BearerAuth: []
 tags:
-- name: Workspaces
-  description: Workspaces are the top-level container for landing pages, integrations, domains and other
-    assets in Instapage.
+- name: Team Members
+  description: Manage the people who have access to a workspace and their access levels.
 paths:
-  /workspaces:
+  /workspaces/{workspaceId}/team-members:
     get:
-      summary: Get all workspaces
-      description: Retrieve all workspaces the authenticated token has access to.
-      operationId: listWorkspaces
+      summary: Get all team members
+      description: Retrieve all team members for a specific workspace. This endpoint does not paginate.
+      operationId: listTeamMembers
       tags:
-      - Workspaces
+      - Team Members
       parameters:
-      - in: query
-        name: page
-        required: false
-        description: Specifies which page to fetch. Used for pagination purposes.
+      - &id001
+        in: path
+        name: workspaceId
+        required: true
+        description: The ID of the workspace.
         schema:
           type: number
-          default: 1
-      - in: query
-        name: name
-        required: false
-        description: Optional name of the workspace to limit the result (case insensitive).
-        schema:
-          type: string
       responses:
         '200':
           description: The request was processed successfully.
@@ -79,9 +71,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Workspace'
-                  meta:
-                    $ref: '#/components/schemas/PaginationMeta'
+                      $ref: '#/components/schemas/TeamMember'
         '400':
           description: Bad request. Validation error — review input parameters.
           content:
@@ -90,6 +80,18 @@ paths:
                 $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user does not have the necessary permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The requested resource could not be located.
           content:
             application/json:
               schema:
@@ -115,147 +117,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
     post:
-      summary: Add new workspace
-      description: Create a new workspace for the authenticated user. Each workspace must have a unique
-        name under the same owner.
-      operationId: createWorkspace
+      summary: Invite team members
+      description: Invites multiple team members to join a workspace with specified accessLevels and an
+        optional developer flag. Only workspace owners and managers can invite new team members.
+      operationId: inviteTeamMembers
       tags:
-      - Workspaces
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-              - name
-              properties:
-                name:
-                  type: string
-                  description: The unique name of the workspace.
-      responses:
-        '201':
-          description: The workspace was created successfully.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/Workspace'
-        '400':
-          description: Bad request. Validation error — review input parameters.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '401':
-          description: Unauthorized. Authentication failed or missing credentials.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '409':
-          description: Conflict. A workspace with the same name already exists.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '422':
-          description: Unprocessable Entity. Limit of workspaces has been reached.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '429':
-          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
-            See the Retry-After header.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          headers:
-            Retry-After:
-              description: Number of seconds to wait before retrying, returned when the daily plan quota
-                or the 200 requests/minute limit is exceeded.
-              schema:
-                type: integer
-        '500':
-          description: Internal Server Error. An unexpected condition prevented the request from being
-            fulfilled.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /workspaces/{workspaceId}:
-    get:
-      summary: Get single workspace
-      description: Retrieves details of a single workspace by its ID.
-      operationId: getWorkspace
-      tags:
-      - Workspaces
-      parameters:
-      - &id001
-        in: path
-        name: workspaceId
-        required: true
-        description: The ID of the workspace.
-        schema:
-          type: number
-      responses:
-        '200':
-          description: Request was processed successfully.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/Workspace'
-        '400':
-          description: Bad request. Validation error — review input parameters.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '401':
-          description: Unauthorized. Authentication failed or missing credentials.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '404':
-          description: Workspace not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '429':
-          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
-            See the Retry-After header.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          headers:
-            Retry-After:
-              description: Number of seconds to wait before retrying, returned when the daily plan quota
-                or the 200 requests/minute limit is exceeded.
-              schema:
-                type: integer
-        '500':
-          description: Internal Server Error. An unexpected condition prevented the request from being
-            fulfilled.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    patch:
-      summary: Rename workspace
-      description: Updates the name of an existing workspace.
-      operationId: renameWorkspace
-      tags:
-      - Workspaces
+      - Team Members
       parameters:
       - *id001
       requestBody:
@@ -263,23 +130,34 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: The new name for the workspace.
-      responses:
-        '200':
-          description: Request was processed successfully.
-          content:
-            application/json:
-              schema:
+              type: array
+              items:
                 type: object
+                required:
+                - email
+                - accessLevel
                 properties:
-                  data:
-                    $ref: '#/components/schemas/Workspace'
+                  email:
+                    type: string
+                    description: Email address of the user to invite.
+                  accessLevel:
+                    type: string
+                    enum:
+                    - viewer
+                    - editor
+                    - manager
+                    description: Access level to assign to the user.
+                  inheritOwnerContextInPublicApi:
+                    type:
+                    - boolean
+                    - 'null'
+                    description: 'If true, the user''s public API requests will count against the workspace
+                      owner''s quota (default: false).'
+      responses:
+        '201':
+          description: Created. The team members were successfully invited.
         '400':
-          description: Bad request. Validation error — review input parameters.
+          description: Bad Request. Invalid input parameters or email format.
           content:
             application/json:
               schema:
@@ -290,14 +168,101 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-        '404':
-          description: Workspace not found.
+        '403':
+          description: Forbidden. User doesn't have permission to invite members or team member limit
+            exceeded.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-        '409':
-          description: Conflict. The workspace name is already taken.
+        '404':
+          description: Not Found. The workspace could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
+            See the Retry-After header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota
+                or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being
+            fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Edit team member
+      description: Updates the roles alongside the developer flag of existing team members in a workspace.
+        Supports bulk role updates.
+      operationId: updateTeamMembers
+      tags:
+      - Team Members
+      parameters:
+      - *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                required:
+                - email
+                - targetAccessLevel
+                properties:
+                  email:
+                    type: string
+                    description: Email address of the team member to update.
+                  targetAccessLevel:
+                    type: string
+                    enum:
+                    - viewer
+                    - editor
+                    - manager
+                    description: New role to assign.
+                  inheritOwnerContextInPublicApi:
+                    type:
+                    - boolean
+                    - 'null'
+                    description: 'Set to true to allow the user''s public API requests to count against
+                      the workspace owner''s quota (default: false).'
+      responses:
+        '201':
+          description: Created. The team member roles were successfully updated.
+        '400':
+          description: Bad Request. Invalid input parameters or duplicate emails in request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. The user doesn't have permission to modify roles or is attempting to
+            modify the owner's role.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The workspace was not found or one or more team members don't exist
+            in the workspace.
           content:
             application/json:
               schema:
@@ -323,18 +288,32 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
     delete:
-      summary: Delete workspace
-      description: Deletes a workspace by its ID.
-      operationId: deleteWorkspace
+      summary: Remove team members
+      description: Remove one or more team members from a workspace. Supports bulk removal operations.
+      operationId: removeTeamMembers
       tags:
-      - Workspaces
+      - Team Members
       parameters:
       - *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                required:
+                - email
+                properties:
+                  email:
+                    type: string
+                    description: Email address of the team member.
       responses:
-        '200':
-          description: Workspace successfully deleted.
+        '201':
+          description: Created. Team members were successfully removed.
         '400':
-          description: Bad request. Validation error — review input parameters.
+          description: Bad Request. Invalid input parameters or attempting to remove the workspace owner.
           content:
             application/json:
               schema:
@@ -345,8 +324,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden. User doesn't have necessary permissions (must be owner or manager).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Workspace not found.
+          description: Not Found. Workspace not found.
           content:
             application/json:
               schema:
@@ -380,36 +365,6 @@ components:
       description: 'Personal API token generated from Instapage account settings, sent as `Authorization:
         Bearer <token>`.'
   schemas:
-    Pagination:
-      type: object
-      properties:
-        currentPage:
-          type: number
-          description: Number of the current page of results.
-        perPage:
-          type: number
-          description: Number of items per page.
-        totalItemsCount:
-          type: number
-          description: Total number of items.
-        totalPagesCount:
-          type: number
-          description: Total number of pages.
-        nextPage:
-          type:
-          - number
-          - 'null'
-          description: Number of the next page, null if there is no next page.
-        previousPage:
-          type:
-          - number
-          - 'null'
-          description: Number of the previous page, null if there is no previous page.
-    PaginationMeta:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/Pagination'
     Error:
       type: object
       description: Error envelope returned by the Instapage API.
@@ -432,21 +387,49 @@ components:
             requestedPageId:
               type: number
               description: ID of the page involved, when the error concerns a page.
-    Workspace:
+    TeamMember:
       type: object
       properties:
-        workspaceId:
+        userId:
           type: number
-          description: Unique identifier of the workspace.
-        ownerId:
-          type: number
-          description: Identifier of the workspace owner.
-        workspaceName:
+          description: Unique identifier of the team member.
+        email:
           type: string
-          description: Name of the workspace.
+          description: Email address of the team member.
+        invitedAt:
+          type:
+          - number
+          - 'null'
+          description: Timestamp when the team member was invited (null if owner).
+        fullName:
+          type:
+          - string
+          - 'null'
+          description: Full name of the team member. Null if invitationStatus is 'pending'.
         accessLevel:
           type: string
-          description: User's access level to the workspace.
-        createdAt:
-          type: number
-          description: Creation date of the workspace in UNIX timestamp format.
+          description: Access level of the team member.
+          enum:
+          - viewer
+          - editor
+          - manager
+          - owner
+        inheritOwnerContextInPublicApi:
+          type: boolean
+          description: Whether the member's public API usage should consume the owner's quota.
+        invitationStatus:
+          type: string
+          description: Status of the invitation.
+          enum:
+          - accepted
+          - pending
+        lastLoginAt:
+          type:
+          - number
+          - 'null'
+          description: Timestamp of the team member's last login.
+        lastActivityInWorkspaceAt:
+          type:
+          - number
+          - 'null'
+          description: Timestamp of the team member's last activity in the workspace.

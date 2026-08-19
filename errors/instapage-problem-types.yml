@@ -1,0 +1,123 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/instapage-openapi.yml
+docs: https://devdocs.instapage.com/
+format: proprietary
+rfc9457: false
+media_type: application/json
+envelope:
+  shape: '{ "title": <string>, "details": <string>, "meta": { ... } }'
+  fields:
+  - name: title
+    type: string
+    description: The type of error that occurred.
+  - name: details
+    type: string
+    description: A human-readable description of the error.
+  - name: meta.requestedUserId
+    type: number
+    description: ID of the user who made the request.
+  - name: meta.requestedWorkspaceId
+    type: number
+    description: ID of the workspace involved.
+  - name: meta.requestedPageId
+    type: number
+    description: ID of the page involved, when the error concerns a page.
+  note: >-
+    Instapage does not publish a stable machine-readable error code. `title` is a human-readable
+    string with no documented enumeration, so the HTTP status is the only reliable branch point for
+    an agent.
+problems:
+- status: 400
+  title: Bad Request
+  summary: Validation error — review input parameters.
+  remediation: >-
+    Fix the request before retrying; a retry with the same body will fail identically. Endpoint-
+    specific causes include an invalid email format, duplicate emails in a bulk team-member request,
+    a page already in the target group, a group that still contains pages, a page title over 255
+    characters, an invalid Instapage JSON content structure, attempting to export an AMP page,
+    unpublishing a page that is not published, and submission ID lists that are empty or longer
+    than 100.
+  retryable: false
+- status: 401
+  title: Unauthorized
+  summary: Authentication failed or missing credentials.
+  remediation: >-
+    Check the Authorization header carries `Bearer <personal API token>`. Expired or revoked tokens
+    return 401, as does a token whose creator has lost access to the workspace.
+  retryable: false
+- status: 403
+  title: Forbidden
+  summary: The token's permission level or the plan does not allow the operation.
+  remediation: >-
+    Documented causes are permission level (owner/manager required to invite, remove or re-role team
+    members; editor required to add a collection page), plan limits (published pages limit, team
+    member limit, collection page addition limit), and object state (page not published, page has
+    running experiments, page owner's account frozen, visitor overlimit).
+  retryable: false
+- status: 404
+  title: Not Found
+  summary: The workspace, page, group, collection, collection page or folder could not be located.
+  remediation: >-
+    Verify the ID exists and belongs to the workspace in the path — several endpoints 404 when the
+    object exists but is owned by a different workspace.
+  retryable: false
+- status: 409
+  title: Conflict
+  summary: A uniqueness or state conflict.
+  remediation: >-
+    Documented on duplicate workspace names, duplicate group names, and unpublishing a collection
+    page that is already unpublished.
+  retryable: false
+- status: 413
+  title: Payload Too Large
+  summary: Group name exceeds the character limit.
+  remediation: Shorten the group name.
+  retryable: false
+- status: 422
+  title: Unprocessable Entity
+  summary: Limit of workspaces has been reached.
+  remediation: Delete an unused workspace or upgrade the plan.
+  retryable: false
+- status: 429
+  title: Too Many Requests
+  summary: >-
+    The 200 requests/minute per-token-and-per-IP limit or the daily plan quota was exceeded.
+  remediation: >-
+    Read the Retry-After response header and wait that many seconds; back off exponentially when the
+    header is absent. The daily quota resets at 00:00 UTC.
+  retryable: true
+  headers:
+  - Retry-After
+- status: 500
+  title: Internal Server Error
+  summary: An unexpected condition prevented the request from being fulfilled.
+  remediation: >-
+    Retry with backoff. On page publication this status is also documented for "publish setup not
+    found", which is not transient.
+  retryable: true
+- status: 503
+  title: Service Unavailable
+  summary: Entity-related exception occurred during page publication.
+  remediation: Retry the publication request with backoff.
+  retryable: true
+coverage:
+  operations_scanned: 39
+  statuses_observed:
+  - 400
+  - 401
+  - 403
+  - 404
+  - 409
+  - 413
+  - 422
+  - 429
+  - 500
+  - 503
+  spec_files:
+  - openapi/_original/instapage-openapi.yml
+x-evidence:
+- url: https://devdocs.instapage.com/
+  http_status: 200
+  section: per-endpoint "Response status codes" tables and the "Error Responses" blocks
+  fetched: '2026-08-13'

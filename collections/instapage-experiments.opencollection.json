@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Instapage Experiments API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Experiments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all experiments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/experiments",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "status[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter experiments by status. Can include multiple values."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page to fetch. Used for pagination purposes."
+              }
+            ]
+          },
+          "docs": "Retrieve all experiments for a specific workspace, with optional filtering by status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: searched
+source: https://devdocs.instapage.com/
+docs: https://devdocs.instapage.com/
+limit_count: 2
+summary: >-
+  Instapage enforces two independent limits on the Public API: a fixed 200 requests per minute,
+  applied per token AND per IP address, and a daily call quota tied to the subscription plan that
+  resets at 00:00 UTC. Exceeding either returns 429 Too Many Requests with a Retry-After header.
+rate_limits:
+- id: per-minute
+  scope: per-token and per-ip
+  window: 1 minute
+  limit: 200
+  unit: requests
+  burst: null
+  enforcement: >-
+    Enforced per token and per IP address. The docs warn that high-frequency requests may be
+    throttled even before reaching the limit.
+  status_on_exhaustion: 429
+  source: https://devdocs.instapage.com/
+- id: daily-plan-quota
+  scope: per-token (charged to the workspace owner's plan)
+  window: 1 day
+  reset: 00:00 UTC (midnight GMT)
+  limit: 5000
+  limit_range: 5000-30000, plus a Custom enterprise tier
+  unit: requests
+  note: >-
+    The developer reference declines to publish the numbers and points at the logged-in Subscription
+    page, but the public plans page DOES publish an "API calls per day" row. The ladder is recorded
+    below. Team members flagged inheritOwnerContextInPublicApi consume the workspace owner's daily
+    quota instead of their own.
+  tiers:
+  - {unique_monthly_visitors: 15000, api_calls_per_day: 5000, plan: Create}
+  - {unique_monthly_visitors: 30000, api_calls_per_day: 10000, plan: Optimize}
+  - {unique_monthly_visitors: 50000, api_calls_per_day: 15000, plan: null}
+  - {unique_monthly_visitors: 100000, api_calls_per_day: 30000, plan: null}
+  - {unique_monthly_visitors: custom, api_calls_per_day: custom, plan: Convert}
+  tiers_note: >-
+    The comparison table is keyed by visitor band, not by plan name, so only the 15,000 and 30,000
+    bands map to a named plan with certainty. See plans/instapage-plans-pricing.yml.
+  quota_page: https://app.instapage.com/ (Subscription page, login required, shows current usage)
+  published_ladder: https://instapage.com/plans
+  status_on_exhaustion: 429
+  source: https://instapage.com/plans
+response_headers:
+- header: Retry-After
+  present: true
+  returned_on: 429
+  description: >-
+    Number of seconds to wait before retrying. Returned when the daily plan quota is exceeded and
+    documented as the signal to back off on 429 generally.
+  source: https://devdocs.instapage.com/
+- header: X-RateLimit-Limit
+  present: false
+- header: X-RateLimit-Remaining
+  present: false
+- header: X-RateLimit-Reset
+  present: false
+- header: RateLimit
+  present: false
+  note: >-
+    Instapage publishes no draft-ietf RateLimit-* or X-RateLimit-* headers. Retry-After on a 429 is
+    the only runtime rate-limit signal an agent can read; remaining quota is not observable from the
+    response and must be read from the logged-in Subscription page.
+status_code: 429
+retry_guidance:
+  documented: true
+  strategy: exponential backoff with a max retry count, honouring Retry-After when present
+  example: https://devdocs.instapage.com/
+  note: >-
+    The docs ship a worked bash/Node/PHP retry example that captures headers, extracts Retry-After
+    case-insensitively and falls back to an exponential delay when the header is absent.
+x-evidence:
+- url: https://devdocs.instapage.com/
+  http_status: 200
+  section: Rate Limiting and Plan Quotas
+  fetched: '2026-08-13'
+- url: https://instapage.com/plans
+  http_status: 200
+  section: Compare all plan features -> Usage -> "API calls per day"
+  fetched: '2026-08-13'

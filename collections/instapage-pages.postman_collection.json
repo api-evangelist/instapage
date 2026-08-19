@@ -1,0 +1,5125 @@
+{
+  "item": [
+    {
+      "id": "a1b21c59-b346-47e3-adf3-01ebde0bd2a1",
+      "name": "Pages",
+      "description": {
+        "content": "Create, retrieve, update, publish, export and delete Instapage landing pages.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5e21e67d-6d38-4cfe-9436-fc8b3865b5c7",
+          "name": "Get all pages",
+          "request": {
+            "name": "Get all pages",
+            "description": {
+              "content": "Retrieve pages for a specific workspace. Results are paginated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Specifies which page to fetch. Used for pagination purposes."
+                },
+                {
+                  "disabled": false,
+                  "key": "isDeleted",
+                  "value": "false",
+                  "description": "When true, returns only deleted pages. When false, returns only non-deleted pages."
+                },
+                {
+                  "disabled": false,
+                  "key": "publishStatus",
+                  "value": "<string>",
+                  "description": "Filter pages by publish status."
+                },
+                {
+                  "disabled": false,
+                  "key": "publishMethod",
+                  "value": "<string>",
+                  "description": "Filter pages by publish method."
+                },
+                {
+                  "disabled": false,
+                  "key": "publishedAfter",
+                  "value": "<number>",
+                  "description": "Filter pages published after the specified UNIX timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "publishedBefore",
+                  "value": "<number>",
+                  "description": "Filter pages published before the specified UNIX timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAfter",
+                  "value": "<number>",
+                  "description": "Filter pages created after the specified UNIX timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdBefore",
+                  "value": "<number>",
+                  "description": "Filter pages created before the specified UNIX timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAfter",
+                  "value": "<number>",
+                  "description": "Filter pages updated after the specified UNIX timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedBefore",
+                  "value": "<number>",
+                  "description": "Filter pages updated before the specified UNIX timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "withGroupId",
+                  "value": "<string>",
+                  "description": "Filter pages by group. Unset returns all pages; a number returns only pages with the matching groupId; the literal 'null' returns only pages with a null groupId."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "99b14241-e725-4e7d-b17b-5893da8213a5",
+              "name": "The request was processed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "isDeleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "publishStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishMethod",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishedAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "publishedBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "withGroupId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 4264.520965673068,\n      \"title\": \"string\",\n      \"url\": \"string\",\n      \"publishStatus\": \"publishedHasChanges\",\n      \"publishMethod\": \"null\",\n      \"createdAt\": 61.725322465416845,\n      \"updatedAt\": 7978.731773996853,\n      \"publishedAt\": 1725.6704956700307,\n      \"isDeleted\": true,\n      \"pageType\": \"amp\",\n      \"totalPersonalizedExperienceCount\": 6848.338812483447,\n      \"isScheduled\": true,\n      \"groupId\": 8397.426816394815\n    },\n    {\n      \"id\": 3563.051422644831,\n      \"title\": \"string\",\n      \"url\": \"string\",\n      \"publishStatus\": \"unpublished\",\n      \"publishMethod\": \"null\",\n      \"createdAt\": 8935.231372044222,\n      \"updatedAt\": 1563.940563890548,\n      \"publishedAt\": 3826.7380524581686,\n      \"isDeleted\": true,\n      \"pageType\": \"amp\",\n      \"totalPersonalizedExperienceCount\": 1729.4800397432919,\n      \"isScheduled\": true,\n      \"groupId\": 5074.865613129288\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"currentPage\": 5942.1149538446225,\n      \"perPage\": 2503.30382681793,\n      \"totalItemsCount\": 6058.024249070366,\n      \"totalPagesCount\": 5412.34569368004,\n      \"nextPage\": 2865.253107275535,\n      \"previousPage\": 8181.375615976451\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d2b533f-cbc1-42bf-a4dc-8d301e92ee47",
+              "name": "Bad request. Validation error — review input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "isDeleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "publishStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishMethod",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishedAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "publishedBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "withGroupId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99275cec-e36e-4986-af49-67a3132a377f",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "isDeleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "publishStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishMethod",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishedAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "publishedBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "withGroupId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a12ab2ee-441f-411e-8379-364db250df37",
+              "name": "Not Found. The specified workspace could not be found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "isDeleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "publishStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishMethod",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishedAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "publishedBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "withGroupId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5aa4a5b-c744-4eae-a7e8-04e6468476fd",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "isDeleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "publishStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishMethod",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishedAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "publishedBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "withGroupId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "9114"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e034feed-3f5e-4289-b61d-cd02d11aa015",
+              "name": "Internal Server Error. An unexpected condition prevented the request from being fulfilled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "isDeleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "publishStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishMethod",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishedAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "publishedBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "withGroupId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3af750b7-d822-40bb-bde8-ddbb85148d21",
+          "name": "Get page",
+          "request": {
+            "name": "Get page",
+            "description": {
+              "content": "Retrieve detailed information about a specific page within a workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "pages",
+                ":pageId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "pageId",
+                  "description": "(Required) The ID of the page to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "14ab61dd-27f4-4bff-babc-8ba7cfe94163",
+              "name": "The request was processed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1089.5819120037509,\n    \"title\": \"string\",\n    \"url\": \"string\",\n    \"publishStatus\": \"unpublished\",\n    \"publishMethod\": \"pageDemo\",\n    \"createdAt\": 4310.9948731679815,\n    \"updatedAt\": 4611.171759428579,\n    \"publishedAt\": 5274.849122695809,\n    \"isDeleted\": true,\n    \"pageType\": \"wordpress\",\n    \"totalPersonalizedExperienceCount\": 7520.261376035921,\n    \"isScheduled\": true,\n    \"groupId\": 5986.734591815256\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f698da3c-b5d6-41f0-b3b1-a3f96709af38",
+              "name": "Bad request. Validation error — review input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25c6370c-0564-4559-99f1-780b69f8ff62",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "094767a4-1800-4bd1-8776-42152fe14379",
+              "name": "Not Found. The requested resource could not be located.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfb2a934-680a-47ec-a996-d3bd164f2e36",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "9114"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb49edcf-1b11-430c-a2f7-8574321fa1c5",
+              "name": "Internal Server Error. An unexpected condition prevented the request from being fulfilled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61a13a97-54a4-4e21-8ff2-075659491956",
+          "name": "Update page",
+          "request": {
+            "name": "Update page",
+            "description": {
+              "content": "Update a page's properties, such as moving it between groups. Set groupId to null to remove the page from all groups.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "pages",
+                ":pageId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "pageId",
+                  "description": "(Required) The ID of the page to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"groupId\": \"<number,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3b88e410-ad61-42a7-bf7b-2a12d88a3273",
+              "name": "Created. The page was successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupId\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d75fbc75-6ee2-4fc9-91db-e6c7e74a3dcc",
+              "name": "Bad Request. Invalid input parameters or the page is already in the specified group.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupId\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc0e7c41-14bd-4b38-848f-582a3f24bfab",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupId\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "316a9282-77eb-442e-a9a6-42a81c934015",
+              "name": "Forbidden. The user doesn't have necessary permissions to update the page.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupId\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a889c1d-47f1-416b-b310-ad467da5f664",
+              "name": "Not Found. The specified page, workspace, or group could not be found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupId\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34a27042-9efe-4518-bdef-0c554bfd5b6c",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupId\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "9114"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99d2fd8b-cc84-4e30-aa4d-58d1fb01144b",
+              "name": "Internal Server Error. An unexpected condition prevented the request from being fulfilled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupId\": \"<number,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90323b46-661d-4c1f-8f3d-c241dfd658d6",
+          "name": "Delete page",
+          "request": {
+            "name": "Delete page",
+            "description": {
+              "content": "Delete a specific page from a workspace. Pages with running experiments cannot be deleted. All personalizations and the default experience are cascade deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "pages",
+                ":pageId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "pageId",
+                  "description": "(Required) The ID of the page to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4a9a296d-cded-4b63-955a-f157b56c7466",
+              "name": "Success. The page was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "25f13228-25a0-47b0-8a33-94826d24b4af",
+              "name": "Unauthorized. Missing/invalid authorization header, user not found, invalid token, or access denied.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b008dc9b-0cdf-4dba-a0fe-b8eaf40181ec",
+              "name": "Forbidden. Cannot delete page due to restrictions (page owner frozen, visitor overlimit exceeded, or running experiments).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cde967cc-d26d-495c-b460-c4b5b5236bad",
+              "name": "Not Found. The specified page or workspace could not be found, or the page doesn't belong to the workspace.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdd2272d-c705-48c8-8641-44be214ee0c8",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "9114"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb29507f-3746-463d-9fb3-24b630c17230",
+              "name": "Internal Server Error. An unexpected condition prevented the request from being fulfilled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42485cf4-3d8e-4eba-8593-09ccd422f23b",
+          "name": "Publish a page",
+          "request": {
+            "name": "Publish a page",
+            "description": {
+              "content": "Publish a page. Publishing and unpublishing a page via the API clears scheduling for that page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "pages",
+                ":pageId",
+                "publication"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "pageId",
+                  "description": "(Required) The ID of the page to publish."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"publicationMethod\": \"<string>\",\n  \"targetUrl\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9cb85bba-fb82-417d-8023-7693a77ed03d",
+              "name": "Accepted. The request has been accepted for processing.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to publish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"publicationMethod\": \"<string>\",\n  \"targetUrl\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "78a91073-bf5e-4771-a536-8824841227a4",
+              "name": "Bad Request. Invalid input parameters or publication method not permitted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to publish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"publicationMethod\": \"<string>\",\n  \"targetUrl\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28da7c64-6895-4fdf-b198-f0fe6fbdbf95",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to publish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"publicationMethod\": \"<string>\",\n  \"targetUrl\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc3854b9-cda4-4d15-84e0-7de497acd2fd",
+              "name": "Forbidden. Published pages limit exceeded or the user doesn't have necessary permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to publish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"publicationMethod\": \"<string>\",\n  \"targetUrl\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc4b197d-665d-4078-bb6b-a83158535408",
+              "name": "Not Found. The specified page was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to publish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"publicationMethod\": \"<string>\",\n  \"targetUrl\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ef18a2e-92df-409b-bef0-2ac95f28493e",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to publish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"publicationMethod\": \"<string>\",\n  \"targetUrl\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "9114"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "deb755e4-7fb3-47e6-9e00-0fd275fca8d4",
+              "name": "Internal Server Error. An unexpected error occurred or publish setup not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to publish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"publicationMethod\": \"<string>\",\n  \"targetUrl\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b4faa37-87dd-4030-8c17-5d0390305bf4",
+              "name": "Service Unavailable. Entity-related exception occurred.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to publish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"publicationMethod\": \"<string>\",\n  \"targetUrl\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "789110b0-615f-4a72-ba15-6c8c2d949658",
+          "name": "Update published page URL",
+          "request": {
+            "name": "Update published page URL",
+            "description": {
+              "content": "Updates the URL of an already published page without having to unpublish it first. With the freeDomain method the URL follows the pattern name.pagedemo.co.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "pages",
+                ":pageId",
+                "publication"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "pageId",
+                  "description": "(Required) The ID of the published page to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetUrl\": \"<string>\",\n  \"publicationMethod\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b4819abf-f239-4360-8cd7-1b4fb783e186",
+              "name": "Accepted. The request has been accepted for processing.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the published page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetUrl\": \"<string>\",\n  \"publicationMethod\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "73053d94-c627-4acd-a6ee-5a10fc03a6e5",
+              "name": "Bad Request. Invalid input parameters or publication method not permitted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the published page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetUrl\": \"<string>\",\n  \"publicationMethod\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fda5e051-d433-437e-8654-b8a456bcbc55",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the published page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetUrl\": \"<string>\",\n  \"publicationMethod\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c5852c6-8844-46fa-a03f-67c7399b9b53",
+              "name": "Forbidden. Page is not published, page has running experiments, or the user doesn't have necessary permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the published page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetUrl\": \"<string>\",\n  \"publicationMethod\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f755a134-39b6-4aa7-8317-d18827023255",
+              "name": "Not Found. The specified page was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the published page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetUrl\": \"<string>\",\n  \"publicationMethod\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30d66368-cf92-42dd-bf61-5648cefab0fc",
+              "name": "Too Many Requests. The server is rejecting requests due to an excessive rate of requests. Slow down and retry after some time.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the published page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetUrl\": \"<string>\",\n  \"publicationMethod\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "9114"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0c83e21-53a2-43b5-9d6c-124e79a559e7",
+              "name": "Internal Server Error. An unexpected error occurred or publish setup not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the published page to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetUrl\": \"<string>\",\n  \"publicationMethod\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b136b3c1-22c4-47bb-82d7-cf2155b2c3a2",
+          "name": "Unpublish a page",
+          "request": {
+            "name": "Unpublish a page",
+            "description": {
+              "content": "Unpublishes a previously published page. Publishing and unpublishing a page via the API clears scheduling for that page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "pages",
+                ":pageId",
+                "publication"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "pageId",
+                  "description": "(Required) The ID of the page to unpublish."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "09cc5b14-dc1b-413d-a629-4c39d323cdb6",
+              "name": "Created. The page was successfully unpublished.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to unpublish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "de9ee56d-e9d5-452c-a9f2-ffc72ec9e0f1",
+              "name": "Bad Request. The page is not published.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to unpublish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b805c53-f65a-4d8f-a6f0-ad8b191daa39",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to unpublish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38da24b9-0b0d-4967-8f62-be1ff389f109",
+              "name": "Forbidden. The user does not have the necessary permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to unpublish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a224d2e-5ea8-46f7-a4b2-6712c19d762a",
+              "name": "Not Found. The specified page was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to unpublish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19d708ba-d1b1-4e98-94b1-fa94601b220d",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to unpublish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "9114"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1486d0a-1247-43a1-a43f-9eabffa67e3b",
+              "name": "Internal Server Error. An unexpected condition prevented the request from being fulfilled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "publication"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to unpublish."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f506d0d2-ef12-4e3f-a5a6-a41ab4b55625",
+          "name": "Search pages globally",
+          "request": {
+            "name": "Search pages globally",
+            "description": {
+              "content": "Search for pages across all workspaces the authenticated user has access to, by ID, title, or URL.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pages",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Specifies which page to fetch. Used for pagination purposes."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<number>",
+                  "description": "Filter results by page ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "title",
+                  "value": "<string>",
+                  "description": "Filter results by page title (case-insensitive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<string>",
+                  "description": "Filter results by published URL."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c36b29f-5732-4cc5-bf70-749ec35c4346",
+              "name": "The request was processed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 4264.520965673068,\n      \"title\": \"string\",\n      \"url\": \"string\",\n      \"publishStatus\": \"publishedHasChanges\",\n      \"publishMethod\": \"null\",\n      \"createdAt\": 61.725322465416845,\n      \"updatedAt\": 7978.731773996853,\n      \"publishedAt\": 1725.6704956700307,\n      \"isDeleted\": true,\n      \"pageType\": \"amp\",\n      \"totalPersonalizedExperienceCount\": 6848.338812483447,\n      \"isScheduled\": true,\n      \"groupId\": 8397.426816394815\n    },\n    {\n      \"id\": 3563.051422644831,\n      \"title\": \"string\",\n      \"url\": \"string\",\n      \"publishStatus\": \"unpublished\",\n      \"publishMethod\": \"null\",\n      \"createdAt\": 8935.231372044222,\n      \"updatedAt\": 1563.940563890548,\n      \"publishedAt\": 3826.7380524581686,\n      \"isDeleted\": true,\n      \"pageType\": \"amp\",\n      \"totalPersonalizedExperienceCount\": 1729.4800397432919,\n      \"isScheduled\": true,\n      \"groupId\": 5074.865613129288\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"currentPage\": 5942.1149538446225,\n      \"perPage\": 2503.30382681793,\n      \"totalItemsCount\": 6058.024249070366,\n      \"totalPagesCount\": 5412.34569368004,\n      \"nextPage\": 2865.253107275535,\n      \"previousPage\": 8181.375615976451\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26068261-0f6c-4bde-ba87-fc86ec3e2064",
+              "name": "Bad request. Invalid parameters provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01b0236b-f611-4071-b8f5-303b41acaa58",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f26915e5-ca1e-4056-a283-e1b9384c2b92",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "9114"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "adcd767b-9041-47d8-9c36-0237c9efe6b9",
+              "name": "Internal Server Error. An unexpected condition prevented the request from being fulfilled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pages",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "title",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c99929a-2e67-4f61-989c-887f19e3d28e",
+          "name": "Create page from JSON",
+          "request": {
+            "name": "Create page from JSON",
+            "description": {
+              "content": "Create a new page by importing an Instapage JSON file. Only standard pages are supported; AMP pages cannot be created via this method.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "pages",
+                "json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"content\": [\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b97ac541-fbb1-445d-80c2-0fa22b5d705d",
+              "name": "The request was processed successfully and the page was created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"content\": [\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"pageId\": 3493.4089072871575,\n    \"workspaceId\": 2154.874922944908,\n    \"title\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9adc0ef-f02e-48ab-8375-0f655481977e",
+              "name": "Bad request. Invalid input parameters, title too long, or invalid content structure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"content\": [\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b89cb8f-4727-4fbc-aa1e-01bab2aafc6c",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"content\": [\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29de5b9d-6dd3-48d2-95a0-d1c65d093722",
+              "name": "Forbidden. User doesn't have permission to create pages in this workspace.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"content\": [\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef0a31cd-585a-43fe-8679-3959698a1e7a",
+              "name": "Not Found. The specified workspace could not be found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"content\": [\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5feb8ccb-da3f-4a08-b355-2b38db25d6a7",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"content\": [\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "9114"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f23854a-3180-418c-92b8-efa8971b190b",
+              "name": "Internal Server Error. An unexpected condition prevented the request from being fulfilled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"content\": [\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"page_blocks\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"elements\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"type\": \"<number>\",\n      \"variation_name\": \"<string>\",\n      \"is_amp\": \"<boolean,null>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf016828-6803-46fb-a20b-a3f522c7f199",
+          "name": "Export page as JSON",
+          "request": {
+            "name": "Export page as JSON",
+            "description": {
+              "content": "Export a page as an Instapage JSON file for backup, migration, or template purposes. AMP pages cannot be exported.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces",
+                ":workspaceId",
+                "pages",
+                ":pageId",
+                "json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "workspaceId",
+                  "description": "(Required) The ID of the workspace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "pageId",
+                  "description": "(Required) The ID of the page to export."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b3cfe912-b8cd-4535-9d5a-23ce964c67fb",
+              "name": "The request was processed successfully and the page was exported.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to export."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"meta\": {\n    \"pageId\": 8203.658708923169\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7360ade-301d-4224-9d8f-c31db7a49a4c",
+              "name": "Bad request. Attempting to export an AMP page.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to export."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d306ae9-82d7-46b1-8b43-94ad767dd0c6",
+              "name": "Unauthorized. Authentication failed or missing credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to export."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "962c9c5b-90c2-49a1-bf4f-763dc523ddc3",
+              "name": "Not Found. The specified page or workspace could not be found, or the page doesn't belong to the workspace.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to export."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "736618aa-0da6-4f3e-90d1-1d5dd38c5981",
+              "name": "Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to export."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.",
+                  "key": "Retry-After",
+                  "value": "9114"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db054a05-ee72-4e17-be38-1aca82a8d999",
+              "name": "Internal Server Error. An unexpected condition prevented the request from being fulfilled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces",
+                    ":workspaceId",
+                    "pages",
+                    ":pageId",
+                    "json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "workspaceId",
+                      "description": "(Required) The ID of the workspace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "pageId",
+                      "description": "(Required) The ID of the page to export."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"string\",\n  \"details\": \"string\",\n  \"meta\": {\n    \"requestedUserId\": 4933.049593302005,\n    \"requestedWorkspaceId\": 6592.760461077656,\n    \"requestedPageId\": 458.9091822541236\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.instapage.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "10e651e6-b46d-429d-860e-4a03f69f2018",
+    "name": "Instapage Pages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Create, retrieve, update, publish, export and delete Instapage landing pages.\n\nThe Instapage Public API is a REST API over the Instapage landing page and post-click optimization platform. It exposes workspaces, team members, landing pages, page groups, personalized experiences, collections and collection pages, experiments, analytics, form submissions (leads), custom domains and image assets.\n\nAuthentication is a personal API token sent as an HTTP Bearer token in the Authorization header. A personal token inherits all permissions from its creator and cannot exceed them; expired or revoked tokens return 401. Rate limiting is 200 requests per minute enforced per token and per IP address, on top of a daily plan quota that resets at 00:00 UTC; exceeding either returns 429 with a Retry-After header.\n\nList endpoints are page-number paginated via the `page` query parameter and return a `meta.pagination` block; form submissions instead use an opaque `meta.nextPageToken` cursor. Errors are returned as a `{title, details, meta}` envelope.\n\nInstapage does not publish an OpenAPI description. This document was transcribed by API Evangelist from the published API reference at https://devdocs.instapage.com/ and is not an official Instapage artifact.\n\nContact Support:\n Name: Instapage Developer Docs",
+      "type": "text/plain"
+    }
+  }
+}

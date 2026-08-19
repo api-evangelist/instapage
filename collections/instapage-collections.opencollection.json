@@ -1,0 +1,227 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Instapage Collections API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/collections",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page to fetch. Used for pagination purposes."
+              }
+            ]
+          },
+          "docs": "Retrieve all collections for a specific workspace."
+        },
+        {
+          "info": {
+            "name": "Get single collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/collections/:collectionId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the collection to retrieve."
+              }
+            ]
+          },
+          "docs": "Retrieve a single collection by its ID for a specific workspace."
+        },
+        {
+          "info": {
+            "name": "Get collection pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/collections/:collectionId/collection-pages",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the collection to retrieve pages for."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page to fetch. Used for pagination purposes."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of collection pages within a given collection."
+        },
+        {
+          "info": {
+            "name": "Add new collection page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/collections/:collectionId/collection-pages",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the collection to add the page to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new collection page to an existing collection. The token must have at least editor permissions for the workspace."
+        },
+        {
+          "info": {
+            "name": "Publish collection page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/collections/:collectionId/collection-pages/:collectionPageId/publication",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the collection containing the page."
+              },
+              {
+                "name": "collectionPageId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the collection page to publish."
+              }
+            ]
+          },
+          "docs": "Publish a specific collection page within a collection, making it live and accessible to users."
+        },
+        {
+          "info": {
+            "name": "Unpublish collection page",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/collections/:collectionId/collection-pages/:collectionPageId/publication",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the collection containing the page."
+              },
+              {
+                "name": "collectionPageId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the collection page to unpublish."
+              }
+            ]
+          },
+          "docs": "Unpublish a specific collection page within a collection, taking it offline."
+        },
+        {
+          "info": {
+            "name": "Delete collection page",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/collections/:collectionId/collection-pages/:collectionPageId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the collection containing the page."
+              },
+              {
+                "name": "collectionPageId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the collection page to delete."
+              }
+            ]
+          },
+          "docs": "Delete a specific collection page from a workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

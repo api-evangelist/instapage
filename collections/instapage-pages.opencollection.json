@@ -1,0 +1,356 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Instapage Pages API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page to fetch. Used for pagination purposes."
+              },
+              {
+                "name": "isDeleted",
+                "value": "",
+                "type": "query",
+                "description": "When true, returns only deleted pages. When false, returns only non-deleted pages."
+              },
+              {
+                "name": "publishStatus",
+                "value": "",
+                "type": "query",
+                "description": "Filter pages by publish status."
+              },
+              {
+                "name": "publishMethod",
+                "value": "",
+                "type": "query",
+                "description": "Filter pages by publish method."
+              },
+              {
+                "name": "publishedAfter",
+                "value": "",
+                "type": "query",
+                "description": "Filter pages published after the specified UNIX timestamp."
+              },
+              {
+                "name": "publishedBefore",
+                "value": "",
+                "type": "query",
+                "description": "Filter pages published before the specified UNIX timestamp."
+              },
+              {
+                "name": "createdAfter",
+                "value": "",
+                "type": "query",
+                "description": "Filter pages created after the specified UNIX timestamp."
+              },
+              {
+                "name": "createdBefore",
+                "value": "",
+                "type": "query",
+                "description": "Filter pages created before the specified UNIX timestamp."
+              },
+              {
+                "name": "updatedAfter",
+                "value": "",
+                "type": "query",
+                "description": "Filter pages updated after the specified UNIX timestamp."
+              },
+              {
+                "name": "updatedBefore",
+                "value": "",
+                "type": "query",
+                "description": "Filter pages updated before the specified UNIX timestamp."
+              },
+              {
+                "name": "withGroupId",
+                "value": "",
+                "type": "query",
+                "description": "Filter pages by group. Unset returns all pages; a number returns only pages with the matching groupId; the literal 'null' returns only pages with a null groupId."
+              }
+            ]
+          },
+          "docs": "Retrieve pages for a specific workspace. Results are paginated."
+        },
+        {
+          "info": {
+            "name": "Get page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the page to retrieve."
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information about a specific page within a workspace."
+        },
+        {
+          "info": {
+            "name": "Update page",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the page to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a page's properties, such as moving it between groups. Set groupId to null to remove the page from all groups."
+        },
+        {
+          "info": {
+            "name": "Delete page",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the page to delete."
+              }
+            ]
+          },
+          "docs": "Delete a specific page from a workspace. Pages with running experiments cannot be deleted. All personalizations and the default experience are cascade deleted."
+        },
+        {
+          "info": {
+            "name": "Publish a page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId/publication",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the page to publish."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publish a page. Publishing and unpublishing a page via the API clears scheduling for that page."
+        },
+        {
+          "info": {
+            "name": "Update published page URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId/publication",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the published page to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the URL of an already published page without having to unpublish it first. With the freeDomain method the URL follows the pattern name.pagedemo.co."
+        },
+        {
+          "info": {
+            "name": "Unpublish a page",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId/publication",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the page to unpublish."
+              }
+            ]
+          },
+          "docs": "Unpublishes a previously published page. Publishing and unpublishing a page via the API clears scheduling for that page."
+        },
+        {
+          "info": {
+            "name": "Search pages globally",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/pages/search",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page to fetch. Used for pagination purposes."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by page ID."
+              },
+              {
+                "name": "title",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by page title (case-insensitive)."
+              },
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by published URL."
+              }
+            ]
+          },
+          "docs": "Search for pages across all workspaces the authenticated user has access to, by ID, title, or URL."
+        },
+        {
+          "info": {
+            "name": "Create page from JSON",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/json",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new page by importing an Instapage JSON file. Only standard pages are supported; AMP pages cannot be created via this method."
+        },
+        {
+          "info": {
+            "name": "Export page as JSON",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.instapage.com/v1/workspaces/:workspaceId/pages/:pageId/json",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace."
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the page to export."
+              }
+            ]
+          },
+          "docs": "Export a page as an Instapage JSON file for backup, migration, or template purposes. AMP pages cannot be exported."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

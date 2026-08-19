@@ -1,0 +1,112 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/instapage-openapi.yml
+docs: https://devdocs.instapage.com/
+summary: >-
+  Cross-cutting standards conformance for the Instapage Public API v1, derived from the transcribed
+  OpenAPI and the published developer reference. Instapage's API is a plain bearer-token REST
+  surface: it implements none of the interoperability standards below, and its compliance posture is
+  organizational (SOC 2, ISO-aligned, GDPR/CCPA) rather than protocol-level.
+standards:
+- id: rest
+  conforms: true
+  evidence: >-
+    Resource-oriented URIs under /v1, HTTP verbs GET/POST/PUT/PATCH/DELETE, JSON request and response
+    bodies.
+- id: openapi
+  conforms: false
+  evidence: >-
+    Instapage publishes no OpenAPI or Swagger description. /openapi.json, /openapi.yaml,
+    /swagger.json, /api-docs, /docs and /redoc all 404 on api.instapage.com and devdocs.instapage.com.
+    The specs in openapi/ are API Evangelist transcriptions of the human reference.
+- id: http-bearer-rfc6750
+  conforms: true
+  evidence: 'Authorization: Bearer <personal API token> on every request; 401 on expired or revoked
+    tokens.'
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No authorization server, no authorize/token endpoints, no client registration. Authentication is
+    a long-lived personal token only.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration 404s on every Instapage host.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use a proprietary {title, details, meta} envelope with content-type application/json, not
+    application/problem+json, and carry no `type` URI or machine-readable code.
+- id: json-api
+  conforms: false
+  evidence: >-
+    Responses do use a top-level `data` key and a `meta` block, but there is no `type`/`id` resource
+    object, no `links`, no `included`, and no application/vnd.api+json media type.
+- id: odata
+  conforms: false
+- id: scim
+  conforms: false
+  evidence: >-
+    Team member management is a proprietary bulk-array API at /workspaces/{id}/team-members, not
+    SCIM 2.0 /Users or /Groups.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: >-
+    No /.well-known/security.txt on any Instapage host. Coordinated disclosure runs through the
+    parent company's HackerOne programme instead.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header support and no published deprecation policy.
+- id: rfc8615-well-known
+  conforms: false
+  evidence: >-
+    Every /.well-known/ path 404s on the API, docs and app hosts; the marketing host answers 200 with
+    an HTML shell for all of them, which is a catch-all, not a document.
+- id: idempotency-key
+  conforms: false
+  evidence: No idempotency key header or parameter on any write operation.
+- id: pagination
+  conforms: true
+  evidence: >-
+    Page-number pagination via ?page= with a meta.pagination block (currentPage, perPage,
+    totalItemsCount, totalPagesCount, nextPage, previousPage) on collection endpoints; an opaque
+    nextPageToken cursor on form submissions.
+- id: rate-limit-headers
+  conforms: partial
+  evidence: >-
+    Retry-After is returned on 429, but no X-RateLimit-* or draft-ietf RateLimit-* headers are
+    published, so remaining quota is not observable at runtime.
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface is documented; the string "webhook" does not
+    appear anywhere in the developer reference.
+- id: mcp
+  conforms: false
+  evidence: No MCP server; zero results in the official MCP registry.
+- id: a2a
+  conforms: false
+  evidence: No agent card at /.well-known/agent-card.json or /.well-known/agent.json on any host.
+- id: graphql
+  conforms: false
+- id: grpc
+  conforms: false
+compliance:
+  published: true
+  page: https://instapage.com/security
+  certifications:
+  - {name: SOC 2, detail: 'Instapage states it has undergone two types of SOC 2 audits and received certification.'}
+  - {name: ISO 27001/2, detail: 'Stated as the framework its Information Security Program policies align with, alongside NIST 800-53. Not stated as a certification.', certified: false}
+  - {name: GDPR, detail: 'States compliance with GDPR data privacy and security standards; ships a data consent cookie bar for customer landing pages.'}
+  - {name: CCPA/CPRA, detail: 'States it follows the California Consumer Privacy Act as updated by CPRA.'}
+  trust_center: security/instapage-trust-center.yml
+  note: >-
+    Instapage does not operate a self-serve trust portal with downloadable audit reports; the claims
+    above are prose on the marketing security page. No PCI DSS, HIPAA, FedRAMP or CSA STAR claim was
+    found.
+x-evidence:
+  fetched: '2026-08-13'
+  sources:
+  - {url: 'https://devdocs.instapage.com/', http_status: 200}
+  - {url: 'https://instapage.com/security', http_status: 200}
+  - {url: 'https://api.instapage.com/openapi.json', http_status: 404}
+  - {url: 'https://api.instapage.com/swagger.json', http_status: 404}
+  - {url: 'https://devdocs.instapage.com/openapi.json', http_status: 404}

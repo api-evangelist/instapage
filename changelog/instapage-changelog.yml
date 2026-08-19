@@ -1,0 +1,137 @@
+generated: '2026-08-13'
+method: searched
+source: https://devdocs.instapage.com/
+docs: https://devdocs.instapage.com/
+title: Instapage API Changelog
+scheme: date
+current_version: v1
+format: dated entries grouped by Added / Changed / Improved, each naming the affected method + URL
+note: >-
+  The API changelog is a section of the single-page developer reference at devdocs.instapage.com,
+  not a standalone feed. There is no RSS/Atom, no per-entry permalink and no version number attached
+  to entries — the surface is versioned only as `v1` in the path, and every change below landed
+  inside that version. No entry in the published window is marked breaking; the two removals are
+  response-field removals for a page type Instapage retired from the product.
+window:
+  first: '2025-02-27'
+  last: '2026-06-10'
+  entries_captured: 15
+entries:
+- date: '2026-06-10'
+  kind: changed
+  breaking: false
+  area: Pages
+  highlights:
+  - GET /workspaces/{workspaceId}/pages — added filtering with query parameters updatedAfter and
+    updatedBefore.
+- date: '2025-10-23'
+  kind: added
+  breaking: false
+  area: Collections
+  highlights:
+  - GET /workspaces/{workspaceId}/collections — retrieve all collections for a workspace.
+  - GET /workspaces/{workspaceId}/collections/{collectionId} — retrieve a specific collection.
+  - GET /workspaces/{workspaceId}/collections/{collectionId}/collection-pages — retrieve collection
+    pages.
+  - POST /workspaces/{workspaceId}/collections/{collectionId}/collection-pages — create a collection
+    page.
+  - POST .../collection-pages/{collectionPageId}/publication — publish a collection page.
+  - DELETE .../collection-pages/{collectionPageId}/publication — unpublish a collection page.
+  - DELETE .../collection-pages/{collectionPageId} — delete a collection page.
+- date: '2025-10-16'
+  kind: added
+  breaking: false
+  area: Assets
+  highlights:
+  - GET /workspaces/{workspaceId}/assets/images/folders — list image folders.
+  - GET /workspaces/{workspaceId}/assets/images/folders/{folderId}/items — list images in a folder.
+  - POST /workspaces/{workspaceId}/assets/images/folders/{folderId}/items — upload an image via
+    multipart/form-data.
+- date: '2025-09-03'
+  kind: changed
+  breaking: false
+  area: Team Members
+  highlights:
+  - PII hardening — GET /workspaces/{workspaceId}/team-members now returns fullName as null while
+    invitationStatus is 'pending'.
+- date: '2025-08-20'
+  kind: added
+  breaking: false
+  area: Pages
+  highlights:
+  - DELETE /workspaces/{workspaceId}/pages/{pageId} — delete a page from a workspace.
+- date: '2025-08-05'
+  kind: changed
+  breaking: false
+  area: Pages
+  highlights:
+  - Removed the collectionTemplate page type from the GET pages and GET page responses; the type is
+    no longer supported in the platform.
+- date: '2025-07-14'
+  kind: added
+  breaking: false
+  area: Pages
+  highlights:
+  - GET /workspaces/{workspaceId}/pages/{pageId}/json — export a page to Instapage JSON.
+  - POST /workspaces/{workspaceId}/pages/json — create a page by importing Instapage JSON (standard
+    pages only, no AMP).
+- date: '2025-07-08'
+  kind: added
+  breaking: false
+  area: Pages
+  highlights:
+  - PUT /workspaces/{workspaceId}/pages/{pageId}/publication — change URL and method for an already
+    published page.
+- date: '2025-06-18'
+  kind: improved
+  breaking: false
+  area: Team Members
+  highlights:
+  - Introduced the inheritOwnerContextInPublicApi flag on individual team members so their API calls
+    consume the workspace owner's plan limit. Backward compatible across all endpoints.
+- date: '2025-05-29'
+  kind: added
+  breaking: false
+  area: Domains
+  highlights:
+  - GET /workspaces/{workspaceId}/domains — retrieve all custom domains for a workspace.
+- date: '2025-03-26'
+  kind: added
+  breaking: false
+  area: Pages
+  highlights:
+  - PATCH /workspaces/{workspaceId}/pages/{pageId} — update page properties, moving pages between
+    groups or removing them from groups.
+- date: '2025-03-25'
+  kind: added
+  breaking: false
+  area: Form Submissions
+  highlights:
+  - DELETE /workspaces/{workspaceId}/submissions — delete up to 100 form submissions per request.
+    Irreversible.
+- date: '2025-03-19'
+  kind: changed
+  breaking: false
+  area: Pages
+  highlights:
+  - Added groupId to the GET pages and GET page responses.
+  - Added the withGroupId query filter to GET pages.
+- date: '2025-03-11'
+  kind: added
+  breaking: false
+  area: Groups
+  highlights:
+  - GET / POST /workspaces/{workspaceId}/groups and PUT / DELETE
+    /workspaces/{workspaceId}/groups/{groupId} — manage page groups (folders).
+- date: '2025-02-27'
+  kind: added
+  breaking: false
+  area: Team Members
+  highlights:
+  - POST / PUT / DELETE /workspaces/{workspaceId}/team-members — bulk invitations, role updates and
+    removals.
+x-evidence:
+- url: https://devdocs.instapage.com/
+  http_status: 200
+  section: Changelog
+  fetched: '2026-08-13'

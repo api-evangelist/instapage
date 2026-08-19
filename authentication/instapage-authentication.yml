@@ -1,13 +1,60 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/instapage-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: https://devdocs.instapage.com/
+docs: https://devdocs.instapage.com/
 summary:
   types:
   - http
+  api_key_in: []
+  oauth2_flows: []
+model: personal-api-token
+description: >-
+  Instapage authenticates every Public API request with a Personal API Token sent as an HTTP Bearer
+  token in the Authorization header. There is no OAuth 2.0 authorization server, no scope surface and
+  no client-credentials flow — the token is a long-lived personal credential generated from Instapage
+  account settings.
 schemes:
 - name: BearerAuth
   type: http
   scheme: bearer
-  bearerFormat: API key
+  bearerFormat: Personal API Token
+  header: Authorization
+  value_prefix: 'Bearer '
+  docs: https://devdocs.instapage.com/
   sources:
-  - openapi/instapage-openapi.yml
+  - openapi/_original/instapage-openapi.yml
+token:
+  kind: personal-access-token
+  issued_from: Instapage account settings (dashboard)
+  issue_url: https://app.instapage.com/
+  rotation: manual (regenerate from account settings)
+  expiry: no published expiry; revoked tokens return 401
+permissions:
+  model: inherited
+  notes:
+  - A personal token inherits all permissions from its creator; access level may vary per workspace
+    depending on the creator's role in that workspace.
+  - Tokens cannot exceed the permissions granted to their creator.
+  - If the creator's permissions change (role update, removal), the token's access level is updated
+    automatically.
+  - Workspace-specific API limits also apply based on the workspace owner's plan.
+  - Expired or revoked tokens return 401 Unauthorized.
+  access_levels:
+  - viewer
+  - editor
+  - manager
+  - owner
+  quota_delegation:
+    field: inheritOwnerContextInPublicApi
+    description: >-
+      Workspace owners can set this flag on an individual team member. When true, that member's
+      public API requests count against the workspace owner's daily API quota instead of their own.
+    docs: https://devdocs.instapage.com/
+oauth2: false
+mtls: false
+openid_connect: false
+x-evidence:
+- url: https://devdocs.instapage.com/
+  http_status: 200
+  section: Authorization / Limitations / Token Scope
+  fetched: '2026-08-13'
