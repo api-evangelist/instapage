@@ -122,6 +122,10 @@ apis:
   humanURL: https://devdocs.instapage.com/
   baseURL: https://api.instapage.com/v1
   tags:
+  - Group
+  - Landing Pages
+  - Organization
+  tags_raw:
   - Groups
   - Landing Pages
   - Organization
@@ -156,6 +160,10 @@ apis:
   humanURL: https://devdocs.instapage.com/
   baseURL: https://api.instapage.com/v1
   tags:
+  - Collection
+  - Programmatic Pages
+  - Content Management
+  tags_raw:
   - Collections
   - Programmatic Pages
   - Content Management
@@ -241,6 +249,10 @@ apis:
   humanURL: https://devdocs.instapage.com/
   baseURL: https://api.instapage.com/v1
   tags:
+  - Assets
+  - Image
+  - Media
+  tags_raw:
   - Assets
   - Images
   - Media
