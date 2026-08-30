@@ -1,0 +1,210 @@
+openapi: 3.2.0
+info:
+  title: Instapage Domains API
+  description: 'Custom domains connected to a workspace.
+
+
+    The Instapage Public API is a REST API over the Instapage landing page and post-click optimization platform. It exposes workspaces, team members, landing pages, page groups, personalized experiences, collections and collection pages, experiments, analytics, form submissions (leads), custom domains and image assets.
+
+
+    Authentication is a personal API token sent as an HTTP Bearer token in the Authorization header. A personal token inherits all permissions from its creator and cannot exceed them; expired or revoked tokens return 401. Rate limiting is 200 requests per minute enforced per token and per IP address, on top of a daily plan quota that resets at 00:00 UTC; exceeding either returns 429 with a Retry-After header.
+
+
+    List endpoints are page-number paginated via the `page` query parameter and return a `meta.pagination` block; form submissions instead use an opaque `meta.nextPageToken` cursor. Errors are returned as a `{title, details, meta}` envelope.
+
+
+    Instapage does not publish an OpenAPI description. This document was transcribed by API Evangelist from the published API reference at https://devdocs.instapage.com/ and is not an official Instapage artifact.'
+  version: '1'
+  contact:
+    name: Instapage Developer Docs
+    url: https://devdocs.instapage.com/
+  termsOfService: https://instapage.com/terms-of-service
+  x-provenance:
+    method: derived
+    source: https://devdocs.instapage.com/
+    generated: '2026-08-13'
+    note: Instapage publishes no OpenAPI. Transcribed from the published API reference; not an official Instapage artifact.
+servers:
+- url: https://api.instapage.com/v1
+  description: Instapage Public API v1
+security:
+- BearerAuth: []
+tags:
+- name: Domains
+  description: Custom domains connected to a workspace.
+paths:
+  /workspaces/{workspaceId}/domains:
+    get:
+      summary: Get all domains
+      description: Retrieve all custom domains for a specific workspace.
+      operationId: listDomains
+      tags:
+      - Domains
+      parameters:
+      - in: path
+        name: workspaceId
+        required: true
+        description: The ID of the workspace.
+        schema:
+          type: number
+      - in: query
+        name: page
+        required: false
+        description: Specifies which page to fetch. Used for pagination purposes.
+        schema:
+          type: number
+          default: 1
+      responses:
+        '200':
+          description: The request was processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Domain'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '400':
+          description: Bad request. Validation error — review input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized. Authentication failed or missing credentials, or you don't have access to the workspace.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found. The specified workspace could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too Many Requests. The server is rejecting requests due to an excessive rate of requests. Slow down and retry after some time.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          headers:
+            Retry-After:
+              description: Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.
+              schema:
+                type: integer
+        '500':
+          description: Internal Server Error. An unexpected condition prevented the request from being fulfilled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      description: Error envelope returned by the Instapage API.
+      properties:
+        title:
+          type: string
+          description: The type of error that occurred.
+        details:
+          type: string
+          description: A human-readable description of the error.
+        meta:
+          type: object
+          properties:
+            requestedUserId:
+              type: number
+              description: ID of the user who made the request.
+            requestedWorkspaceId:
+              type: number
+              description: ID of the workspace involved.
+            requestedPageId:
+              type: number
+              description: ID of the page involved, when the error concerns a page.
+    PaginationMeta:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Domain:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Unique identifier of the domain.
+        subdomain:
+          type: string
+          description: Subdomain part (preceding the main domain).
+        domain:
+          type: string
+          description: Main domain name.
+        connection:
+          type: string
+          description: Connection status of the domain.
+          enum:
+          - connected
+          - accessRequested
+          - accessRequestDenied
+          - accessProvided
+        ssl:
+          type: string
+          description: SSL certificate status.
+        custom404:
+          type:
+          - object
+          - 'null'
+          description: Custom 404 page configuration, null if not configured.
+          properties:
+            type:
+              type: string
+              enum:
+              - outside
+              - landingpage
+              description: Type of 404 page configuration.
+            id:
+              type:
+              - number
+              - 'null'
+              description: Id of the landing page associated with the 404 page configuration.
+            url:
+              type:
+              - string
+              - 'null'
+              description: Url of the outside website associated with the 404 page configuration.
+    Pagination:
+      type: object
+      properties:
+        currentPage:
+          type: number
+          description: Number of the current page of results.
+        perPage:
+          type: number
+          description: Number of items per page.
+        totalItemsCount:
+          type: number
+          description: Total number of items.
+        totalPagesCount:
+          type: number
+          description: Total number of pages.
+        nextPage:
+          type:
+          - number
+          - 'null'
+          description: Number of the next page, null if there is no next page.
+        previousPage:
+          type:
+          - number
+          - 'null'
+          description: Number of the previous page, null if there is no previous page.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Personal API Token
+      description: 'Personal API token generated from Instapage account settings, sent as `Authorization: Bearer <token>`.'
