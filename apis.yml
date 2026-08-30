@@ -113,6 +113,8 @@ apis:
   humanURL: https://devdocs.instapage.com/
   baseURL: https://api.instapage.com/v1
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -193,6 +195,8 @@ apis:
   humanURL: https://devdocs.instapage.com/
   baseURL: https://api.instapage.com/v1
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
