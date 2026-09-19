@@ -55,6 +55,10 @@ apis:
   humanURL: https://devdocs.instapage.com/
   baseURL: https://api.instapage.com/v1
   tags:
+  - Workspace
+  - Tenancy
+  - Marketing
+  tags_raw:
   - Workspaces
   - Tenancy
   - Marketing
