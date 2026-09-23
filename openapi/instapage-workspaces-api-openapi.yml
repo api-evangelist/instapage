@@ -1,31 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Instapage Workspaces API
-  description: 'Workspaces are the top-level container for landing pages, integrations, domains and other
-    assets in Instapage.
-
-
-    The Instapage Public API is a REST API over the Instapage landing page and post-click optimization
-    platform. It exposes workspaces, team members, landing pages, page groups, personalized experiences,
-    collections and collection pages, experiments, analytics, form submissions (leads), custom domains
-    and image assets.
-
-
-    Authentication is a personal API token sent as an HTTP Bearer token in the Authorization header. A
-    personal token inherits all permissions from its creator and cannot exceed them; expired or revoked
-    tokens return 401. Rate limiting is 200 requests per minute enforced per token and per IP address,
-    on top of a daily plan quota that resets at 00:00 UTC; exceeding either returns 429 with a Retry-After
-    header.
-
-
-    List endpoints are page-number paginated via the `page` query parameter and return a `meta.pagination`
-    block; form submissions instead use an opaque `meta.nextPageToken` cursor. Errors are returned as
-    a `{title, details, meta}` envelope.
-
-
-    Instapage does not publish an OpenAPI description. This document was transcribed by API Evangelist
-    from the published API reference at https://devdocs.instapage.com/ and is not an official Instapage
-    artifact.'
+  title: Instapage Public Workspaces API
+  description: The Instapage Public API is a REST API over the Instapage landing page and post-click optimization platform.
   version: '1'
   contact:
     name: Instapage Developer Docs
@@ -35,8 +11,7 @@ info:
     method: derived
     source: https://devdocs.instapage.com/
     generated: '2026-08-13'
-    note: Instapage publishes no OpenAPI. Transcribed from the published API reference; not an official
-      Instapage artifact.
+    note: Instapage publishes no OpenAPI. Transcribed from the published API reference; not an official Instapage artifact.
 servers:
 - url: https://api.instapage.com/v1
   description: Instapage Public API v1
@@ -44,8 +19,7 @@ security:
 - BearerAuth: []
 tags:
 - name: Workspaces
-  description: Workspaces are the top-level container for landing pages, integrations, domains and other
-    assets in Instapage.
+  description: Workspaces are the top-level container for landing pages, integrations, domains and other assets in Instapage.
 paths:
   /workspaces:
     get:
@@ -95,29 +69,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '429':
-          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
-            See the Retry-After header.
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           headers:
             Retry-After:
-              description: Number of seconds to wait before retrying, returned when the daily plan quota
-                or the 200 requests/minute limit is exceeded.
+              description: Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.
               schema:
                 type: integer
         '500':
-          description: Internal Server Error. An unexpected condition prevented the request from being
-            fulfilled.
+          description: Internal Server Error. An unexpected condition prevented the request from being fulfilled.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Add new workspace
-      description: Create a new workspace for the authenticated user. Each workspace must have a unique
-        name under the same owner.
+      description: Create a new workspace for the authenticated user. Each workspace must have a unique name under the same owner.
       operationId: createWorkspace
       tags:
       - Workspaces
@@ -168,21 +138,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '429':
-          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
-            See the Retry-After header.
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           headers:
             Retry-After:
-              description: Number of seconds to wait before retrying, returned when the daily plan quota
-                or the 200 requests/minute limit is exceeded.
+              description: Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.
               schema:
                 type: integer
         '500':
-          description: Internal Server Error. An unexpected condition prevented the request from being
-            fulfilled.
+          description: Internal Server Error. An unexpected condition prevented the request from being fulfilled.
           content:
             application/json:
               schema:
@@ -195,8 +162,7 @@ paths:
       tags:
       - Workspaces
       parameters:
-      - &id001
-        in: path
+      - in: path
         name: workspaceId
         required: true
         description: The ID of the workspace.
@@ -231,21 +197,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '429':
-          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
-            See the Retry-After header.
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           headers:
             Retry-After:
-              description: Number of seconds to wait before retrying, returned when the daily plan quota
-                or the 200 requests/minute limit is exceeded.
+              description: Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.
               schema:
                 type: integer
         '500':
-          description: Internal Server Error. An unexpected condition prevented the request from being
-            fulfilled.
+          description: Internal Server Error. An unexpected condition prevented the request from being fulfilled.
           content:
             application/json:
               schema:
@@ -257,7 +220,12 @@ paths:
       tags:
       - Workspaces
       parameters:
-      - *id001
+      - in: path
+        name: workspaceId
+        required: true
+        description: The ID of the workspace.
+        schema:
+          type: number
       requestBody:
         required: true
         content:
@@ -303,21 +271,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '429':
-          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
-            See the Retry-After header.
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           headers:
             Retry-After:
-              description: Number of seconds to wait before retrying, returned when the daily plan quota
-                or the 200 requests/minute limit is exceeded.
+              description: Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.
               schema:
                 type: integer
         '500':
-          description: Internal Server Error. An unexpected condition prevented the request from being
-            fulfilled.
+          description: Internal Server Error. An unexpected condition prevented the request from being fulfilled.
           content:
             application/json:
               schema:
@@ -329,7 +294,12 @@ paths:
       tags:
       - Workspaces
       parameters:
-      - *id001
+      - in: path
+        name: workspaceId
+        required: true
+        description: The ID of the workspace.
+        schema:
+          type: number
       responses:
         '200':
           description: Workspace successfully deleted.
@@ -352,33 +322,23 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '429':
-          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions.
-            See the Retry-After header.
+          description: Too Many Requests. Request was blocked due to rate limit or plan restrictions. See the Retry-After header.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           headers:
             Retry-After:
-              description: Number of seconds to wait before retrying, returned when the daily plan quota
-                or the 200 requests/minute limit is exceeded.
+              description: Number of seconds to wait before retrying, returned when the daily plan quota or the 200 requests/minute limit is exceeded.
               schema:
                 type: integer
         '500':
-          description: Internal Server Error. An unexpected condition prevented the request from being
-            fulfilled.
+          description: Internal Server Error. An unexpected condition prevented the request from being fulfilled.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: Personal API Token
-      description: 'Personal API token generated from Instapage account settings, sent as `Authorization:
-        Bearer <token>`.'
   schemas:
     Pagination:
       type: object
@@ -410,6 +370,24 @@ components:
       properties:
         pagination:
           $ref: '#/components/schemas/Pagination'
+    Workspace:
+      type: object
+      properties:
+        workspaceId:
+          type: number
+          description: Unique identifier of the workspace.
+        ownerId:
+          type: number
+          description: Identifier of the workspace owner.
+        workspaceName:
+          type: string
+          description: Name of the workspace.
+        accessLevel:
+          type: string
+          description: User's access level to the workspace.
+        createdAt:
+          type: number
+          description: Creation date of the workspace in UNIX timestamp format.
     Error:
       type: object
       description: Error envelope returned by the Instapage API.
@@ -432,21 +410,9 @@ components:
             requestedPageId:
               type: number
               description: ID of the page involved, when the error concerns a page.
-    Workspace:
-      type: object
-      properties:
-        workspaceId:
-          type: number
-          description: Unique identifier of the workspace.
-        ownerId:
-          type: number
-          description: Identifier of the workspace owner.
-        workspaceName:
-          type: string
-          description: Name of the workspace.
-        accessLevel:
-          type: string
-          description: User's access level to the workspace.
-        createdAt:
-          type: number
-          description: Creation date of the workspace in UNIX timestamp format.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Personal API Token
+      description: 'Personal API token generated from Instapage account settings, sent as `Authorization: Bearer <token>`.'

@@ -1,14 +1,51 @@
 {
   "provider": "instapage",
   "sources": [
-    "instapage-workspaces-api-openapi.yml"
+    "_original/instapage-openapi.yml"
   ],
   "outputs": [
+    "instapage-analytics-api-openapi.yml",
+    "instapage-assets-api-openapi.yml",
+    "instapage-collections-api-openapi.yml",
+    "instapage-domains-api-openapi.yml",
+    "instapage-experiments-api-openapi.yml",
+    "instapage-form-submissions-api-openapi.yml",
+    "instapage-groups-api-openapi.yml",
+    "instapage-pages-api-openapi.yml",
+    "instapage-personalizations-api-openapi.yml",
+    "instapage-team-members-api-openapi.yml",
     "instapage-workspaces-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "10 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "instapage-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/instapage-team-members-openapi.yml: archived document superseded by a larger archived document",
+    "_original/instapage-personalizations-openapi.yml: archived document superseded by a larger archived document",
+    "_original/instapage-pages-openapi.yml: archived document superseded by a larger archived document",
+    "_original/instapage-groups-openapi.yml: archived document superseded by a larger archived document",
+    "_original/instapage-form-submissions-openapi.yml: archived document superseded by a larger archived document",
+    "_original/instapage-experiments-openapi.yml: archived document superseded by a larger archived document",
+    "_original/instapage-domains-openapi.yml: archived document superseded by a larger archived document",
+    "_original/instapage-collections-openapi.yml: archived document superseded by a larger archived document",
+    "_original/instapage-assets-openapi.yml: archived document superseded by a larger archived document",
+    "_original/instapage-analytics-openapi.yml: archived document superseded by a larger archived document",
+    "instapage-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "instapage-assets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "instapage-collections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "instapage-domains-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "instapage-experiments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "instapage-form-submissions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "instapage-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "instapage-pages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "instapage-personalizations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "instapage-team-members-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "instapage-workspaces-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
