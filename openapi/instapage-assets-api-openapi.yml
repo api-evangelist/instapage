@@ -274,6 +274,23 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    ImageFolder:
+      type: object
+      properties:
+        folderId:
+          type:
+          - number
+          - string
+          description: Unique identifier of the folder.
+        folderName:
+          type: string
+          description: Name of the folder.
+        systemFolder:
+          type: boolean
+          description: Indicates if the folder is a system folder and cannot be deleted.
+        readOnly:
+          type: boolean
+          description: Indicates if the folder is read-only. Uploads and image deletion are prohibited in this mode.
     Pagination:
       type: object
       properties:
@@ -299,50 +316,11 @@ components:
           - number
           - 'null'
           description: Number of the previous page, null if there is no previous page.
-    Error:
-      type: object
-      description: Error envelope returned by the Instapage API.
-      properties:
-        title:
-          type: string
-          description: The type of error that occurred.
-        details:
-          type: string
-          description: A human-readable description of the error.
-        meta:
-          type: object
-          properties:
-            requestedUserId:
-              type: number
-              description: ID of the user who made the request.
-            requestedWorkspaceId:
-              type: number
-              description: ID of the workspace involved.
-            requestedPageId:
-              type: number
-              description: ID of the page involved, when the error concerns a page.
     PaginationMeta:
       type: object
       properties:
         pagination:
           $ref: '#/components/schemas/Pagination'
-    ImageFolder:
-      type: object
-      properties:
-        folderId:
-          type:
-          - number
-          - string
-          description: Unique identifier of the folder.
-        folderName:
-          type: string
-          description: Name of the folder.
-        systemFolder:
-          type: boolean
-          description: Indicates if the folder is a system folder and cannot be deleted.
-        readOnly:
-          type: boolean
-          description: Indicates if the folder is read-only. Uploads and image deletion are prohibited in this mode.
     Image:
       type: object
       properties:
@@ -366,6 +344,28 @@ components:
           - string
           - 'null'
           description: Alternative text for the image, null if not set.
+    Error:
+      type: object
+      description: Error envelope returned by the Instapage API.
+      properties:
+        title:
+          type: string
+          description: The type of error that occurred.
+        details:
+          type: string
+          description: A human-readable description of the error.
+        meta:
+          type: object
+          properties:
+            requestedUserId:
+              type: number
+              description: ID of the user who made the request.
+            requestedWorkspaceId:
+              type: number
+              description: ID of the workspace involved.
+            requestedPageId:
+              type: number
+              description: ID of the page involved, when the error concerns a page.
   securitySchemes:
     BearerAuth:
       type: http

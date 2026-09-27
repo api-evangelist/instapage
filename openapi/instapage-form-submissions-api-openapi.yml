@@ -201,28 +201,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Submission:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the submission.
-        pageId:
-          type: number
-          description: ID of the page related to the submission.
-        variationName:
-          type: string
-          description: Name of the variation used for the submission.
-        variationCustomName:
-          type: string
-          description: Custom name of the variation used for the submission.
-        createdAt:
-          type: number
-          description: Timestamp (in UNIX seconds) of when the submission was created.
-        fields:
-          type: object
-          description: Key-value pairs representing submission fields.
-          additionalProperties: true
     Error:
       type: object
       description: Error envelope returned by the Instapage API.
@@ -245,6 +223,28 @@ components:
             requestedPageId:
               type: number
               description: ID of the page involved, when the error concerns a page.
+    Submission:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the submission.
+        pageId:
+          type: number
+          description: ID of the page related to the submission.
+        variationName:
+          type: string
+          description: Name of the variation used for the submission.
+        variationCustomName:
+          type: string
+          description: Custom name of the variation used for the submission.
+        createdAt:
+          type: number
+          description: Timestamp (in UNIX seconds) of when the submission was created.
+        fields:
+          type: object
+          description: Key-value pairs representing submission fields.
+          additionalProperties: true
   securitySchemes:
     BearerAuth:
       type: http

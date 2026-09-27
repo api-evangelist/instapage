@@ -524,30 +524,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Collection:
-      type: object
-      properties:
-        id:
-          type: number
-          description: Unique identifier of the collection.
-        name:
-          type: string
-          description: Name of the collection.
-        placeholders:
-          type: array
-          description: List of placeholders for the collection.
-          items:
-            $ref: '#/components/schemas/CollectionPlaceholder'
-        pagesCount:
-          type: object
-          description: Count of pages in the collection.
-          properties:
-            all:
-              type: number
-              description: Total number of pages in the collection.
-            published:
-              type: number
-              description: Number of published pages in the collection.
     Pagination:
       type: object
       properties:
@@ -573,70 +549,11 @@ components:
           - number
           - 'null'
           description: Number of the previous page, null if there is no previous page.
-    Error:
-      type: object
-      description: Error envelope returned by the Instapage API.
-      properties:
-        title:
-          type: string
-          description: The type of error that occurred.
-        details:
-          type: string
-          description: A human-readable description of the error.
-        meta:
-          type: object
-          properties:
-            requestedUserId:
-              type: number
-              description: ID of the user who made the request.
-            requestedWorkspaceId:
-              type: number
-              description: ID of the workspace involved.
-            requestedPageId:
-              type: number
-              description: ID of the page involved, when the error concerns a page.
     PaginationMeta:
       type: object
       properties:
         pagination:
           $ref: '#/components/schemas/Pagination'
-    CollectionPage:
-      type: object
-      properties:
-        id:
-          type: number
-          description: Unique identifier of the collection page.
-        name:
-          type: string
-          description: Name of the collection page.
-        status:
-          type: string
-          description: Publication status of the collection page.
-          enum:
-          - not_published
-          - published
-          - published_has_changes
-        url:
-          type: string
-          description: Full URL of the collection page.
-        draftUrlSuffix:
-          type:
-          - string
-          - 'null'
-          description: URL suffix for the draft version of the page.
-        publicUrlSuffix:
-          type:
-          - string
-          - 'null'
-          description: URL suffix for the published version of the page.
-        draftBaseUrl:
-          type: string
-          description: Base URL for draft pages within the collection.
-        publicBaseUrl:
-          type:
-          - string
-          - 'null'
-          description: Base URL for published pages within the collection.
     CollectionPlaceholder:
       type: object
       properties:
@@ -678,6 +595,89 @@ components:
               - string
               - 'null'
               description: Title of the image, present if type is 'image'.
+    Collection:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Unique identifier of the collection.
+        name:
+          type: string
+          description: Name of the collection.
+        placeholders:
+          type: array
+          description: List of placeholders for the collection.
+          items:
+            $ref: '#/components/schemas/CollectionPlaceholder'
+        pagesCount:
+          type: object
+          description: Count of pages in the collection.
+          properties:
+            all:
+              type: number
+              description: Total number of pages in the collection.
+            published:
+              type: number
+              description: Number of published pages in the collection.
+    Error:
+      type: object
+      description: Error envelope returned by the Instapage API.
+      properties:
+        title:
+          type: string
+          description: The type of error that occurred.
+        details:
+          type: string
+          description: A human-readable description of the error.
+        meta:
+          type: object
+          properties:
+            requestedUserId:
+              type: number
+              description: ID of the user who made the request.
+            requestedWorkspaceId:
+              type: number
+              description: ID of the workspace involved.
+            requestedPageId:
+              type: number
+              description: ID of the page involved, when the error concerns a page.
+    CollectionPage:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Unique identifier of the collection page.
+        name:
+          type: string
+          description: Name of the collection page.
+        status:
+          type: string
+          description: Publication status of the collection page.
+          enum:
+          - not_published
+          - published
+          - published_has_changes
+        url:
+          type: string
+          description: Full URL of the collection page.
+        draftUrlSuffix:
+          type:
+          - string
+          - 'null'
+          description: URL suffix for the draft version of the page.
+        publicUrlSuffix:
+          type:
+          - string
+          - 'null'
+          description: URL suffix for the published version of the page.
+        draftBaseUrl:
+          type: string
+          description: Base URL for draft pages within the collection.
+        publicBaseUrl:
+          type:
+          - string
+          - 'null'
+          description: Base URL for published pages within the collection.
   securitySchemes:
     BearerAuth:
       type: http
