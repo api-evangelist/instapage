@@ -201,28 +201,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: Error envelope returned by the Instapage API.
-      properties:
-        title:
-          type: string
-          description: The type of error that occurred.
-        details:
-          type: string
-          description: A human-readable description of the error.
-        meta:
-          type: object
-          properties:
-            requestedUserId:
-              type: number
-              description: ID of the user who made the request.
-            requestedWorkspaceId:
-              type: number
-              description: ID of the workspace involved.
-            requestedPageId:
-              type: number
-              description: ID of the page involved, when the error concerns a page.
     Submission:
       type: object
       properties:
@@ -245,6 +223,28 @@ components:
           type: object
           description: Key-value pairs representing submission fields.
           additionalProperties: true
+    Error:
+      type: object
+      description: Error envelope returned by the Instapage API.
+      properties:
+        title:
+          type: string
+          description: The type of error that occurred.
+        details:
+          type: string
+          description: A human-readable description of the error.
+        meta:
+          type: object
+          properties:
+            requestedUserId:
+              type: number
+              description: ID of the user who made the request.
+            requestedWorkspaceId:
+              type: number
+              description: ID of the workspace involved.
+            requestedPageId:
+              type: number
+              description: ID of the page involved, when the error concerns a page.
   securitySchemes:
     BearerAuth:
       type: http

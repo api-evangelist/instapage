@@ -274,23 +274,11 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    ImageFolder:
+    PaginationMeta:
       type: object
       properties:
-        folderId:
-          type:
-          - number
-          - string
-          description: Unique identifier of the folder.
-        folderName:
-          type: string
-          description: Name of the folder.
-        systemFolder:
-          type: boolean
-          description: Indicates if the folder is a system folder and cannot be deleted.
-        readOnly:
-          type: boolean
-          description: Indicates if the folder is read-only. Uploads and image deletion are prohibited in this mode.
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     Pagination:
       type: object
       properties:
@@ -316,11 +304,6 @@ components:
           - number
           - 'null'
           description: Number of the previous page, null if there is no previous page.
-    PaginationMeta:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/Pagination'
     Image:
       type: object
       properties:
@@ -366,6 +349,23 @@ components:
             requestedPageId:
               type: number
               description: ID of the page involved, when the error concerns a page.
+    ImageFolder:
+      type: object
+      properties:
+        folderId:
+          type:
+          - number
+          - string
+          description: Unique identifier of the folder.
+        folderName:
+          type: string
+          description: Name of the folder.
+        systemFolder:
+          type: boolean
+          description: Indicates if the folder is a system folder and cannot be deleted.
+        readOnly:
+          type: boolean
+          description: Indicates if the folder is read-only. Uploads and image deletion are prohibited in this mode.
   securitySchemes:
     BearerAuth:
       type: http

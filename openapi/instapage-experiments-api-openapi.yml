@@ -106,6 +106,36 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Pagination:
+      type: object
+      properties:
+        currentPage:
+          type: number
+          description: Number of the current page of results.
+        perPage:
+          type: number
+          description: Number of items per page.
+        totalItemsCount:
+          type: number
+          description: Total number of items.
+        totalPagesCount:
+          type: number
+          description: Total number of pages.
+        nextPage:
+          type:
+          - number
+          - 'null'
+          description: Number of the next page, null if there is no next page.
+        previousPage:
+          type:
+          - number
+          - 'null'
+          description: Number of the previous page, null if there is no previous page.
+    PaginationMeta:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     Error:
       type: object
       description: Error envelope returned by the Instapage API.
@@ -173,36 +203,6 @@ components:
           - number
           - 'null'
           description: End timestamp (UNIX format), null if not ended.
-    Pagination:
-      type: object
-      properties:
-        currentPage:
-          type: number
-          description: Number of the current page of results.
-        perPage:
-          type: number
-          description: Number of items per page.
-        totalItemsCount:
-          type: number
-          description: Total number of items.
-        totalPagesCount:
-          type: number
-          description: Total number of pages.
-        nextPage:
-          type:
-          - number
-          - 'null'
-          description: Number of the next page, null if there is no next page.
-        previousPage:
-          type:
-          - number
-          - 'null'
-          description: Number of the previous page, null if there is no previous page.
-    PaginationMeta:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/Pagination'
   securitySchemes:
     BearerAuth:
       type: http
