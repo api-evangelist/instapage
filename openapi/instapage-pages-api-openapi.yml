@@ -875,6 +875,31 @@ components:
       properties:
         pagination:
           $ref: '#/components/schemas/Pagination'
+    Pagination:
+      type: object
+      properties:
+        currentPage:
+          type: number
+          description: Number of the current page of results.
+        perPage:
+          type: number
+          description: Number of items per page.
+        totalItemsCount:
+          type: number
+          description: Total number of items.
+        totalPagesCount:
+          type: number
+          description: Total number of pages.
+        nextPage:
+          type:
+          - number
+          - 'null'
+          description: Number of the next page, null if there is no next page.
+        previousPage:
+          type:
+          - number
+          - 'null'
+          description: Number of the previous page, null if there is no previous page.
     Error:
       type: object
       description: Error envelope returned by the Instapage API.
@@ -961,31 +986,6 @@ components:
           - number
           - 'null'
           description: Id of the group the page belongs to.
-    Pagination:
-      type: object
-      properties:
-        currentPage:
-          type: number
-          description: Number of the current page of results.
-        perPage:
-          type: number
-          description: Number of items per page.
-        totalItemsCount:
-          type: number
-          description: Total number of items.
-        totalPagesCount:
-          type: number
-          description: Total number of pages.
-        nextPage:
-          type:
-          - number
-          - 'null'
-          description: Number of the next page, null if there is no next page.
-        previousPage:
-          type:
-          - number
-          - 'null'
-          description: Number of the previous page, null if there is no previous page.
   securitySchemes:
     BearerAuth:
       type: http

@@ -340,31 +340,24 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Pagination:
+    Workspace:
       type: object
       properties:
-        currentPage:
+        workspaceId:
           type: number
-          description: Number of the current page of results.
-        perPage:
+          description: Unique identifier of the workspace.
+        ownerId:
           type: number
-          description: Number of items per page.
-        totalItemsCount:
+          description: Identifier of the workspace owner.
+        workspaceName:
+          type: string
+          description: Name of the workspace.
+        accessLevel:
+          type: string
+          description: User's access level to the workspace.
+        createdAt:
           type: number
-          description: Total number of items.
-        totalPagesCount:
-          type: number
-          description: Total number of pages.
-        nextPage:
-          type:
-          - number
-          - 'null'
-          description: Number of the next page, null if there is no next page.
-        previousPage:
-          type:
-          - number
-          - 'null'
-          description: Number of the previous page, null if there is no previous page.
+          description: Creation date of the workspace in UNIX timestamp format.
     PaginationMeta:
       type: object
       properties:
@@ -392,24 +385,31 @@ components:
             requestedPageId:
               type: number
               description: ID of the page involved, when the error concerns a page.
-    Workspace:
+    Pagination:
       type: object
       properties:
-        workspaceId:
+        currentPage:
           type: number
-          description: Unique identifier of the workspace.
-        ownerId:
+          description: Number of the current page of results.
+        perPage:
           type: number
-          description: Identifier of the workspace owner.
-        workspaceName:
-          type: string
-          description: Name of the workspace.
-        accessLevel:
-          type: string
-          description: User's access level to the workspace.
-        createdAt:
+          description: Number of items per page.
+        totalItemsCount:
           type: number
-          description: Creation date of the workspace in UNIX timestamp format.
+          description: Total number of items.
+        totalPagesCount:
+          type: number
+          description: Total number of pages.
+        nextPage:
+          type:
+          - number
+          - 'null'
+          description: Number of the next page, null if there is no next page.
+        previousPage:
+          type:
+          - number
+          - 'null'
+          description: Number of the previous page, null if there is no previous page.
   securitySchemes:
     BearerAuth:
       type: http

@@ -92,6 +92,11 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    PaginationMeta:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     Pagination:
       type: object
       properties:
@@ -117,11 +122,6 @@ components:
           - number
           - 'null'
           description: Number of the previous page, null if there is no previous page.
-    PaginationMeta:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/Pagination'
     Error:
       type: object
       description: Error envelope returned by the Instapage API.
