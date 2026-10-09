@@ -1,38 +1,33 @@
-generated: '2026-08-13'
+generated: '2026-09-23'
 method: generated
-source: openapi/instapage-analytics-openapi.yml, openapi/instapage-assets-openapi.yml, openapi/instapage-collections-openapi.yml,
-  openapi/instapage-domains-openapi.yml, openapi/instapage-experiments-openapi.yml, openapi/instapage-form-submissions-openapi.yml,
-  openapi/instapage-groups-openapi.yml, openapi/instapage-pages-openapi.yml, openapi/instapage-personalizations-openapi.yml,
-  openapi/instapage-team-members-openapi.yml, openapi/instapage-workspaces-api-openapi.yml
+source: openapi/instapage-analytics-api-openapi.yml, openapi/instapage-assets-api-openapi.yml,
+  openapi/instapage-collections-api-openapi.yml, openapi/instapage-domains-api-openapi.yml,
+  openapi/instapage-experiments-api-openapi.yml, openapi/instapage-form-submissions-api-openapi.yml,
+  openapi/instapage-groups-api-openapi.yml, openapi/instapage-pages-api-openapi.yml, openapi/instapage-personalizations-api-openapi.yml,
+  openapi/instapage-team-members-api-openapi.yml, openapi/instapage-workspaces-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 39
   by_action_class:
-    acting: 23
-    connected: 16
+    connected: 18
+    acting: 21
   by_consequence:
-    write: 23
-    read: 16
+    read: 18
+    write: 21
   human_in_the_loop_required: 0
 operations:
 - path: /workspaces/{workspaceId}/analytics
   method: post
   operationId: getAnalytics
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /workspaces/{workspaceId}/assets/images/folders
   method: get
   operationId: listImageFolders
@@ -187,18 +182,12 @@ operations:
   method: post
   operationId: retrieveFormSubmissions
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /workspaces/{workspaceId}/submissions
   method: delete
   operationId: deleteFormSubmissions
