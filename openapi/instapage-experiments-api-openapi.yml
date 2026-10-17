@@ -106,6 +106,11 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    PaginationMeta:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     Experiment:
       type: object
       properties:
@@ -151,33 +156,6 @@ components:
           - number
           - 'null'
           description: End timestamp (UNIX format), null if not ended.
-    PaginationMeta:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-    Error:
-      type: object
-      description: Error envelope returned by the Instapage API.
-      properties:
-        title:
-          type: string
-          description: The type of error that occurred.
-        details:
-          type: string
-          description: A human-readable description of the error.
-        meta:
-          type: object
-          properties:
-            requestedUserId:
-              type: number
-              description: ID of the user who made the request.
-            requestedWorkspaceId:
-              type: number
-              description: ID of the workspace involved.
-            requestedPageId:
-              type: number
-              description: ID of the page involved, when the error concerns a page.
     Pagination:
       type: object
       properties:
@@ -203,6 +181,28 @@ components:
           - number
           - 'null'
           description: Number of the previous page, null if there is no previous page.
+    Error:
+      type: object
+      description: Error envelope returned by the Instapage API.
+      properties:
+        title:
+          type: string
+          description: The type of error that occurred.
+        details:
+          type: string
+          description: A human-readable description of the error.
+        meta:
+          type: object
+          properties:
+            requestedUserId:
+              type: number
+              description: ID of the user who made the request.
+            requestedWorkspaceId:
+              type: number
+              description: ID of the workspace involved.
+            requestedPageId:
+              type: number
+              description: ID of the page involved, when the error concerns a page.
   securitySchemes:
     BearerAuth:
       type: http

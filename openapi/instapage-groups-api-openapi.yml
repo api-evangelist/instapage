@@ -350,42 +350,6 @@ components:
       properties:
         pagination:
           $ref: '#/components/schemas/Pagination'
-    Group:
-      type: object
-      properties:
-        id:
-          type: number
-          description: Unique identifier of the group (folder).
-        name:
-          type: string
-          description: Name of the group (folder).
-        pages:
-          type: array
-          description: IDs of the pages in the group.
-          items:
-            type: number
-    Error:
-      type: object
-      description: Error envelope returned by the Instapage API.
-      properties:
-        title:
-          type: string
-          description: The type of error that occurred.
-        details:
-          type: string
-          description: A human-readable description of the error.
-        meta:
-          type: object
-          properties:
-            requestedUserId:
-              type: number
-              description: ID of the user who made the request.
-            requestedWorkspaceId:
-              type: number
-              description: ID of the workspace involved.
-            requestedPageId:
-              type: number
-              description: ID of the page involved, when the error concerns a page.
     Pagination:
       type: object
       properties:
@@ -411,6 +375,42 @@ components:
           - number
           - 'null'
           description: Number of the previous page, null if there is no previous page.
+    Error:
+      type: object
+      description: Error envelope returned by the Instapage API.
+      properties:
+        title:
+          type: string
+          description: The type of error that occurred.
+        details:
+          type: string
+          description: A human-readable description of the error.
+        meta:
+          type: object
+          properties:
+            requestedUserId:
+              type: number
+              description: ID of the user who made the request.
+            requestedWorkspaceId:
+              type: number
+              description: ID of the workspace involved.
+            requestedPageId:
+              type: number
+              description: ID of the page involved, when the error concerns a page.
+    Group:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Unique identifier of the group (folder).
+        name:
+          type: string
+          description: Name of the group (folder).
+        pages:
+          type: array
+          description: IDs of the pages in the group.
+          items:
+            type: number
   securitySchemes:
     BearerAuth:
       type: http
