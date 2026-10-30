@@ -1,4 +1,4 @@
-# Instapage (instapage)
+# Instapage
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,62 +66,166 @@
 
 Instapage is a landing page and post-click optimization platform that lets marketers build, personalize, A/B test, and analyze landing pages used in paid advertising and conversion campaigns. The platform includes a drag and drop builder, AdMap for ad-to-page connection, heatmaps, experiments, and AI-powered content generation, and integrates with major ad platforms, CRMs, and marketing automation tools. Instapage's REST API provides programmatic access to landing pages, leads, accounts, and team members using a Personal API Token for authentication.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/instapage/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/instapage/refs/heads/main/apis.yml)
+**Areas:** Landing Pages · Conversion Optimization · Marketing · A/B Testing · Post-Click Optimization · Lead Generation
 
-## Scope
+## Instapage on APIs.io
 
-- **Type:** Index
+Everything profiled for Instapage is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/instapage/](https://apis.io/providers/instapage/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (11)
 
-- Landing Pages
-- Conversion Optimization
-- Marketing
-- A/B Testing
-- Post-Click Optimization
-- Lead Generation
+- [Instapage Workspaces API](https://apis.io/apis/instapage/instapage-workspaces-api/) — Create, read, rename and delete Instapage workspaces — the top-level tenant container that holds a customer's landing pages, integrations, domains and assets.
+- [Instapage Analytics API](https://apis.io/apis/instapage/instapage-analytics-api/) — Bulk visit, conversion and lead statistics for pages and experiences.
+- [Instapage Assets API](https://apis.io/apis/instapage/instapage-assets-api/) — Image asset folders and images inside a workspace.
+- [Instapage Collections API](https://apis.io/apis/instapage/instapage-collections-api/) — Collections are groups of pages sharing one template with placeholder-driven content, plus the individual collection pages inside them.
+- [Instapage Domains API](https://apis.io/apis/instapage/instapage-domains-api/) — Custom domains connected to a workspace.
+- [Instapage Experiments API](https://apis.io/apis/instapage/instapage-experiments-api/) — A/B and AI experiments running against landing pages.
+- [Instapage Form Submissions API](https://apis.io/apis/instapage/instapage-form-submissions-api/) — Retrieve and delete the lead data captured by landing page forms.
+- [Instapage Groups API](https://apis.io/apis/instapage/instapage-groups-api/) — Groups (folders) organise landing pages inside a workspace.
+- [Instapage Pages API](https://apis.io/apis/instapage/instapage-pages-api/) — Create, retrieve, update, publish, export and delete Instapage landing pages.
+- [Instapage Personalizations API](https://apis.io/apis/instapage/instapage-personalizations-api/) — Personalized experiences attached to a landing page.
+- [Instapage Team Members API](https://apis.io/apis/instapage/instapage-team-members-api/) — Manage the people who have access to a workspace and their access levels.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-11
-- **Modified:** 2026-05-11
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Instapage Public API
+Model Context Protocol servers that expose the API to agents.
 
-REST API for managing landing pages, leads, accounts, workspaces, and team members in Instapage. Authentication uses a Personal API Token generated from the Instapage dashboard, with a default rate limit of 200 requests per minute.
+- [instapage](https://apis.io/servers/instapage/instapage/)
 
-- **Human URL:** [https://devdocs.instapage.com/](https://devdocs.instapage.com/)
-- **Base URL:** `https://api.instapage.com/v1`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Landing Pages
-- Marketing
-- Lead Generation
-- Personal API Token
+- [Instapage Agentic Access](https://apis.io/agentic-access/instapage/instapage-agentic-access/)
 
-#### Properties
+#### Collections (12)
 
-- [Documentation](https://devdocs.instapage.com/)
-- [Help  Article](https://help.instapage.com/hc/en-us/articles/27634951739287-Public-API)
-- [Postman Collection](collections/instapage.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/instapage.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-## Common Properties
+- [Instapage API](https://apis.io/collections/instapage/open-instapage/)
+- [Instapage Analytics API](https://apis.io/collections/instapage/open-instapage-analytics/)
+- [Instapage Assets API](https://apis.io/collections/instapage/open-instapage-assets/)
+- [Instapage Collections API](https://apis.io/collections/instapage/open-instapage-collections/)
+- [Instapage Domains API](https://apis.io/collections/instapage/open-instapage-domains/)
+- [Instapage Experiments API](https://apis.io/collections/instapage/open-instapage-experiments/)
+- [Instapage Form Submissions API](https://apis.io/collections/instapage/open-instapage-form-submissions/)
+- [Instapage Groups API](https://apis.io/collections/instapage/open-instapage-groups/)
+- [Instapage Pages API](https://apis.io/collections/instapage/open-instapage-pages/)
+- [Instapage Personalizations API](https://apis.io/collections/instapage/open-instapage-personalizations/)
+- [Instapage Team Members API](https://apis.io/collections/instapage/open-instapage-team-members/)
+- [Instapage Workspaces API](https://apis.io/collections/instapage/open-instapage-workspaces-api/)
 
-- [GitHub Organization](https://github.com/Instapage)
+#### Overlays (11)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Instapage Analytics Overlay](https://apis.io/overlays/instapage/instapage-analytics-overlay/)
+- [Instapage Assets Overlay](https://apis.io/overlays/instapage/instapage-assets-overlay/)
+- [Instapage Collections Overlay](https://apis.io/overlays/instapage/instapage-collections-overlay/)
+- [Instapage Domains Overlay](https://apis.io/overlays/instapage/instapage-domains-overlay/)
+- [Instapage Experiments Overlay](https://apis.io/overlays/instapage/instapage-experiments-overlay/)
+- [Instapage Form Submissions Overlay](https://apis.io/overlays/instapage/instapage-form-submissions-overlay/)
+- [Instapage Groups Overlay](https://apis.io/overlays/instapage/instapage-groups-overlay/)
+- [Instapage Pages Overlay](https://apis.io/overlays/instapage/instapage-pages-overlay/)
+- [Instapage Personalizations Overlay](https://apis.io/overlays/instapage/instapage-personalizations-overlay/)
+- [Instapage Team Members Overlay](https://apis.io/overlays/instapage/instapage-team-members-overlay/)
+- [Instapage Workspaces Api Overlay](https://apis.io/overlays/instapage/instapage-workspaces-api-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Instapage Authentication](https://apis.io/security/instapage/instapage-authentication/)
+- [Instapage Domain Security](https://apis.io/security/instapage/instapage-domain-security/)
+- [Instapage Trust Center](https://apis.io/security/instapage/instapage-trust-center/)
+- [Instapage Vulnerability Disclosure](https://apis.io/security/instapage/instapage-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Instapage Plans Pricing](https://apis.io/plans/instapage/instapage-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Instapage Rate Limits](https://apis.io/rate-limits/instapage/instapage-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://instapage.com)
 - [Documentation](https://devdocs.instapage.com/)
+- [Getting started](https://devdocs.instapage.com/#getting-started)
+- [API reference](https://devdocs.instapage.com/)
 - [Pricing](https://instapage.com/pricing)
-- [Sign Up](https://app.instapage.com/signup)
+- [Sign up](https://app.instapage.com/auth/signup)
+- [Support](https://help.instapage.com/hc/en-us)
 - [Blog](https://instapage.com/blog)
-- [Help  Center](https://help.instapage.com)
-- [A P I  Overview](https://instapage.com/api)
-- [LinkedIn](https://www.linkedin.com/company/instapage)
+- [Security](https://policies.airslate.com/bug-bounty-program)
+- [Compliance](https://instapage.com/security)
+- [Terms of service](https://instapage.com/terms-of-service)
+- [Privacy policy](https://instapage.com/privacy-policy)
+- [GitHub](https://github.com/Instapage)
+- [Status](https://status.instapage.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 43.4** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 17.8 |
+| Contract governance | 4.5 |
+| Operational transparency | 57.9 |
+| Developer ergonomics | 50.6 |
+| Access clarity | 63.2 |
+
+**Agent readiness 31.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | verified |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 26.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/instapage/](https://apis.io/providers/instapage/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Instapage: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/instapage/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
